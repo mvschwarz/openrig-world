@@ -40,19 +40,19 @@ You need OpenRig installed, with its daemon running. The
 and [what OpenRig changes on your machine](https://github.com/mvschwarz/openrig#what-openrig-changes-on-your-machine).
 
 ```bash
-rig context add --git https://github.com/mvschwarz/openrig-project-world.git
+rig context add --git https://github.com/mvschwarz/openrig-world.git
 rig context list
 ```
 
 `--git` clones this repository using your existing Git setup, finds `manifest.yaml` at its root,
-and installs the pack under the manifest's name, `openrig-project-world`. Only the files the
+and installs the pack under the manifest's name, `openrig-world`. Only the files the
 manifest declares are served to agents; this README is for you.
 
 To check for and take later changes:
 
 ```bash
-rig context source inspect openrig-project-world
-rig context source update openrig-project-world
+rig context source inspect openrig-world
+rig context source update openrig-world
 ```
 
 ## Load it
@@ -62,12 +62,12 @@ to read.
 
 | When | Command |
 |---|---|
-| Starting work on OpenRig | `rig context profile openrig-project-world --situation fresh` |
-| Reviewing a pull request | `rig context profile openrig-project-world --situation fresh --profile reviewer` |
-| After a compaction, `/clear` or restart | `rig context profile openrig-project-world --situation post-compaction` |
-| One file | `rig context get openrig-project-world/craft/proving-a-change.md` |
-| One section | `rig context get 'openrig-project-world/workflow/contributing-with-agents.md#after-a-context-reset'` |
-| Everything, in one bundle | `rig context get openrig-project-world` |
+| Starting work on OpenRig | `rig context profile openrig-world --situation fresh` |
+| Reviewing a pull request | `rig context profile openrig-world --situation fresh --profile reviewer` |
+| After a compaction, `/clear` or restart | `rig context profile openrig-world --situation post-compaction` |
+| One file | `rig context get openrig-world/craft/proving-a-change.md` |
+| One section | `rig context get 'openrig-world/workflow/contributing-with-agents.md#after-a-context-reset'` |
+| Everything, in one bundle | `rig context get openrig-world` |
 
 `rig context profile` composes for Claude Code by default. Add `--runtime codex` for Codex, or set
 `OPENRIG_RUNTIME`. Add `--json` to see token estimates and content hashes for each piece.
@@ -92,11 +92,11 @@ If you change `manifest.yaml` or a section heading that an atom addresses, commi
 your clone still loads under a scratch name:
 
 ```bash
-rig context add --git /path/to/your/clone --name openrig-project-world-test
-rig context profile openrig-project-world-test --situation fresh --json
-rig context profile openrig-project-world-test --situation post-compaction --json
-rig context profile openrig-project-world-test --situation fresh --profile reviewer --json
-rig context rm openrig-project-world-test
+rig context add --git /path/to/your/clone --name openrig-world-test
+rig context profile openrig-world-test --situation fresh --json
+rig context profile openrig-world-test --situation post-compaction --json
+rig context profile openrig-world-test --situation fresh --profile reviewer --json
+rig context rm openrig-world-test
 ```
 
 Each `profile` command should list its pieces with no error.

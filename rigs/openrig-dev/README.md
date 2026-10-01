@@ -39,7 +39,7 @@ Optional: if this repository's context pack is not installed yet, add it so the
 seats can load it at start (`rig context add --help` has the options):
 
 ```sh
-rig context add --git <path-or-URL-of-your-openrig-project-world-clone>
+rig context add --git <path-or-URL-of-your-openrig-world-clone>
 ```
 
 ## Run it
@@ -47,8 +47,8 @@ rig context add --git <path-or-URL-of-your-openrig-project-world-clone>
 From the root of your openrig clone, preview, then launch:
 
 ```sh
-rig up <path-to>/openrig-project-world/rigs/openrig-dev/rig.yaml --cwd . --plan
-rig up <path-to>/openrig-project-world/rigs/openrig-dev/rig.yaml --cwd .
+rig up <path-to>/openrig-world/rigs/openrig-dev/rig.yaml --cwd . --plan
+rig up <path-to>/openrig-world/rigs/openrig-dev/rig.yaml --cwd .
 ```
 
 `--cwd .` matters. Member working directories in a rig spec resolve against the

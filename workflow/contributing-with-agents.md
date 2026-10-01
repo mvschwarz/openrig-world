@@ -65,7 +65,7 @@ The skill is a map to the other maps:
 | The exact behaviour of a `rig` command | `rig <command> --help`, then `packages/cli/src/commands/` |
 
 Load this pack alongside it for the project's purpose and craft:
-`rig context profile openrig-project-world --situation fresh`.
+`rig context profile openrig-world --situation fresh`.
 
 ## Pick work
 

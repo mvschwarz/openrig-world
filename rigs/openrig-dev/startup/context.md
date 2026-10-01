@@ -7,8 +7,8 @@
    the rig was launched without `--cwd`. Stop and say so.
 3. Load the `developing-openrig` skill. It ships in the clone and routes you to
    ARCHITECTURE.md, docs/as-built/arteries.md and docs/as-built/test-layers.md.
-4. If `rig context list` shows an `openrig-project-world` pack, load it:
-   `rig context profile openrig-project-world --situation fresh`.
+4. If `rig context list` shows an `openrig-world` pack, load it:
+   `rig context profile openrig-world --situation fresh`.
 
 If `rig` commands fail with a network or sandbox error, you are a Codex seat in
 Codex's default sandbox, which blocks the local OpenRig daemon (the rig README

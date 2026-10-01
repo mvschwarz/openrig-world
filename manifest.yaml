@@ -1,4 +1,4 @@
-name: openrig-project-world
+name: openrig-world
 version: "0.1.0"
 taxonomy: world
 purpose: "How to build OpenRig itself with agents: what the project is for, how a contribution moves, and how to prove a change. Points at the product repository's maps instead of copying them."
