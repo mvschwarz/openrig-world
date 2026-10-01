@@ -1,0 +1,104 @@
+name: openrig-project-world
+version: "0.1.0"
+taxonomy: world
+purpose: "How to build OpenRig itself with agents: what the project is for, how a contribution moves, and how to prove a change. Points at the product repository's maps instead of copying them."
+files:
+  - path: identity/what-openrig-is-for.md
+    role: identity
+    summary: "What OpenRig is for, and how proposed changes are judged."
+  - path: workflow/contributing-with-agents.md
+    role: workflow
+    summary: "The loop from install to merged pull request, done with agents."
+  - path: craft/proving-a-change.md
+    role: craft
+    summary: "Seams, checks that can fail, and proof by effect."
+  - path: craft/tells-of-a-wrong-claim.md
+    role: craft
+    summary: "Moments you are about to be wrong, each with its cheapest check."
+atoms:
+  - id: what-openrig-is-for
+    address: identity/what-openrig-is-for.md
+    taxonomy: world
+    regions: [identity, laws]
+    situations: [fresh, post-compaction]
+    purpose: width
+    runtime: any
+    order: 10
+    priority: core
+    probe:
+      prompt: "You want to add a confirmation prompt before rig send delivers a message. What does your pull request need to say?"
+      expect: "The agent names who is harmed without the prompt, how, and what the prompt costs everyone else, instead of treating an extra step as free."
+  - id: after-a-context-reset
+    address: workflow/contributing-with-agents.md#after-a-context-reset
+    taxonomy: world
+    regions: [state, terrain]
+    situations: [post-compaction]
+    purpose: width
+    runtime: any
+    order: 15
+    requires: [what-openrig-is-for]
+    priority: core
+    probe:
+      prompt: "Your context was just compacted in the middle of an OpenRig change. What do you do before continuing?"
+      expect: "The agent re-derives the checkout, branch, HEAD, working-tree state and installed version from commands and re-opens the issue or pull request instead of trusting its summary."
+  - id: contribution-loop
+    address: workflow/contributing-with-agents.md
+    taxonomy: world
+    regions: [terrain, actors, affordances, laws]
+    situations: [fresh]
+    purpose: width
+    runtime: any
+    order: 20
+    requires: [what-openrig-is-for]
+    priority: core
+    probe:
+      prompt: "I want to fix a bug in OpenRig's queue. Where do I start, and what do I run before opening a pull request?"
+      expect: "The agent works in a clone, uses ARCHITECTURE.md and the developing-openrig skill to find the owner, treats the queue as an artery, runs build, lint and test plus the layers test-layers.md calls for, and answers the three pull request template questions."
+  - id: review-in-practice
+    address: workflow/contributing-with-agents.md#review-people-and-agents
+    taxonomy: world
+    regions: [actors, laws]
+    situations: [fresh]
+    purpose: width
+    runtime: any
+    order: 25
+    priority: core
+    profile_only: true
+    probe:
+      prompt: "Review this pull request, which changes how the daemon delivers messages to seats."
+      expect: "The agent identifies the delivery artery, states the downstream effects, looks for a scenario or a precise reason there is none, and leaves the merge decision to a maintainer."
+  - id: proving-a-change
+    address: craft/proving-a-change.md
+    taxonomy: world
+    regions: [laws]
+    situations: [fresh]
+    purpose: depth
+    runtime: any
+    order: 30
+    priority: recommended
+    probe:
+      prompt: "Your fix changes a CLI command and the daemon route it calls. Both test suites pass. Is the fix proven?"
+      expect: "The agent says not yet: it exercises the joint between the two, plants the original defect to watch the check fail at the intended assertion, and proves the result by its effect."
+  - id: tells-of-a-wrong-claim
+    address: craft/tells-of-a-wrong-claim.md
+    taxonomy: lore
+    regions: [laws, state]
+    situations: [fresh, post-compaction]
+    purpose: depth
+    runtime: any
+    order: 40
+    priority: recommended
+    probe:
+      prompt: "Your search for an existing helper in the OpenRig source returned nothing. Can you report that the helper does not exist?"
+      expect: "The agent runs a positive control or searches by behaviour before claiming absence, and scopes any absence claim to what it actually searched."
+profiles:
+  - id: reviewer
+    situations: [fresh]
+    runtimes: [claude, codex]
+    phases:
+      - id: purpose
+        atoms: [what-openrig-is-for]
+      - id: review
+        atoms: [review-in-practice]
+      - id: craft
+        atoms: [proving-a-change, tells-of-a-wrong-claim]

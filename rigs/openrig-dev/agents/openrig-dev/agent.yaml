@@ -1,0 +1,83 @@
+name: openrig-dev
+version: "1.0"
+description: >
+  A seat on the openrig-dev rig, which builds OpenRig from a clone of its
+  repository. The rig member's profile picks the role: lead, implementer,
+  reviewer or qa. (An OpenRig profile selects resources and startup files;
+  it is not a Codex permission profile.)
+
+# The repository's own developing-openrig skill is not declared here. Claude
+# Code finds it in .claude/skills/ and Codex in .agents/skills/ of the clone,
+# so every seat working in the clone already has it.
+
+resources:
+  plugins:
+    # OpenRig's operating skills (openrig-user, queue-handoff and others),
+    # the same plugin the shipped starters use.
+    - id: openrig-core
+      source:
+        kind: local
+        path: ~/.openrig/plugins/openrig-core
+  runtime_resources:
+    # Turns on activity reporting for Claude Code seats. Codex seats skip it.
+    - id: claude-activity-hooks
+      path: runtime/claude-activity-hooks.json
+      runtime: claude-code
+      type: claude_activity_hooks
+
+profiles:
+  lead:
+    summary: Turns one issue into one pull-request-sized outcome and keeps the PR description true.
+    preferences:
+      runtime: claude-code
+    uses:
+      plugins: [openrig-core]
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/lead.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  implementer:
+    summary: Makes the change on its own branch and worktree and proves it by effect.
+    preferences:
+      runtime: claude-code
+    uses:
+      plugins: [openrig-core]
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/implementer.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  reviewer:
+    summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
+    preferences:
+      runtime: codex
+    uses:
+      plugins: [openrig-core]
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/reviewer.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  qa:
+    summary: Runs the test layers the change calls for, including stub-agent scenarios, and reports what each one proved.
+    preferences:
+      runtime: codex
+    uses:
+      plugins: [openrig-core]
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/qa.md
+          delivery_hint: send_text
+          required: true
+      actions: []

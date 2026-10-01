@@ -1,0 +1,85 @@
+version: "0.2"
+name: openrig-dev
+summary: >
+  A small team for building OpenRig itself, launched from a clone of the
+  openrig repository with --cwd: a lead who turns one issue into one pull
+  request and keeps its description true, an implementer, a reviewer and a
+  QA seat. Claude Code and Codex are both on the team.
+
+culture_file: CULTURE.md
+
+docs:
+  - path: README.md
+
+# Start steps shared by every seat; each seat's role file comes from its profile.
+startup:
+  files:
+    - path: startup/context.md
+      delivery_hint: send_text
+      required: true
+  actions: []
+
+# OpenRig writes its instruction blocks into each seat's working directory.
+# The openrig repository tracks neither CLAUDE.md nor CLAUDE.local.md, so
+# OpenRig's blocks go in the local file and stay out of the project's own
+# CLAUDE.md. Codex seats always use AGENTS.md. The README says how to keep
+# both files out of your pull requests.
+managed_blocks:
+  claude-code: CLAUDE.local.md
+
+# No permission_policy: every seat launches with OpenRig's default posture
+# (Claude Code acceptEdits, Codex workspace-write). See the README before
+# changing it.
+
+pods:
+  - id: build
+    label: Build
+    summary: Scopes the issue and writes the change.
+    members:
+      - id: lead
+        agent_ref: "local:agents/openrig-dev"
+        profile: lead
+        runtime: claude-code
+        cwd: "."
+      - id: impl
+        agent_ref: "local:agents/openrig-dev"
+        profile: implementer
+        runtime: claude-code
+        cwd: "."
+    edges:
+      - kind: delegates_to
+        from: lead
+        to: impl
+
+  - id: check
+    label: Check
+    summary: Reviews and tests the exact commit the implementer hands off.
+    members:
+      - id: review
+        agent_ref: "local:agents/openrig-dev"
+        profile: reviewer
+        runtime: codex
+        cwd: "."
+        # Opt-in network for this seat; see the README, "Codex seats and the sandbox".
+        # codex_config_profile: openrig-dev-net
+      - id: qa
+        agent_ref: "local:agents/openrig-dev"
+        profile: qa
+        runtime: codex
+        cwd: "."
+        # codex_config_profile: openrig-dev-net
+    edges: []
+
+edges:
+  - kind: delegates_to
+    from: build.impl
+    to: check.review
+  - kind: delegates_to
+    from: build.impl
+    to: check.qa
+  - kind: can_observe
+    from: build.lead
+    to: check.review
+  - kind: can_observe
+    from: build.lead
+    to: check.qa
