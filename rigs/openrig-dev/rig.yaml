@@ -17,7 +17,12 @@ startup:
     - path: startup/context.md
       delivery_hint: send_text
       required: true
-  actions: []
+  # Each seat proves it read its start steps and can reach OpenRig.
+  # `rig ps --nodes` shows ORIENTED: verified, or missing until it does.
+  actions:
+    - type: startup_proof
+      value: authenticated
+      idempotent: true
 
 # OpenRig writes its instruction blocks into each seat's working directory.
 # The openrig repository tracks neither CLAUDE.md nor CLAUDE.local.md, so
