@@ -17,7 +17,7 @@ startup:
     - path: startup/context.md
       delivery_hint: send_text
       required: true
-  # Each seat proves it read its start steps and can reach OpenRig.
+  # Each seat proves it received its start steps and can reach OpenRig.
   # `rig ps --nodes` shows ORIENTED: verified, or missing until it does.
   actions:
     - type: startup_proof
