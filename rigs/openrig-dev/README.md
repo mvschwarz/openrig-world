@@ -84,6 +84,41 @@ shows ORIENTED `verified` once it has. Claude seats ask once to run it unless
 reach the daemon to submit it, so ORIENTED reads `missing` for them
 ([openrig #275](https://github.com/mvschwarz/openrig/issues/275)).
 
+### Fewer prompts for the commands the seats run (optional)
+
+In the default posture, Claude seats ask before some ordinary commands they run
+while working, such as creating directories, committing and running the tests.
+Claude Code already runs read-only commands without asking. To stop the other
+prompts for this project only, merge these entries into
+`.claude/settings.local.json` in your openrig clone before launch, and keep the
+file valid JSON: OpenRig writes its own hooks into the same file at launch. The
+clone's `.gitignore` already keeps `.claude/` out of your commits.
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(rig *)",
+      "Bash(git add *)", "Bash(git commit *)", "Bash(git fetch *)",
+      "Bash(git worktree add *)", "Bash(git worktree list *)", "Bash(git switch -c *)",
+      "Bash(npm run *)", "Bash(npm test *)", "Bash(npx vitest *)", "Bash(npx tsc *)",
+      "Bash(mkdir *)", "Bash(basename *)", "Bash(dirname *)"
+    ],
+    "ask": ["Bash(git push *)", "Bash(gh *)"]
+  }
+}
+```
+
+Claude Code checks `ask` rules before `allow` rules, so pushing and GitHub
+commands still prompt. A spelling such as `git -C <dir> push` does not match the
+`ask` rule, so the lead's role still says to publish only on your word. Commands
+not listed keep asking: for example `xargs`, `rm`, `find -exec`, `npm install`,
+`git -C <dir> …` forms and other git subcommands, including the ones that discard
+changes. To have your agent add these entries and later remove exactly them, ask
+it to use the "Applying a permission policy" procedure (see "Have your agent
+configure permissions" in docs/reference/getting-started.md). This changes no
+permission mode and does not affect Codex seats.
+
 ### Codex seats and the sandbox
 
 Codex launches with `-s workspace-write`, and that sandbox blocks network
