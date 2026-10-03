@@ -84,6 +84,39 @@ shows ORIENTED `verified` once it has. Claude seats ask once to run it unless
 reach the daemon to submit it, so ORIENTED reads `missing` for them
 ([openrig #275](https://github.com/mvschwarz/openrig/issues/275)).
 
+### Fewer prompts for the commands the seats run (optional)
+
+In the default posture, Claude seats also ask before many ordinary commands they
+run while working, such as reading files, `mkdir`, `git` and `npm`. To stop those
+prompts for this project only, add these entries to `.claude/settings.local.json`
+in your openrig clone before launch. The clone's `.gitignore` already keeps
+`.claude/` out of your commits.
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(rig *)",
+      "Bash(git status *)", "Bash(git diff *)", "Bash(git log *)", "Bash(git show *)",
+      "Bash(git rev-parse *)", "Bash(git branch *)", "Bash(git switch *)",
+      "Bash(git add *)", "Bash(git commit *)", "Bash(git worktree *)", "Bash(git fetch *)",
+      "Bash(npm run *)", "Bash(npm test *)", "Bash(npx vitest *)", "Bash(npx tsc *)",
+      "Bash(mkdir *)", "Bash(ls *)", "Bash(cat *)", "Bash(head *)", "Bash(tail *)",
+      "Bash(wc *)", "Bash(grep *)", "Bash(rg *)", "Bash(basename *)", "Bash(dirname *)"
+    ],
+    "ask": ["Bash(git push *)", "Bash(gh *)"]
+  }
+}
+```
+
+Claude Code checks `ask` rules before `allow` rules, so pushing and GitHub
+commands still prompt. A spelling such as `git -C <dir> push` does not match the
+`ask` rule, so the lead's role still says to publish only on your word. Commands
+not listed, such as `find`, `xargs` and other `git` subcommands, keep asking.
+Your agent can add and later undo exactly these entries with the "Have your
+agent configure permissions" procedure in docs/reference/getting-started.md.
+This changes no permission mode and does not affect Codex seats.
+
 ### Codex seats and the sandbox
 
 Codex launches with `-s workspace-write`, and that sandbox blocks network
