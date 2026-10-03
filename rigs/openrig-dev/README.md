@@ -78,6 +78,12 @@ commands, including `rig`, follow your Claude Code rules and prompts. If you
 want to stop approving each `rig` command, see "Have your agent configure
 permissions" in docs/reference/getting-started.md.
 
+At start each seat is asked to run `rig startup-proof submit`, and `rig ps --nodes`
+shows ORIENTED `verified` once it has. Claude seats ask once to run it unless
+`rig` commands are already allowed. Codex seats in the default sandbox cannot
+reach the daemon to submit it, so ORIENTED reads `missing` for them
+([openrig #275](https://github.com/mvschwarz/openrig/issues/275)).
+
 ### Codex seats and the sandbox
 
 Codex launches with `-s workspace-write`, and that sandbox blocks network
