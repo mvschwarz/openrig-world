@@ -1,0 +1,19 @@
+# Read by OpenRig when it builds this rig into a bundle.
+#
+# compatibility: the oldest OpenRig CLI that a build from the GitHub link works
+# with (GitHub links need 0.6.6). A build from a local folder takes its minimum
+# from --min-cli-version instead.
+compatibility:
+  min_cli_version: "0.6.6"
+
+# preconditions: setup to do before installing, shown before install. Run the
+# commands in order in one shell, then run the install command in that same
+# shell. OpenRig shows them; it doesn't run or check them.
+preconditions:
+  - name: Set up a clone of openrig, add this repository's context pack, and run the install from the root of that clone.
+    commands:
+      - git clone https://github.com/mvschwarz/openrig.git
+      - cd openrig
+      - npm ci
+      - npm run build
+      - rig context add --git https://github.com/mvschwarz/openrig-world
