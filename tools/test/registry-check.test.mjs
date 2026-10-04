@@ -84,6 +84,22 @@ test("a behaviour view for another package is rejected", () => {
   has(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), "different package digest");
 });
 
+test("setup commands in a behaviour view must be a list of text lines", () => {
+  const view = JSON.parse(VIEW);
+  view.needs.push({ kind: "precondition", name: "Prepare the source clone", commands: ["cd openrig", "npm ci"], status: "not_checked", sourceRefs: [{ path: "bundle.yaml", field: "preconditions[0]" }] });
+  assert.deepEqual(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), []);
+  view.needs.at(-1).commands = "cd openrig && npm ci";
+  has(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), "not a behaviour view v1");
+});
+
+test("permission prompts in a behaviour view must be off, on or default", () => {
+  const view = JSON.parse(VIEW);
+  view.posture[0].permissionPrompts = "default";
+  assert.deepEqual(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), []);
+  view.posture[0].permissionPrompts = "sometimes";
+  has(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), "not a behaviour view v1");
+});
+
 test("a generated status file passes", () => {
   assert.deepEqual(check({ status: fixture("status-valid.json") }), []);
 });
