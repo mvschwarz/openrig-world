@@ -1,7 +1,10 @@
 # Start (every seat on openrig-dev)
 
 1. Run `rig whoami --json`. It names your seat and your peers' sessions. Use
-   those names; do not guess addresses.
+   those names; do not guess addresses. During launch a peer may not be listed
+   yet: if one of the four seats (build-lead, build-impl, check-review,
+   check-qa) is missing, check `rig ps --nodes` again a little later before
+   telling anyone it is missing.
 2. Check that you are in an openrig clone: `ARCHITECTURE.md` and
    `packages/daemon/` exist at `git rev-parse --show-toplevel`. If they don't,
    the rig was launched without `--cwd`. Stop and say so.
