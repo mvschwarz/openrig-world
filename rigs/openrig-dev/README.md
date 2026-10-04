@@ -88,11 +88,14 @@ Every seat starts with permission prompts off. `rig.yaml` sets
 - **A seat on Pi,** if a configuration puts one there, with Pi's full resource
   trust (`--approve`).
 
-**The first time, accept Claude Code's warning in each Claude seat.** On a
-machine where Claude Code has not run with permissions bypassed before, each
-Claude seat stops at a warning that asks you to accept bypass mode. Open the seat
-(`rig` opens the TUI) and accept it; until then that seat waits. After you
-accept, Claude Code remembers it on this machine.
+**Before your first install, accept Claude Code's bypass warning once.** In
+your openrig clone, run `claude --dangerously-skip-permissions`, accept its
+prompts (including "Yes, I accept" on the bypass warning), then type `/exit`.
+Claude Code remembers your answer on this machine, so the seats start without
+stopping. If a Claude seat does stop at the warning, accept it there, then run
+`rig down openrig-dev` and `rig up openrig-dev --existing --fresh build.lead build.impl`
+(name each seat that stalled) so it gets its start steps. That command reports
+`partially_restored` and exits 1, which is expected.
 
 **Install and run the rig as your normal user, not root.** Claude Code refuses
 to bypass permissions when it runs as root or under `sudo`.
