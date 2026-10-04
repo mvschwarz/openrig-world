@@ -5,31 +5,34 @@ summary: A four-seat team for building OpenRig itself, launched from a clone of 
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/openrig-dev
-  resolvedCommit: 26046ea41b998ab478bc292014c032abc5fef659
-  requestedRef: 26046ea41b998ab478bc292014c032abc5fef659
+  resolvedCommit: 64c7efdd245c020c2ed9c78afe80b8dabab848f4
+  requestedRef: 64c7efdd245c020c2ed9c78afe80b8dabab848f4
 configurations:
   - id: build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex
     alias: recommended
     recommended: true
-    packageDigest: { algorithm: sha256, value: 810264a5434db5e93fbdb662ffeb2cb4226c7409f624865de042a444401c40b8, coverage: openrig.package-digest/v1 }
+    packageDigest: { algorithm: sha256, value: c8841e177191796cb8b757db2603ba758bc1427b8420bcecec110a255690fffb, coverage: openrig.package-digest/v1 }
     assembler: { openrigVersion: 0.6.6 }
     behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-codex_check.review-codex.0.6.6.json
     evidenceReuse:
       - packageDigest: { algorithm: sha256, value: eaf7c450f86a7958217b5365365c25b5e6106800b30cf5a4646a5744861125dc, coverage: openrig.package-digest/v1 }
-        reason: "Only README.md changed in the package (first-run and non-interruptive instructions); the setup commands are unchanged."
+        reason: "Only README.md changed in the package (first-run, non-interruptive and stalled-seat recovery instructions); the setup commands are unchanged."
   - id: build.impl=claude-code,build.lead=claude-code,check.qa=claude-code,check.review=claude-code
     alias: all-claude
-    packageDigest: { algorithm: sha256, value: 2c3bbb40641670270837fddb144533a0dc28f4e2e2273c9e84dc188e29986cfd, coverage: openrig.package-digest/v1 }
+    packageDigest: { algorithm: sha256, value: b12ea96d8e33961c31b903c14521c8ec14c5421a054d25faf0ba49c932159127, coverage: openrig.package-digest/v1 }
     assembler: { openrigVersion: 0.6.6 }
     behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-claude-code_check.review-claude-code.0.6.6.json
+    evidenceReuse:
+      - packageDigest: { algorithm: sha256, value: 2c3bbb40641670270837fddb144533a0dc28f4e2e2273c9e84dc188e29986cfd, coverage: openrig.package-digest/v1 }
+        reason: "Only README.md changed in the package (stalled-seat recovery instructions); the setup commands are unchanged."
   - id: build.impl=codex,build.lead=codex,check.qa=codex,check.review=codex
     alias: all-codex
-    packageDigest: { algorithm: sha256, value: dd657d19623a5db8856faa2e71cd87fb0a42dc335444034d12426c13becfdffa, coverage: openrig.package-digest/v1 }
+    packageDigest: { algorithm: sha256, value: 87f8871a28e47c523f0491a425434a3a78dbf1ded865d4b4957bfa6d9a57772d, coverage: openrig.package-digest/v1 }
     assembler: { openrigVersion: 0.6.6 }
     behaviour: views/openrig-dev/build.impl-codex_build.lead-codex_check.qa-codex_check.review-codex.0.6.6.json
   - id: build.impl=pi,build.lead=pi,check.qa=pi,check.review=pi
     alias: all-pi
-    packageDigest: { algorithm: sha256, value: 8aeb86773bc07a28a15242254bf32f41a5713933296209552356009777c03eed, coverage: openrig.package-digest/v1 }
+    packageDigest: { algorithm: sha256, value: de076dd35aebee87063226904c8c40ad2e90a407dd2e9bdba04b4452be973ff7, coverage: openrig.package-digest/v1 }
     assembler: { openrigVersion: 0.6.6 }
     behaviour: views/openrig-dev/build.impl-pi_build.lead-pi_check.qa-pi_check.review-pi.0.6.6.json
 review:
