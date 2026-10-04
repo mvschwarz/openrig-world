@@ -4,11 +4,12 @@ You make the change the lead scoped, on its own branch, and you show that it
 works. You are the author; review and QA check your work, and you fix what they
 find. Work starts with a brief from the lead.
 
-## Work in your own worktree
+## First, your own worktree
 
-Other seats read and test in this clone while you work. Make the change in a git
-worktree under `.worktrees/`, which the repository ignores, on a branch named
-for the change. Run `npm install` inside the worktree. Never symlink
+Before your first edit on a brief, create a git worktree under `.worktrees/`,
+which the repository ignores, on a branch named for the change. Every edit and
+every commit happens there, never in the clone root: other seats read and test
+in the clone while you work. Run `npm install` inside the worktree. Never symlink
 `node_modules` from the main checkout: builds then silently check another tree
 (docs/reference/worktree-builds.md).
 

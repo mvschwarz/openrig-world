@@ -3,6 +3,8 @@
 A four-seat OpenRig team for working on OpenRig itself. You launch it from your
 clone of the openrig repository, give the lead an issue, and the team turns it
 into one pull request with an honest description. You decide when it is pushed.
+Every seat runs with permission prompts off; "Permissions" below says what that
+means and how to turn them back on.
 
 | Seat | Runtime | Does |
 |---|---|---|
@@ -61,7 +63,9 @@ instead of your clone. Each seat checks for this at start and stops if it is in
 the wrong place.
 
 Then give the lead some work. Open the TUI with `rig` and open the lead's
-terminal, or send from any shell:
+terminal, or send from any shell. A message from your own terminal arrives
+marked as from an unsigned sender, because it doesn't come from a seat. That's
+expected; start it with your name if you want the lead to know who sent it:
 
 ```sh
 rig send build-lead@openrig-dev "Please take issue #<number>: <one line on what you want>"
@@ -73,29 +77,51 @@ stay; remove them with `git worktree remove` when you are done.
 
 ## Permissions
 
-The rig sets no permission policy, so every seat starts in OpenRig's default
-posture. Nothing here changes your permissions for you.
+Every seat starts with permission prompts off. `rig.yaml` sets
+`permission_policy: builtin:yolo`, so OpenRig launches:
 
-**Claude Code seats** launch with `acceptEdits`: file edits go ahead, and other
-commands, including `rig`, follow your Claude Code rules and prompts. If you
-want to stop approving each `rig` command, see "Have your agent configure
-permissions" in docs/reference/getting-started.md.
+- **Claude Code seats** with `--dangerously-skip-permissions`: no permission
+  prompts, for file edits or for commands.
+- **Codex seats** with full access (`-s danger-full-access -a never`): no
+  sandbox and no approval prompts, so they can use the network, including the
+  local OpenRig daemon.
+- **A seat on Pi,** if a configuration puts one there, with Pi's full resource
+  trust (`--approve`).
 
-At start each seat is asked to run `rig startup-proof submit`, and `rig ps --nodes`
-shows ORIENTED `verified` once it has. Claude seats ask once to run it unless
-`rig` commands are already allowed. Codex seats in the default sandbox cannot
-reach the daemon to submit it, so ORIENTED reads `missing` for them
-([openrig #275](https://github.com/mvschwarz/openrig/issues/275)).
+The team works without stopping to ask, and each seat can run any command on
+this machine as you: change or delete files you can reach, install packages and
+use the network. Install it where you are comfortable with that.
 
-### Fewer prompts for the commands the seats run (optional)
+**The rig still asks for your word before it publishes.** The lead pushes a
+branch, opens a pull request or comments only after you say so (CULTURE.md, and
+"Publish only on the person's word" in the lead's role). With prompts off,
+neither Claude Code nor Codex enforces that: it rests on the seats following
+their instructions.
 
-In the default posture, Claude seats ask before some ordinary commands they run
-while working, such as creating directories, committing and running the tests.
-Claude Code already runs read-only commands without asking. To stop the other
-prompts for this project only, merge these entries into
-`.claude/settings.local.json` in your openrig clone before launch, and keep the
-file valid JSON: OpenRig writes its own hooks into the same file at launch. The
-clone's `.gitignore` already keeps `.claude/` out of your commits.
+At start each seat runs `rig startup-proof submit`, and `rig ps --nodes` shows
+ORIENTED `verified` once it has.
+
+### Going back to OpenRig's default posture
+
+Remove the `permission_policy: builtin:yolo` line from `rig.yaml` before you
+launch. It applies to the next launch from the spec. A seat that is already
+running keeps its permissions, and so does a stopped rig when OpenRig restores
+it (see "Already running" in docs/reference/getting-started.md).
+
+In the default posture, Claude Code seats launch with `acceptEdits`: file edits
+go ahead, and other commands, including `rig`, follow your Claude Code rules and
+prompts. Claude seats ask once to run `rig startup-proof submit` unless `rig`
+commands are already allowed. Codex seats launch with `-s workspace-write`. The
+two sections below cover what changes for each.
+
+#### Fewer prompts for the commands the seats run
+
+Claude seats ask before some ordinary commands they run while working, such as
+creating directories, committing and running the tests. To stop those prompts
+for this project only, merge these entries into `.claude/settings.local.json` in
+your openrig clone before launch, and keep the file valid JSON: OpenRig writes
+its own hooks into the same file at launch. The clone's `.gitignore` already
+keeps `.claude/` out of your commits.
 
 ```json
 {
@@ -115,30 +141,22 @@ clone's `.gitignore` already keeps `.claude/` out of your commits.
 Claude Code checks `ask` rules before `allow` rules, so pushing and GitHub
 commands still prompt. A spelling such as `git -C <dir> push` does not match the
 `ask` rule, so the lead's role still says to publish only on your word. Commands
-not listed keep asking: for example `xargs`, `rm`, `find -exec`, `npm install`,
-`git -C <dir> …` forms and other git subcommands, including the ones that discard
-changes. To have your agent add these entries and later remove exactly them, ask
-it to use the "Applying a permission policy" procedure (see "Have your agent
-configure permissions" in docs/reference/getting-started.md). This changes no
-permission mode and does not affect Codex seats.
+not listed keep asking. To have your agent add these entries and later remove
+exactly them, see "Have your agent configure permissions" in
+docs/reference/getting-started.md. This does not affect Codex seats.
 
-### Codex seats and the sandbox
+#### Codex seats and the sandbox
 
-Codex launches with `-s workspace-write`, and that sandbox blocks network
-access, including localhost and therefore the local OpenRig daemon. With the
-default posture, the reviewer and QA seats cannot run:
-
-- `rig` commands (`whoami`, the queue, `context`),
-- `npm install`, `git fetch` or `gh`,
-- the many package tests and every stub-agent scenario that start a private
-  daemon on localhost.
-
-Those commands fail, or wait for your approval in that seat's terminal,
-depending on your Codex approval setting. The seats can still read the code and
-the implementer's commits (worktrees share your clone's git directory), run the
-typecheck, and run tests that need no network. A failure caused by the sandbox
-is not a product failure, and the seats are told to say which is which. The
-lead reaches them with `rig send` and reads their reports with `rig capture`.
+`-s workspace-write` blocks network access, including localhost and so the
+local OpenRig daemon. The reviewer and QA seats then cannot run `rig` commands,
+`npm install`, `git fetch` or `gh`, or the package tests and stub-agent
+scenarios that start a private daemon on localhost. Those commands fail, or wait
+for your approval in that seat's terminal, depending on your Codex approval
+setting. ORIENTED reads `missing` for them
+([openrig #275](https://github.com/mvschwarz/openrig/issues/275)). The seats can
+still read the code and the implementer's commits, run the typecheck and run
+tests that need no network, and they say which failures come from the sandbox.
+The lead reaches them with `rig send` and reads their reports with `rig capture`.
 
 To give the two Codex seats network access while keeping approvals, opt in
 before launch:
@@ -159,9 +177,7 @@ before launch:
    `review` and `qa` members.
 3. Launch, then check `/status` in each Codex seat before giving it work.
 
-This grants those seats network access in general, not only to the daemon. It is
-not a live switch: a seat that is already running keeps its permissions until a
-relaunch. The getting-started guide covers precedence and the other options.
+This grants those seats network access in general, not only to the daemon.
 
 ## Limits
 
