@@ -1,0 +1,15 @@
+# The configurations this rig offers: which runtime each seat may use, and the profile it uses there.
+# `rig bundle configurations rigs/openrig-dev/rig.yaml` lists them with their configuration IDs, and
+# `rig bundle create rigs/openrig-dev/rig.yaml --preset <name>` (or `--seat pod.member=runtime`) builds one.
+# Format: openrig.bundle-configurations/v1 (OpenRig's docs/reference/bundle-formats.md).
+schema: openrig.bundle-configurations/v1
+recommended: recommended
+seats:
+  build.lead: { runtimes: { claude-code: lead, codex: lead } }
+  build.impl: { runtimes: { claude-code: implementer, codex: implementer } }
+  check.review: { runtimes: { codex: reviewer, claude-code: reviewer } }
+  check.qa: { runtimes: { codex: qa, claude-code: qa } }
+presets:
+  recommended: { build.lead: claude-code, build.impl: claude-code, check.review: codex, check.qa: codex }
+  all-claude: { build.lead: claude-code, build.impl: claude-code, check.review: claude-code, check.qa: claude-code }
+  all-codex: { build.lead: codex, build.impl: codex, check.review: codex, check.qa: codex }
