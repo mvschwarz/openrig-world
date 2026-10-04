@@ -63,7 +63,9 @@ instead of your clone. Each seat checks for this at start and stops if it is in
 the wrong place.
 
 Then give the lead some work. Open the TUI with `rig` and open the lead's
-terminal, or send from any shell:
+terminal, or send from any shell. A message from your own terminal arrives
+marked as from an unsigned sender, because it doesn't come from a seat. That's
+expected; start it with your name if you want the lead to know who sent it:
 
 ```sh
 rig send build-lead@openrig-dev "Please take issue #<number>: <one line on what you want>"
