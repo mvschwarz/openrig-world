@@ -66,6 +66,28 @@ terminal, or send from any shell:
 rig send build-lead@openrig-dev "Please take issue #<number>: <one line on what you want>"
 ```
 
+### Or install it as one bundle (OpenRig 0.6.6 or later)
+
+A bundle carries the rig, this repository's context pack and the `openrig`
+project together. From the root of your openrig-world clone:
+
+```sh
+rig bundle create rigs/openrig-dev/rig.yaml -o openrig-dev.rigbundle --name openrig-dev --context-pack . --project-dir project
+```
+
+Then, from the root of your openrig clone, install it into an empty folder of
+its own:
+
+```sh
+rig bundle install <path-to>/openrig-dev.rigbundle --target <empty-folder> --cwd . --yes
+```
+
+Before any seat starts, install adds the `openrig-world` pack (an existing
+install of it is kept unchanged), registers the `openrig` project in your
+workspace catalog, and records that `openrig-dev` works in it. So each seat's
+`rig context work-install` finds this project, and your other rigs keep theirs.
+The install output lists what it added.
+
 Stop the team with `rig down openrig-dev`. That removes OpenRig's blocks from
 `CLAUDE.local.md` and `AGENTS.md`. The seats' git worktrees under `.worktrees/`
 stay; remove them with `git worktree remove` when you are done.

@@ -1,0 +1,7 @@
+schema: openrig.project/v0alpha1
+kind: project
+id: openrig
+install:
+  intent: SPEC.md
+  worlds:
+    - ref: openrig-world

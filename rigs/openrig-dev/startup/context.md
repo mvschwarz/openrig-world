@@ -9,7 +9,8 @@
    ARCHITECTURE.md, docs/as-built/arteries.md and docs/as-built/test-layers.md.
    Pi profiles also project a pinned copy. Its code-map links refer to your
    OpenRig checkout; resolve those maps from the checkout root in step 2.
-4. If `rig context list` shows an `openrig-world` pack, load it:
+4. Run `rig context work-install`. If it lists `context world openrig-world`,
+   or `rig context list` shows an `openrig-world` pack, load it:
    `rig context profile openrig-world --situation fresh`.
 
 If you are a Codex seat and `rig` commands fail with a network or sandbox error,
