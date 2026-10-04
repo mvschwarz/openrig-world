@@ -5,14 +5,14 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/openrig-dev",
-      "requestedRef": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
-      "resolvedCommit": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/2251cfb9d6336bce19a326074942f81dfdbe1f32/rigs/openrig-dev"
+      "requestedRef": "63987535a8b4f6292e296a68eec9457e39be6d46",
+      "resolvedCommit": "63987535a8b4f6292e296a68eec9457e39be6d46",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/63987535a8b4f6292e296a68eec9457e39be6d46/rigs/openrig-dev"
     },
     "configurationId": "build.impl=pi,build.lead=pi,check.qa=pi,check.review=pi",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "22a6272d5a76c0e47916ad1bfdd182a09267b5db559582dbde8c3fa9aec2c0f4",
+      "value": "477fe5fc61f408ec3ecd3b9c2c50e7460e201db1a30829aeecf0aa365f8dcaa3",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
@@ -28,12 +28,12 @@
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/openrig-dev",
-        "requestedRef": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
-        "resolvedCommit": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/2251cfb9d6336bce19a326074942f81dfdbe1f32/rigs/openrig-dev"
+        "requestedRef": "63987535a8b4f6292e296a68eec9457e39be6d46",
+        "resolvedCommit": "63987535a8b4f6292e296a68eec9457e39be6d46",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/63987535a8b4f6292e296a68eec9457e39be6d46/rigs/openrig-dev"
       },
-      "created_at": "2026-10-04T19:25:49.058Z",
-      "source_host": "24e223a2a002",
+      "created_at": "2026-10-04T19:35:58.419Z",
+      "source_host": "f65e9e3339cc",
       "daemon_version": "0.6.5",
       "cli_version": "0.6.5"
     },
@@ -84,8 +84,9 @@
     {
       "seat": "build.lead",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "resource trust resolved at launch; not a native permission policy",
-      "basis": "product_default",
+      "selection": "Permission prompts: off; Pi gets full resource trust (full_bypass / approve); not a native permission policy; declared policy: builtin:yolo",
+      "basis": "explicit",
+      "permissionPrompts": "off",
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -97,8 +98,9 @@
     {
       "seat": "build.impl",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "resource trust resolved at launch; not a native permission policy",
-      "basis": "product_default",
+      "selection": "Permission prompts: off; Pi gets full resource trust (full_bypass / approve); not a native permission policy; declared policy: builtin:yolo",
+      "basis": "explicit",
+      "permissionPrompts": "off",
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -110,8 +112,9 @@
     {
       "seat": "check.review",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "resource trust resolved at launch; not a native permission policy",
-      "basis": "product_default",
+      "selection": "Permission prompts: off; Pi gets full resource trust (full_bypass / approve); not a native permission policy; declared policy: builtin:yolo",
+      "basis": "explicit",
+      "permissionPrompts": "off",
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -123,8 +126,9 @@
     {
       "seat": "check.qa",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "resource trust resolved at launch; not a native permission policy",
-      "basis": "product_default",
+      "selection": "Permission prompts: off; Pi gets full resource trust (full_bypass / approve); not a native permission policy; declared policy: builtin:yolo",
+      "basis": "explicit",
+      "permissionPrompts": "off",
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
