@@ -12,6 +12,15 @@ modes. Complete skill directories include helper scripts and reference files.
 The Claude-specific `claude-compaction-restore` skill and plugin hooks are not
 selected for Pi. The copied Apache-2.0 license is in `skills/LICENSE`.
 
+On an existing OpenRig install, a managed skill catalog at
+`<skills.root>/catalog.yaml` can contain the same skill IDs as these profiles.
+If the two copies differ in file contents or permissions, the seat fails before
+launch with `skill_identity_conflict`. A fresh install has no managed catalog
+and is unaffected by this conflict. Ask the catalog maintainer to update and
+commit the conflicting skill directory so its files and permissions match the
+version pinned in `pi-skills.lock.json`; keep this generated `skills/` tree
+unchanged.
+
 From this repository's root, with a local clone of the public product:
 
 ```sh
