@@ -66,10 +66,25 @@ terminal, or send from any shell:
 rig send build-lead@openrig-dev "Please take issue #<number>: <one line on what you want>"
 ```
 
-### Or install it as one bundle (OpenRig 0.6.6 or later)
+### Or install it from its GitHub link (OpenRig 0.6.6 or later)
 
-A bundle carries the rig, this repository's context pack and the `openrig`
-project together. From the root of your openrig-world clone:
+From the root of your openrig clone, add this repository's context pack, then
+launch the rig from its link:
+
+```sh
+rig context add --git https://github.com/mvschwarz/openrig-world
+rig up https://github.com/mvschwarz/openrig-world/tree/<commit>/rigs/openrig-dev --target ../openrig-dev --cwd .
+```
+
+`<commit>` is the full commit to install; a branch or tag name also works and
+is resolved to its commit. `--target` is an empty folder for the rig's own
+files, beside your clone, and `--cwd .` puts the seats in your clone. A link
+doesn't carry the context pack, which is why it is added first.
+
+### Or build it as one bundle (OpenRig 0.6.6 or later)
+
+A bundle built from your clones carries the rig, this repository's context pack
+and the `openrig` project together. From the root of your openrig-world clone:
 
 ```sh
 rig bundle create rigs/openrig-dev/rig.yaml -o openrig-dev.rigbundle --name openrig-dev --context-pack . --project-dir project
