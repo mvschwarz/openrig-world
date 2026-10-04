@@ -32,9 +32,11 @@ startup:
 managed_blocks:
   claude-code: CLAUDE.local.md
 
-# No permission_policy: every seat launches with OpenRig's default posture
-# (Claude Code acceptEdits, Codex workspace-write). See the README before
-# changing it.
+# Every seat launches with permission prompts off: Claude Code skips its
+# permission checks, Codex runs with full access and never asks, and a seat on
+# Pi gets Pi's full resource trust. The README's "Permissions" section says
+# what that means and how to go back to OpenRig's default posture.
+permission_policy: builtin:yolo
 
 pods:
   - id: build
@@ -65,7 +67,8 @@ pods:
         profile: reviewer
         runtime: codex
         cwd: "."
-        # Opt-in network for this seat; see the README, "Codex seats and the sandbox".
+        # Default posture only: opt-in network for this seat; see the README,
+        # "Codex seats and the sandbox".
         # codex_config_profile: openrig-dev-net
       - id: qa
         agent_ref: "local:agents/openrig-dev"
