@@ -5,14 +5,14 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/openrig-dev",
-      "requestedRef": "ef12012b5913de192b6b110baa08258da8b62f70",
-      "resolvedCommit": "ef12012b5913de192b6b110baa08258da8b62f70",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/ef12012b5913de192b6b110baa08258da8b62f70/rigs/openrig-dev"
+      "requestedRef": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
+      "resolvedCommit": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/78578dcfe79e567732e73b3a7da4c05a2fa2db4d/rigs/openrig-dev"
     },
     "configurationId": "build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "eaf7c450f86a7958217b5365365c25b5e6106800b30cf5a4646a5744861125dc",
+      "value": "d1877047c9ce68c498771acf67933ff96e3d51f5ff94473cab5d9ef24f972e8b",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
@@ -28,12 +28,12 @@
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/openrig-dev",
-        "requestedRef": "ef12012b5913de192b6b110baa08258da8b62f70",
-        "resolvedCommit": "ef12012b5913de192b6b110baa08258da8b62f70",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/ef12012b5913de192b6b110baa08258da8b62f70/rigs/openrig-dev"
+        "requestedRef": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
+        "resolvedCommit": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/78578dcfe79e567732e73b3a7da4c05a2fa2db4d/rigs/openrig-dev"
       },
-      "created_at": "2026-10-04T20:06:24.902Z",
-      "source_host": "39c252143401",
+      "created_at": "2026-10-04T20:19:00.451Z",
+      "source_host": "0a09cc2ae140",
       "daemon_version": "0.6.6",
       "cli_version": "0.6.6"
     },
@@ -777,7 +777,7 @@
     },
     {
       "kind": "precondition",
-      "name": "The first time on a machine, each Claude seat stops at Claude Code's bypass-permissions warning: open the seat (rig opens the TUI) and accept it. Claude Code then remembers it on this machine.",
+      "name": "Before your first install on a machine, run claude --dangerously-skip-permissions once in the clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping.",
       "status": "not_checked",
       "sourceRefs": [
         {
