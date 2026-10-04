@@ -100,6 +100,16 @@ test("permission prompts in a behaviour view must be off, on or default", () => 
   has(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), "not a behaviour view v1");
 });
 
+test("a seat on a need or an unknown must be pod.member", () => {
+  for (const list of ["needs", "unknownBeforeLaunch"]) {
+    const view = JSON.parse(VIEW);
+    view[list][0].seat = "build.lead";
+    assert.deepEqual(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), [], list);
+    view[list][0].seat = "lead";
+    has(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), "not a behaviour view v1");
+  }
+});
+
 test("a generated status file passes", () => {
   assert.deepEqual(check({ status: fixture("status-valid.json") }), []);
 });
