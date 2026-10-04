@@ -5,30 +5,30 @@ summary: A four-seat team for building OpenRig itself, launched from a clone of 
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/openrig-dev
-  resolvedCommit: 63987535a8b4f6292e296a68eec9457e39be6d46
-  requestedRef: 63987535a8b4f6292e296a68eec9457e39be6d46
+  resolvedCommit: ef12012b5913de192b6b110baa08258da8b62f70
+  requestedRef: ef12012b5913de192b6b110baa08258da8b62f70
 configurations:
   - id: build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex
     alias: recommended
     recommended: true
-    packageDigest: { algorithm: sha256, value: b5c6c73bf570bdaba69c531abd89d490246ae9b1b83c4e1c4f04281b2ab2a2a6, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.5 }
-    behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-codex_check.review-codex.0.6.5.json
+    packageDigest: { algorithm: sha256, value: eaf7c450f86a7958217b5365365c25b5e6106800b30cf5a4646a5744861125dc, coverage: openrig.package-digest/v1 }
+    assembler: { openrigVersion: 0.6.6 }
+    behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-codex_check.review-codex.0.6.6.json
   - id: build.impl=claude-code,build.lead=claude-code,check.qa=claude-code,check.review=claude-code
     alias: all-claude
-    packageDigest: { algorithm: sha256, value: d18f6548576ffcf2c744638cf813dc3b17fbd26b151af4d2a1715531b470c51f, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.5 }
-    behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-claude-code_check.review-claude-code.0.6.5.json
+    packageDigest: { algorithm: sha256, value: c28151371fa76eb63332862e7c8bfd8a307b660c00051409e43713ec906195b9, coverage: openrig.package-digest/v1 }
+    assembler: { openrigVersion: 0.6.6 }
+    behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-claude-code_check.review-claude-code.0.6.6.json
   - id: build.impl=codex,build.lead=codex,check.qa=codex,check.review=codex
     alias: all-codex
-    packageDigest: { algorithm: sha256, value: f15c5a33445e377f7f2f43b676fc8c8c942d3c694d4c0f6188f31fbc48c30bd7, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.5 }
-    behaviour: views/openrig-dev/build.impl-codex_build.lead-codex_check.qa-codex_check.review-codex.0.6.5.json
+    packageDigest: { algorithm: sha256, value: 1037a55a0f9c8bf456832bf2ecc09751f8725705923376fa8d114f6ffbda0898, coverage: openrig.package-digest/v1 }
+    assembler: { openrigVersion: 0.6.6 }
+    behaviour: views/openrig-dev/build.impl-codex_build.lead-codex_check.qa-codex_check.review-codex.0.6.6.json
   - id: build.impl=pi,build.lead=pi,check.qa=pi,check.review=pi
     alias: all-pi
-    packageDigest: { algorithm: sha256, value: 477fe5fc61f408ec3ecd3b9c2c50e7460e201db1a30829aeecf0aa365f8dcaa3, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.5 }
-    behaviour: views/openrig-dev/build.impl-pi_build.lead-pi_check.qa-pi_check.review-pi.0.6.5.json
+    packageDigest: { algorithm: sha256, value: 0b4acfc4dad494c6c7575515a266fc57c1d8819bbcd39bc4dfd940071344e9b0, coverage: openrig.package-digest/v1 }
+    assembler: { openrigVersion: 0.6.6 }
+    behaviour: views/openrig-dev/build.impl-pi_build.lead-pi_check.qa-pi_check.review-pi.0.6.6.json
 review:
   date: 2026-10-04
   note: Reviewed for listing. Review is not a security audit.
