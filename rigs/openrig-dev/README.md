@@ -97,6 +97,23 @@ stopping. If a Claude seat does stop at the warning, accept it there, then run
 (name each seat that stalled) so it gets its start steps. That command reports
 `partially_restored` and exits 1, which is expected.
 
+**Or let OpenRig accept the warnings for you (OpenRig 0.6.6 or later).** Add
+`--non-interruptive` to your `rig up` or `rig bundle install` command, for
+example:
+
+```sh
+rig up <path-to>/openrig-world/rigs/openrig-dev/rig.yaml --cwd . --non-interruptive
+```
+
+OpenRig then accepts Claude Code's bypass-permissions warning with a launch flag
+and hides Codex's full-access and GPT-5.1 migration notices, so the seats start
+without stopping. It writes nothing to your Claude or Codex settings. The choice
+is saved on the rig, so later launches keep it; to turn it off, run
+`rig up openrig-dev --existing --no-non-interruptive`. Sign-in stays yours, and a
+notice that a newer harness version adds can still stop a seat (Codex's
+GPT-5.1-Codex-Max notice is one today). docs/reference/non-interruptive-mode.md
+in the openrig repository has the details.
+
 **Install and run the rig as your normal user, not root.** Claude Code refuses
 to bypass permissions when it runs as root or under `sudo`.
 
