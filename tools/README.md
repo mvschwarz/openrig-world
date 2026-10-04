@@ -42,8 +42,16 @@ Run records are private. They're kept beside the receipts they rest on, in a `ru
 
 A record's `evidence.receipt.ref` is relative to the run folder. The generator reads the receipt and compares its
 SHA-256. Only the fields listed in the status schema reach `status.json`. Of a record's own text, only
-`outcome.publicNote` does, and the generator refuses to write a status file that contains a private path, an
-address, a queue row id, an IP address or a non-GitHub URL.
+`outcome.publicNote` does. The generator refuses to write a status file containing:
+- a private path;
+- an address;
+- a queue row id;
+- a private host name (`.local`, `.lan`, `.internal`);
+- an IP address;
+- a non-GitHub URL.
+
+Plain names, a person's or a machine's, can't be recognised. Keep public notes short and factual: maintainers read
+every status pull request.
 
 ## The status rule (`openrig.status-rule/v1`)
 
@@ -51,21 +59,42 @@ Labels are per listing, configuration and environment: the run's platform and ar
 (`process.platform`-`process.arch`, for example `linux-x64`; the status format allows `linux`, `darwin` or `win32` with
 `x64` or `arm64`). In order:
 
-1. **Readability.** If any record for a listing can't be read, isn't a v1 run record, or names a journey that
-   doesn't exist, or ran on an environment outside that set, the whole listing is `status_unavailable`. That's decided first, so a damaged record never reads as
-   "Not tested". An unreadable harness-check record makes `harnessChecks` unavailable in the same way.
-2. **Drop.** Records named in another record's `supersedes` or `withdraws` support nothing, and neither does a record
-   whose receipt is missing or changed. A relation stated by a dropped record still applies, so losing a correction can
-   only remove a claim, never restore one.
+1. **Readability.** If any record for a listing can't be read, isn't a v1 run record, names a journey that doesn't
+   exist, or ran on an environment outside that set, the whole listing is `status_unavailable`. That's decided first,
+   whatever the record's evidence kind, so a damaged record never reads as "Not tested". An unreadable harness-check
+   record makes `harnessChecks` unavailable in the same way.
+2. **Relations and receipts.**
+   - A record named in another record's `supersedes` or `withdraws` supports nothing.
+   - A withdrawal counts only from a record that isn't itself withdrawn. So withdrawing a withdrawal restores what it
+     withdrew, and a withdrawn record can't clear a FAIL. Withdrawals that form a cycle make the set unavailable.
+   - A supersession counts from any record that isn't withdrawn, so a chain of corrections stays replaced.
+   - Every record still in force must have its receipt, unchanged. If one is missing or changed, the listing (or
+     `harnessChecks`) is `status_unavailable`, because that record might be the FAIL that decides the label. Lost
+     evidence is never dropped quietly; to clear it, withdraw or supersede the record. A withdrawn or superseded
+     record's receipt may be gone.
 3. **Match.** A record applies to a configuration when its source repository and folder, configuration ID and package
    digest match the listing. A record for another package applies only through that configuration's `evidenceReuse`,
-   and then the label shows both digests. Community reports are counted separately and never label.
-4. **Label.**
+   and then the label shows both digests.
+4. **Evidence kinds.**
+   - Only `native-workflow` team records earn a team label.
+   - `synthetic` (a test fixture), `installed-only` (a binary on disk), `daemon-adoption` and `running-seat` (version
+     bindings) aren't evidence that a team ran. They're read and must be readable, but they never label, so the
+     configuration reads Not tested by OpenRig.
+   - `community-reported` records are counted in `communityReports` and never label.
+   - Harness-check lines use every kind except `synthetic` and `community-reported`: a fixture is never evidence about
+     a user's harness, and a community report isn't OpenRig's result. The on-path and version steps can rest on
+     `installed-only` or `running-seat` evidence.
+5. **Label.**
    - `known_problem`: a FAIL that's unresolved. A FAIL is resolved only by a record in force that names it in
-     `resolves`, passes that step, and ran on the same or a newer OpenRig version.
+     `resolves`, passes that step, and ran on the same or a newer OpenRig version (SemVer order, prereleases
+     included).
    - Otherwise the best record decides: `tested` (every required step passed, with no help), `tested_with_help`
      (every required step passed, with help), `partly_tested` (some passed). A tie goes to the newest.
-   - With no such record, `platforms` is empty, which means Not tested.
+     - **The best record wins on purpose.** A newer partial or assisted run doesn't erase an older complete,
+       unassisted pass on the same package and environment. When a newer run should replace an older one, record it
+       with `supersedes`.
+   - With no such record, `platforms` is empty, which means Not tested by OpenRig.
+   - A harness-check line shows the newest harness-check record in force for that harness and environment.
 
 The OpenRig version is shown, not matched: a label carries forward to later releases, dated, until new evidence
 changes it. Each label carries the date, OpenRig version, record ids and package digest(s) it rests on.

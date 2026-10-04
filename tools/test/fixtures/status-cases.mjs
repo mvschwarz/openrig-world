@@ -61,14 +61,64 @@ export const CASES = [
     expect: ok({ platforms: { "linux-x64": { label: "partly_tested" } }, communityReports: 0 }),
   },
   {
-    name: "a readable PASS whose receipt was deleted supports nothing",
+    name: "a readable PASS whose receipt was deleted makes the listing Status unavailable, not Not tested",
     files: [{ group: "team", record: team("r1"), receipt: "missing" }],
+    expect: { state: "status_unavailable", configurations: {} },
+  },
+  {
+    name: "a PASS whose receipt changed after the record makes the listing Status unavailable",
+    files: [{ group: "team", record: team("r1"), receipt: "changed" }],
+    expect: { state: "status_unavailable", configurations: {} },
+  },
+  {
+    name: "a newer FAIL whose receipt is lost, beside an older PASS, makes the listing Status unavailable",
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { steps: FAIL_MERGED, at: "2026-10-04T12:00:00Z" }), receipt: "missing" },
+    ],
+    expect: { state: "status_unavailable", configurations: {} },
+  },
+  {
+    name: "a withdrawn record's receipt may be gone",
+    files: [
+      { group: "team", record: team("r1"), receipt: "missing" },
+      { group: "team", record: team("r2", { steps: [["install", "NOT_RUN"]], at: "2026-10-04T12:00:00Z", relations: { withdraws: ["r1"] } }) },
+    ],
     expect: ok({ platforms: {}, communityReports: 0 }),
   },
   {
-    name: "a PASS whose receipt changed after the record supports nothing",
-    files: [{ group: "team", record: team("r1"), receipt: "changed" }],
-    expect: ok({ platforms: {}, communityReports: 0 }),
+    name: "a withdrawn record's withdrawal of a FAIL doesn't count",
+    files: [
+      { group: "team", record: team("r1", { steps: FAIL_MERGED }) },
+      { group: "team", record: team("r2", { steps: [["install", "NOT_RUN"]], at: "2026-10-04T12:00:00Z", relations: { withdraws: ["r1"] } }) },
+      { group: "team", record: team("r3", { steps: [["install", "NOT_RUN"]], at: "2026-10-04T13:00:00Z", relations: { withdraws: ["r2"] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r1"] } }, communityReports: 0 }),
+  },
+  {
+    name: "withdrawals that form a cycle make the listing Status unavailable",
+    files: [
+      { group: "team", record: team("r1", { relations: { withdraws: ["r2"] } }) },
+      { group: "team", record: team("r2", { at: "2026-10-04T12:00:00Z", relations: { withdraws: ["r1"] } }) },
+    ],
+    expect: { state: "status_unavailable", configurations: {} },
+  },
+  {
+    name: "a chain of corrections stays replaced",
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { assistance: 1, at: "2026-10-04T12:00:00Z", relations: { supersedes: ["r1"] } }) },
+      { group: "team", record: team("r3", { assistance: 2, at: "2026-10-04T13:00:00Z", relations: { supersedes: ["r2"] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "tested_with_help", assistanceCount: 2, recordIds: ["r3"] } }, communityReports: 0 }),
+  },
+  {
+    name: "a newer run that needed help doesn't replace an older unassisted pass without supersedes",
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { assistance: 1, at: "2026-10-04T12:00:00Z" }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "tested", recordIds: ["r1"] } }, communityReports: 0 }),
   },
   {
     name: "a zero-assistance PASS corrected to assisted shows the correction",
@@ -162,11 +212,36 @@ export const CASES = [
     files: [{ group: "team", record: team("r1", { kind: "community-reported" }) }],
     expect: ok({ platforms: {}, communityReports: 1 }),
   },
+  ...["synthetic", "installed-only", "running-seat", "daemon-adoption"].map((kind) => ({
+    name: `a ${kind} team record never earns a team label`,
+    files: [{ group: "team", record: team("r1", { kind }) }],
+    expect: ok({ platforms: {}, communityReports: 0 }),
+  })),
+  {
+    name: "an unreadable synthetic record still makes the listing Status unavailable",
+    files: [{ group: "team", record: team("r1", { kind: "synthetic" }) }, { group: "team", raw: "{ broken" }],
+    expect: { state: "status_unavailable", configurations: {} },
+  },
   {
     name: "a harness check is its own line and never upgrades a team label",
     files: [{ group: "_harness", record: harness("h1", { publicNote: "Pi was not signed in on the test machine." }) }],
     expect: ok({ platforms: {}, communityReports: 0 }),
     expectHarness: { state: "ok", harnesses: { pi: { "linux-x64": { result: "BLOCKED", harnessVersion: "0.9.1", recordIds: ["h1"], note: "Pi was not signed in on the test machine." } } } },
+  },
+  {
+    name: "a synthetic harness check never replaces a real one",
+    files: [
+      { group: "_harness", record: harness("h1", { publicNote: "Pi was not signed in on the test machine." }) },
+      { group: "_harness", record: { ...harness("h2", { at: "2026-10-04T12:00:00Z", steps: [["on-path", "NOT_RUN"]] }), evidence: { kind: "synthetic", receipt: { ref: "receipt.md", sha256: "" } } } },
+    ],
+    expect: ok({ platforms: {}, communityReports: 0 }),
+    expectHarness: { state: "ok", harnesses: { pi: { "linux-x64": { result: "BLOCKED", recordIds: ["h1"] } } } },
+  },
+  {
+    name: "an installed-only harness check still shows its line",
+    files: [{ group: "_harness", record: { ...harness("h1", { steps: [["on-path", "PASS"], ["version-supported", "PASS"], ["signed-in", "NOT_RUN"]] }), evidence: { kind: "installed-only", receipt: { ref: "receipt.md", sha256: "" } } } }],
+    expect: ok({ platforms: {}, communityReports: 0 }),
+    expectHarness: { state: "ok", harnesses: { pi: { "linux-x64": { result: "NOT_RUN", recordIds: ["h1"] } } } },
   },
   {
     name: "an unreadable harness-check record makes harness checks Status unavailable",

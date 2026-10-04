@@ -6,6 +6,7 @@ import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { statusBodyDigest } from "../lib/canonical.mjs";
+import { compareVersions } from "../lib/status-rule.mjs";
 import { generate } from "../status.mjs";
 import { CASES, PLANTED, entry, plantedRecord, team } from "./fixtures/status-cases.mjs";
 
@@ -85,6 +86,19 @@ test("a public note carrying private text stops generation", () => {
   const steps = [["install", "FAIL"]];
   const result = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: `See ${PLANTED[0]} for the log.` }) }] });
   assert.ok(result.problems.some((p) => p.includes("private text (absolute path)")), result.problems.join("\n"));
+});
+
+test("a public note naming a private host stops generation", () => {
+  const result = run({ files: [{ group: "team", record: team("r1", { steps: [["install", "FAIL"]], publicNote: "Install stopped on mm2-host.local." }) }] });
+  assert.ok(result.problems.some((p) => p.includes("private text (private host name)")), result.problems.join("\n"));
+});
+
+test("release versions order prereleases by SemVer", () => {
+  assert.ok(compareVersions("0.6.6-rc.10", "0.6.6-rc.9") > 0);
+  assert.ok(compareVersions("0.6.6", "0.6.6-rc.1") > 0);
+  assert.ok(compareVersions("0.6.6-rc.1", "0.6.6-rc") > 0);
+  assert.ok(compareVersions("0.6.6-1", "0.6.6-alpha") < 0);
+  assert.ok(Number.isNaN(compareVersions("0.6", "0.6.6")));
 });
 
 test("records for a slug with no listed entry are reported, not labelled", () => {

@@ -5,6 +5,7 @@ export const PRIVATE_PATTERNS = [
   { kind: "absolute path", re: /(^|[\s"'(=])(\/(Users|home|private|tmp|var|etc|opt|root|srv|mnt)\/|~\/|[A-Za-z]:\\)/ },
   { kind: "account, session or email address", re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*/ },
   { kind: "queue row id", re: /\bqitem-/i },
+  { kind: "private host name", re: /\b[a-z0-9-]+\.(local|lan|internal|localdomain|home\.arpa)\b/i },
   { kind: "IP address or localhost", re: /\b(\d{1,3}(\.\d{1,3}){3}|localhost)\b/i },
   { kind: "non-GitHub URL", re: /\bhttps?:\/\/(?!github\.com\/)/i },
 ];

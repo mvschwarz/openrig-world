@@ -12,6 +12,10 @@ export const GENERATED = Object.freeze({
 });
 
 const RANK = { tested: 3, tested_with_help: 2, partly_tested: 1 };
+// Only a real team run earns a team label. Other kinds are read and must be readable, but never label.
+const TEAM_LABEL_KINDS = new Set(["native-workflow"]);
+// A stub can't show a real harness works, and a community report is never OpenRig's own result.
+const HARNESS_LINE_EXCLUDED_KINDS = new Set(["synthetic", "community-reported"]);
 // Labels are per environment: Node's platform and architecture, as the status schema spells them.
 const PLATFORM = /^(linux|darwin|win32)$/;
 const ARCH = /^(x64|arm64)$/;
@@ -28,22 +32,36 @@ export function deriveStatus({ entries, teamFiles, harnessFiles, journeys }) {
   const problems = [];
   const listings = {};
   for (const entry of entries.filter((e) => e.status === "listed")) {
-    const read = readable(teamFiles.get(entry.slug) ?? [], "team", journeys);
-    if (read.problem) {
-      problems.push(`${entry.slug}: ${read.problem}`);
+    const settled = settle(teamFiles.get(entry.slug) ?? [], "team", journeys);
+    if (settled.problem) {
+      problems.push(`${entry.slug}: ${settled.problem}`);
       listings[entry.slug] = { state: "status_unavailable", configurations: {} };
     } else {
-      listings[entry.slug] = { state: "ok", configurations: deriveConfigurations(entry, inForce(read.records)) };
+      listings[entry.slug] = { state: "ok", configurations: deriveConfigurations(entry, settled.live) };
     }
   }
-  const harnessRead = readable(harnessFiles, "harness_check", journeys);
-  if (harnessRead.problem) problems.push(`harness checks: ${harnessRead.problem}`);
-  const harnessChecks = harnessRead.problem
+  const harness = settle(harnessFiles, "harness_check", journeys);
+  if (harness.problem) problems.push(`harness checks: ${harness.problem}`);
+  const harnessChecks = harness.problem
     ? { state: "status_unavailable", harnesses: {} }
-    : { state: "ok", harnesses: deriveHarnesses(inForce(harnessRead.records)) };
+    : { state: "ok", harnesses: deriveHarnesses(harness.live) };
   const status = { generated: { ...GENERATED }, listings, harnessChecks };
   status.bodyDigest = statusBodyDigest(status);
   return { status, problems };
+}
+
+// Steps 1 and 2: the records in force, or why the whole set is unavailable.
+function settle(files, kind, journeys) {
+  const read = readable(files, kind, journeys);
+  if (read.problem) return read;
+  const relations = relationsInForce(read.records);
+  if (relations.problem) return relations;
+  const live = read.records.filter((r) => !relations.gone.has(r.record.id));
+  // Lost evidence never drops a record quietly: a record in force whose receipt is missing or changed might
+  // be the FAIL that decides the label. Withdraw or supersede it to clear this.
+  const lost = live.find((r) => !r.receiptVerified);
+  if (lost) return { problem: `${lost.file}: its receipt is missing or changed` };
+  return { live };
 }
 
 // Step 1, readability, decided before anything else: one record we can't read or interpret makes the
@@ -68,15 +86,27 @@ function readable(files, kind, journeys) {
   return { records };
 }
 
-// Step 2, drop: superseded and withdrawn records, and any whose receipt is missing or changed. A relation
-// stated by a dropped record still applies, so a lost correction can only remove claims, never restore one.
-function inForce(records) {
-  const gone = new Set();
-  for (const { record } of records) {
-    for (const id of record.relations?.supersedes ?? []) gone.add(id);
-    for (const id of record.relations?.withdraws ?? []) gone.add(id);
+// Step 2, relations. A withdrawal counts only from a record that isn't itself withdrawn, so withdrawing a
+// withdrawal restores what it withdrew, and a withdrawn record can't clear a FAIL. That's a fixed point; a
+// cycle that never settles makes the set unavailable. A supersession counts from any record not withdrawn,
+// so a chain of corrections stays replaced.
+function relationsInForce(records) {
+  let withdrawn = new Set();
+  for (let round = 0; round <= 2 * records.length + 2; round++) {
+    const next = new Set();
+    for (const { record } of records) {
+      if (!withdrawn.has(record.id)) for (const id of record.relations.withdraws) next.add(id);
+    }
+    if (next.size === withdrawn.size && [...next].every((id) => withdrawn.has(id))) {
+      const gone = new Set(withdrawn);
+      for (const { record } of records) {
+        if (!withdrawn.has(record.id)) for (const id of record.relations.supersedes) gone.add(id);
+      }
+      return { gone };
+    }
+    withdrawn = next;
   }
-  return records.filter((r) => r.receiptVerified && !gone.has(r.record.id));
+  return { problem: "its withdrawals form a cycle" };
 }
 
 // Step 3, match: same source folder, configuration and package. A different package counts only through
@@ -91,13 +121,14 @@ function deriveConfigurations(entry, live) {
       subject.source.folder === entry.source.folder &&
       subject.configurationId === cfg.id &&
       accepted.has(subject.packageDigest.value));
-    const ours = matching.filter((r) => r.record.evidence.kind !== "community-reported");
+    const ours = matching.filter((r) => TEAM_LABEL_KINDS.has(r.record.evidence.kind));
+    const community = matching.filter((r) => r.record.evidence.kind === "community-reported");
     const platforms = {};
     for (const platform of unique(ours.map(environmentOf))) {
       const label = labelFor(ours.filter((r) => environmentOf(r) === platform), current);
       if (label) platforms[platform] = label;
     }
-    configurations[cfg.id] = { platforms, communityReports: matching.length - ours.length };
+    configurations[cfg.id] = { platforms, communityReports: community.length };
   }
   return configurations;
 }
@@ -154,7 +185,8 @@ function labelEntry(label, records, current) {
 
 // Harness checks never make a team label; they're a separate line per harness and platform, from the
 // newest record in force.
-function deriveHarnesses(live) {
+function deriveHarnesses(records) {
+  const live = records.filter((r) => !HARNESS_LINE_EXCLUDED_KINDS.has(r.record.evidence.kind));
   const harnesses = {};
   for (const harness of unique(live.map((r) => r.record.subject.harness))) {
     harnesses[harness] = {};
@@ -209,5 +241,20 @@ export function compareVersions(a, b) {
   if (x[4] === y[4]) return 0;
   if (x[4] === undefined) return 1;
   if (y[4] === undefined) return -1;
-  return x[4] < y[4] ? -1 : 1;
+  return comparePrerelease(x[4].split("."), y[4].split("."));
+}
+
+// SemVer precedence: numeric identifiers compare as numbers and sort before alphanumeric ones; a shorter
+// list of otherwise equal identifiers sorts first.
+function comparePrerelease(x, y) {
+  for (let i = 0; i < Math.max(x.length, y.length); i++) {
+    if (x[i] === undefined) return -1;
+    if (y[i] === undefined) return 1;
+    const xNumeric = /^\d+$/.test(x[i]);
+    const yNumeric = /^\d+$/.test(y[i]);
+    if (xNumeric && yNumeric && Number(x[i]) !== Number(y[i])) return Number(x[i]) - Number(y[i]);
+    if (xNumeric !== yNumeric) return xNumeric ? -1 : 1;
+    if (!xNumeric && x[i] !== y[i]) return x[i] < y[i] ? -1 : 1;
+  }
+  return 0;
 }
