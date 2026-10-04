@@ -77,7 +77,7 @@ test("regenerating the same records gives identical bytes", () => {
 test("private values planted in every private field never reach the status file", () => {
   const result = run({ files: [{ group: "team", record: plantedRecord() }] });
   assert.deepEqual(result.problems, []);
-  assert.equal(result.status.listings.team.configurations[Object.keys(result.status.listings.team.configurations)[0]].platforms.linux.label, "tested_with_help");
+  assert.equal(result.status.listings.team.configurations[Object.keys(result.status.listings.team.configurations)[0]].platforms["linux-x64"].label, "tested_with_help");
   for (const value of PLANTED) assert.ok(!result.text.includes(value), `status carries ${value}`);
 });
 

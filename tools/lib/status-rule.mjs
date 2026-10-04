@@ -12,6 +12,10 @@ export const GENERATED = Object.freeze({
 });
 
 const RANK = { tested: 3, tested_with_help: 2, partly_tested: 1 };
+// Labels are per environment: Node's platform and architecture, as the status schema spells them.
+const PLATFORM = /^(linux|darwin|win32)$/;
+const ARCH = /^(x64|arm64)$/;
+const environmentOf = (r) => `${r.record.environment.platform}-${r.record.environment.arch}`;
 
 /**
  * @param entries      registry entries (`slug` added by the loader); only `listed` ones get labels
@@ -54,6 +58,9 @@ function readable(files, kind, journeys) {
     if (!journey) return { problem: `${f.file}: unknown journey ${r.journey.id} v${r.journey.version}` };
     if (journey.kind !== kind) return { problem: `${f.file}: journey ${journey.id} is ${journey.kind}, not ${kind}` };
     if (r.subject.kind !== kind) return { problem: `${f.file}: a ${r.subject.kind} subject on a ${kind} journey` };
+    if (!PLATFORM.test(r.environment.platform) || !ARCH.test(r.environment.arch)) {
+      return { problem: `${f.file}: environment ${r.environment.platform}-${r.environment.arch} is not linux|darwin|win32 with x64|arm64` };
+    }
     if (ids.has(r.id)) return { problem: `record id ${r.id} appears twice` };
     ids.add(r.id);
     records.push({ ...f, journey });
@@ -86,8 +93,8 @@ function deriveConfigurations(entry, live) {
       accepted.has(subject.packageDigest.value));
     const ours = matching.filter((r) => r.record.evidence.kind !== "community-reported");
     const platforms = {};
-    for (const platform of unique(ours.map((r) => r.record.environment.platform))) {
-      const label = labelFor(ours.filter((r) => r.record.environment.platform === platform), current);
+    for (const platform of unique(ours.map(environmentOf))) {
+      const label = labelFor(ours.filter((r) => environmentOf(r) === platform), current);
       if (label) platforms[platform] = label;
     }
     configurations[cfg.id] = { platforms, communityReports: matching.length - ours.length };
@@ -152,8 +159,8 @@ function deriveHarnesses(live) {
   for (const harness of unique(live.map((r) => r.record.subject.harness))) {
     harnesses[harness] = {};
     const mine = live.filter((r) => r.record.subject.harness === harness);
-    for (const platform of unique(mine.map((r) => r.record.environment.platform))) {
-      const newest = mine.filter((r) => r.record.environment.platform === platform).reduce((a, b) => (newer(b, a) ? b : a));
+    for (const platform of unique(mine.map(environmentOf))) {
+      const newest = mine.filter((r) => environmentOf(r) === platform).reduce((a, b) => (newer(b, a) ? b : a));
       const line = {
         result: harnessResult(newest),
         date: utcDate(newest),

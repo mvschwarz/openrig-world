@@ -48,17 +48,17 @@ export const CASES = [
   {
     name: "a plain pass is Tested by OpenRig",
     files: [{ group: "team", record: team("r1") }],
-    expect: ok({ platforms: { linux: { label: "tested", recordIds: ["r1"], openrigVersion: "0.6.6" } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested", recordIds: ["r1"], openrigVersion: "0.6.6" } }, communityReports: 0 }),
   },
   {
     name: "an assisted pass is Tested with help (N)",
     files: [{ group: "team", record: team("r1", { assistance: 2 }) }],
-    expect: ok({ platforms: { linux: { label: "tested_with_help", assistanceCount: 2 } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested_with_help", assistanceCount: 2 } }, communityReports: 0 }),
   },
   {
     name: "a partial run is Partly tested",
     files: [{ group: "team", record: team("r1", { steps: [["install", "PASS"], ["launch", "PASS"], ["orient", "BLOCKED"]] }) }],
-    expect: ok({ platforms: { linux: { label: "partly_tested" } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "partly_tested" } }, communityReports: 0 }),
   },
   {
     name: "a readable PASS whose receipt was deleted supports nothing",
@@ -76,7 +76,7 @@ export const CASES = [
       { group: "team", record: team("r1") },
       { group: "team", record: team("r2", { assistance: 1, at: "2026-10-04T12:00:00Z", relations: { supersedes: ["r1"] } }) },
     ],
-    expect: ok({ platforms: { linux: { label: "tested_with_help", assistanceCount: 1, recordIds: ["r2"] } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested_with_help", assistanceCount: 1, recordIds: ["r2"] } }, communityReports: 0 }),
   },
   {
     name: "resolves from a BLOCKED record leaves the known problem",
@@ -84,7 +84,7 @@ export const CASES = [
       { group: "team", record: team("r1", { steps: FAIL_MERGED, publicNote: "The pull request was never merged." }) },
       { group: "team", record: team("r2", { steps: [["merged", "BLOCKED"]], at: "2026-10-04T12:00:00Z", relations: { resolves: [{ record: "r1", step: "merged" }] } }) },
     ],
-    expect: ok({ platforms: { linux: { label: "known_problem", recordIds: ["r1"], note: "The pull request was never merged." } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r1"], note: "The pull request was never merged." } }, communityReports: 0 }),
   },
   {
     name: "resolves from a withdrawn record leaves the known problem",
@@ -93,7 +93,7 @@ export const CASES = [
       { group: "team", record: team("r2", { at: "2026-10-04T12:00:00Z", relations: { resolves: [{ record: "r1", step: "merged" }] } }) },
       { group: "team", record: team("r3", { steps: [["install", "NOT_RUN"]], at: "2026-10-04T13:00:00Z", relations: { withdraws: ["r2"] } }) },
     ],
-    expect: ok({ platforms: { linux: { label: "known_problem", recordIds: ["r1"] } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r1"] } }, communityReports: 0 }),
   },
   {
     name: "a PASS on a newer OpenRig that names the FAIL resolves it",
@@ -101,7 +101,7 @@ export const CASES = [
       { group: "team", record: team("r1", { steps: FAIL_MERGED }) },
       { group: "team", record: team("r2", { openrig: "0.6.7", at: "2026-10-05T10:00:00Z", relations: { resolves: [{ record: "r1", step: "merged" }] } }) },
     ],
-    expect: ok({ platforms: { linux: { label: "tested", recordIds: ["r2"], openrigVersion: "0.6.7" } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested", recordIds: ["r2"], openrigVersion: "0.6.7" } }, communityReports: 0 }),
   },
   {
     name: "a PASS on an older OpenRig doesn't resolve a FAIL",
@@ -109,7 +109,7 @@ export const CASES = [
       { group: "team", record: team("r1", { steps: FAIL_MERGED, openrig: "0.6.7" }) },
       { group: "team", record: team("r2", { openrig: "0.6.6", at: "2026-10-05T10:00:00Z", relations: { resolves: [{ record: "r1", step: "merged" }] } }) },
     ],
-    expect: ok({ platforms: { linux: { label: "known_problem", recordIds: ["r1"] } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r1"] } }, communityReports: 0 }),
   },
   {
     name: "an unreadable record makes the listing Status unavailable, not Not tested",
@@ -127,18 +127,23 @@ export const CASES = [
     expect: { state: "status_unavailable", configurations: {} },
   },
   {
+    name: "a record from an environment the status format can't name makes the listing Status unavailable",
+    files: [{ group: "team", record: { ...team("r1"), environment: { ...team("r1").environment, platform: "freebsd" } } }],
+    expect: { state: "status_unavailable", configurations: {} },
+  },
+  {
     name: "a Linux PASS and a macOS FAIL are labelled per platform",
     files: [
       { group: "team", record: team("r1") },
       { group: "team", record: team("r2", { platform: "darwin", steps: FAIL_MERGED, publicNote: "Launch stopped on macOS." }) },
     ],
-    expect: ok({ platforms: { linux: { label: "tested" }, darwin: { label: "known_problem", note: "Launch stopped on macOS." } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested" }, "darwin-x64": { label: "known_problem", note: "Launch stopped on macOS." } }, communityReports: 0 }),
   },
   {
     name: "an EVIDENCE.md-only change with evidenceReuse keeps the label and shows both packages",
     entry: entry({ digest: DIGEST_B, evidenceReuse: [{ packageDigest: DIGEST_A, reason: "Only EVIDENCE.md changed." }] }),
     files: [{ group: "team", record: team("r1", { digest: DIGEST_A }) }],
-    expect: ok({ platforms: { linux: { label: "tested", packageDigests: [DIGEST_B, DIGEST_A] } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested", packageDigests: [DIGEST_B, DIGEST_A] } }, communityReports: 0 }),
   },
   {
     name: "an agents/ change without evidenceReuse is Not tested",
@@ -150,7 +155,7 @@ export const CASES = [
     name: "a newer OpenRig release keeps the label, dated with the version that ran",
     entry: entry({ openrig: "0.6.7" }),
     files: [{ group: "team", record: team("r1", { openrig: "0.6.6" }) }],
-    expect: ok({ platforms: { linux: { label: "tested", openrigVersion: "0.6.6", date: "2026-10-04" } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested", openrigVersion: "0.6.6", date: "2026-10-04" } }, communityReports: 0 }),
   },
   {
     name: "a community report is counted separately and never labels",
@@ -161,12 +166,12 @@ export const CASES = [
     name: "a harness check is its own line and never upgrades a team label",
     files: [{ group: "_harness", record: harness("h1", { publicNote: "Pi was not signed in on the test machine." }) }],
     expect: ok({ platforms: {}, communityReports: 0 }),
-    expectHarness: { state: "ok", harnesses: { pi: { linux: { result: "BLOCKED", harnessVersion: "0.9.1", recordIds: ["h1"], note: "Pi was not signed in on the test machine." } } } },
+    expectHarness: { state: "ok", harnesses: { pi: { "linux-x64": { result: "BLOCKED", harnessVersion: "0.9.1", recordIds: ["h1"], note: "Pi was not signed in on the test machine." } } } },
   },
   {
     name: "an unreadable harness-check record makes harness checks Status unavailable",
     files: [{ group: "team", record: team("r1") }, { group: "_harness", raw: "not json" }],
-    expect: ok({ platforms: { linux: { label: "tested" } }, communityReports: 0 }),
+    expect: ok({ platforms: { "linux-x64": { label: "tested" } }, communityReports: 0 }),
     expectHarness: { state: "status_unavailable", harnesses: {} },
   },
 ];

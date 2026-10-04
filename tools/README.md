@@ -47,10 +47,12 @@ address, a queue row id, an IP address or a non-GitHub URL.
 
 ## The status rule (`openrig.status-rule/v1`)
 
-Labels are per listing, configuration and platform. In order:
+Labels are per listing, configuration and environment: the run's platform and architecture as Node reports them
+(`process.platform`-`process.arch`, for example `linux-x64`; the status format allows `linux`, `darwin` or `win32` with
+`x64` or `arm64`). In order:
 
 1. **Readability.** If any record for a listing can't be read, isn't a v1 run record, or names a journey that
-   doesn't exist, the whole listing is `status_unavailable`. That's decided first, so a damaged record never reads as
+   doesn't exist, or ran on an environment outside that set, the whole listing is `status_unavailable`. That's decided first, so a damaged record never reads as
    "Not tested". An unreadable harness-check record makes `harnessChecks` unavailable in the same way.
 2. **Drop.** Records named in another record's `supersedes` or `withdraws` support nothing, and neither does a record
    whose receipt is missing or changed. A relation stated by a dropped record still applies, so losing a correction can

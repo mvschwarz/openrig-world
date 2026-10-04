@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openrig.dev/schemas/bundle-status.v1.json",
   "title": "Public status file (generated; do not edit)",
-  "description": "Built from run records by rule openrig.status-rule/v1, from an allowlist of output fields: no private paths, host names, row IDs, account names or receipt text. Regenerating gives identical bytes. An empty platforms object means Not tested.",
+  "description": "Built from run records by rule openrig.status-rule/v1, from an allowlist of output fields: no private paths, host names, row IDs, account names or receipt text. Regenerating gives identical bytes. An empty platforms object means Not tested. Closed on purpose: no property outside this schema may appear, so a private field can't leak in.",
   "type": "object",
   "required": [
     "generated",
@@ -103,7 +103,8 @@
                       "recordIds": {
                         "type": "array",
                         "items": {
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
                         }
                       },
                       "packageDigests": {
@@ -116,7 +117,55 @@
                         "type": "string"
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties": false,
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "label": {
+                              "enum": [
+                                "tested",
+                                "tested_with_help",
+                                "partly_tested",
+                                "known_problem"
+                              ]
+                            }
+                          }
+                        },
+                        "then": {
+                          "properties": {
+                            "recordIds": {
+                              "minItems": 1
+                            },
+                            "packageDigests": {
+                              "minItems": 1
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "if": {
+                          "properties": {
+                            "label": {
+                              "const": "tested_with_help"
+                            }
+                          }
+                        },
+                        "then": {
+                          "required": [
+                            "assistanceCount"
+                          ],
+                          "properties": {
+                            "assistanceCount": {
+                              "minimum": 1
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "propertyNames": {
+                    "pattern": "^(linux|darwin|win32)-(x64|arm64)$"
                   }
                 },
                 "communityReports": {
@@ -128,7 +177,37 @@
             }
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "status_unavailable"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "configurations": {
+                  "additionalProperties": {
+                    "properties": {
+                      "platforms": {
+                        "additionalProperties": {
+                          "properties": {
+                            "label": {
+                              "const": "status_unavailable"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
       }
     },
     "harnessChecks": {
@@ -184,7 +263,8 @@
                 "recordIds": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
                   }
                 },
                 "note": {
@@ -192,15 +272,36 @@
                 }
               },
               "additionalProperties": false
+            },
+            "propertyNames": {
+              "pattern": "^(linux|darwin|win32)-(x64|arm64)$"
             }
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "status_unavailable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "harnesses": {
+                "maxProperties": 0
+              }
+            }
+          }
+        }
+      ]
     },
     "bodyDigest": {
       "type": "string",
       "pattern": "^[0-9a-f]{64}$",
-      "description": "SHA-256 hex over the canonical JSON of every other top-level field: object keys sorted by code unit at every depth, no whitespace, numbers and strings in JSON.stringify form, UTF-8."
+      "description": "SHA-256, lowercase hex, over the RFC 8785 (JCS) canonical JSON, as UTF-8, of an object holding every other top-level field."
     }
   }
 }
