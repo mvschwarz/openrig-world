@@ -1,0 +1,14 @@
+{
+  "schema": "openrig.journey/v1",
+  "id": "contributor-team",
+  "version": 1,
+  "kind": "team",
+  "title": "The contributor team, from install to one merged pull request",
+  "requiredSteps": [
+    { "id": "install", "description": "The bundle installs on the machine from its link or archive." },
+    { "id": "launch", "description": "Every seat launches and answers its startup check." },
+    { "id": "orient", "description": "The seats orient from the public OpenRig world and resolve the bundle's project." },
+    { "id": "pull-request", "description": "The team opens one useful pull request." },
+    { "id": "merged", "description": "That pull request merges after normal review." }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/mvschwarz/openrig",
+  "path": "docs/reference/schemas",
+  "commit": "ed82f3ea3739eb6b315e3b83a24ea73287928a62",
+  "files": {
+    "bundle-common.v1.schema.json": "51e262642590480e05c6dcd762ac38e8d2e09c7447f19e96eb9d10ab34f5fd5d",
+    "bundle-behaviour.v1.schema.json": "1fdcbea5298f43e1288f6c2433fdc8804a523dc5bbb7ac83b0721476440a4972",
+    "run-record.v1.schema.json": "676e1a6a5e68380ab9c660b50b7662b6f3b34f2734c8b08d644f0c0ca62ab65b",
+    "bundle-status.v1.schema.json": "d0f7c6d27a2517e23cc61babbcb5105a9643743da88bce87f7e3d044c7b71b13",
+    "registry-entry.v1.schema.json": "53eb335d2acdc2781ae04593d90744a92b3af34beb04012bcb22262ec8781d7e"
+  }
+}
