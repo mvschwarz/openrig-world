@@ -5,21 +5,21 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/openrig-dev",
-      "requestedRef": "63987535a8b4f6292e296a68eec9457e39be6d46",
-      "resolvedCommit": "63987535a8b4f6292e296a68eec9457e39be6d46",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/63987535a8b4f6292e296a68eec9457e39be6d46/rigs/openrig-dev"
+      "requestedRef": "ef12012b5913de192b6b110baa08258da8b62f70",
+      "resolvedCommit": "ef12012b5913de192b6b110baa08258da8b62f70",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/ef12012b5913de192b6b110baa08258da8b62f70/rigs/openrig-dev"
     },
-    "configurationId": "build.impl=codex,build.lead=codex,check.qa=codex,check.review=codex",
+    "configurationId": "build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "f15c5a33445e377f7f2f43b676fc8c8c942d3c694d4c0f6188f31fbc48c30bd7",
+      "value": "eaf7c450f86a7958217b5365365c25b5e6106800b30cf5a4646a5744861125dc",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
-      "openrigVersion": "0.6.5"
+      "openrigVersion": "0.6.6"
     },
     "generator": {
-      "openrigVersion": "0.6.5"
+      "openrigVersion": "0.6.6"
     },
     "compatibility": {
       "minCliVersion": "0.6.6"
@@ -28,14 +28,14 @@
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/openrig-dev",
-        "requestedRef": "63987535a8b4f6292e296a68eec9457e39be6d46",
-        "resolvedCommit": "63987535a8b4f6292e296a68eec9457e39be6d46",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/63987535a8b4f6292e296a68eec9457e39be6d46/rigs/openrig-dev"
+        "requestedRef": "ef12012b5913de192b6b110baa08258da8b62f70",
+        "resolvedCommit": "ef12012b5913de192b6b110baa08258da8b62f70",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/ef12012b5913de192b6b110baa08258da8b62f70/rigs/openrig-dev"
       },
-      "created_at": "2026-10-04T19:35:55.884Z",
-      "source_host": "f65e9e3339cc",
-      "daemon_version": "0.6.5",
-      "cli_version": "0.6.5"
+      "created_at": "2026-10-04T20:06:24.902Z",
+      "source_host": "39c252143401",
+      "daemon_version": "0.6.6",
+      "cli_version": "0.6.6"
     },
     "integrity": {
       "digestValid": true,
@@ -49,7 +49,7 @@
       "member": "lead",
       "agentRef": "local:agents/openrig-dev",
       "profile": "lead",
-      "runtime": "codex",
+      "runtime": "claude-code",
       "cwd": "."
     },
     {
@@ -58,7 +58,7 @@
       "member": "impl",
       "agentRef": "local:agents/openrig-dev",
       "profile": "implementer",
-      "runtime": "codex",
+      "runtime": "claude-code",
       "cwd": "."
     },
     {
@@ -84,7 +84,7 @@
     {
       "seat": "build.lead",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
+      "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
       "nativeEffect": "unknown",
@@ -98,7 +98,7 @@
     {
       "seat": "build.impl",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
+      "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
       "nativeEffect": "unknown",
@@ -312,6 +312,19 @@
     },
     {
       "seat": "build.lead",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/openrig-dev/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "build.lead",
       "kind": "startup_startup_proof",
       "pathOrRef": "authenticated",
       "resolution": "archive",
@@ -332,6 +345,19 @@
         {
           "path": "agents/openrig-dev/agent.yaml",
           "field": "resources.plugins.openrig-core"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/openrig-dev/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
         }
       ],
       "trigger": "if selected runtime supports and loads this resource"
@@ -407,7 +433,7 @@
       "seat": "build.lead",
       "kind": "managed_guidance",
       "destinationBase": "seat_cwd",
-      "path": "AGENTS.md",
+      "path": "CLAUDE.local.md",
       "operation": "merge managed blocks",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -422,7 +448,7 @@
       "seat": "build.lead",
       "kind": "plugins",
       "destinationBase": "seat_cwd",
-      "path": ".codex/plugins/openrig-core",
+      "path": ".claude/plugins/openrig-core",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -434,10 +460,25 @@
       ]
     },
     {
+      "seat": "build.lead",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
       "seat": "build.impl",
       "kind": "managed_guidance",
       "destinationBase": "seat_cwd",
-      "path": "AGENTS.md",
+      "path": "CLAUDE.local.md",
       "operation": "merge managed blocks",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -452,7 +493,7 @@
       "seat": "build.impl",
       "kind": "plugins",
       "destinationBase": "seat_cwd",
-      "path": ".codex/plugins/openrig-core",
+      "path": ".claude/plugins/openrig-core",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -460,6 +501,21 @@
         {
           "path": "agents/openrig-dev/agent.yaml",
           "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
         }
       ]
     },
@@ -597,7 +653,7 @@
     {
       "seat": "build.lead",
       "kind": "runtime",
-      "name": "codex",
+      "name": "claude-code",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -609,7 +665,7 @@
     {
       "seat": "build.lead",
       "kind": "login",
-      "name": "codex: the user's own runtime account or provider configuration",
+      "name": "claude-code: the user's own runtime account or provider configuration",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -621,7 +677,7 @@
     {
       "seat": "build.impl",
       "kind": "runtime",
-      "name": "codex",
+      "name": "claude-code",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -633,7 +689,7 @@
     {
       "seat": "build.impl",
       "kind": "login",
-      "name": "codex: the user's own runtime account or provider configuration",
+      "name": "claude-code: the user's own runtime account or provider configuration",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -692,6 +748,17 @@
     },
     {
       "kind": "precondition",
+      "name": "Install and run the rig as your normal user, not root: Claude Code refuses to bypass permissions as root or under sudo.",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "preconditions[0]"
+        }
+      ]
+    },
+    {
+      "kind": "precondition",
       "name": "Set up a clone of openrig, add this repository's context pack, and run the install from the root of that clone.",
       "commands": [
         "git clone https://github.com/mvschwarz/openrig.git",
@@ -704,7 +771,18 @@
       "sourceRefs": [
         {
           "path": "bundle.yaml",
-          "field": "preconditions[0]"
+          "field": "preconditions[1]"
+        }
+      ]
+    },
+    {
+      "kind": "precondition",
+      "name": "The first time on a machine, each Claude seat stops at Claude Code's bypass-permissions warning: open the seat (rig opens the TUI) and accept it. Claude Code then remembers it on this machine.",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "preconditions[2]"
         }
       ]
     },
