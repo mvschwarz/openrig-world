@@ -1,5 +1,5 @@
 {
-  "bodyDigest": "ef6cacfb2ea379c52e66c820b17f2b37df7565bf0524788a1960fa859c0e7e08",
+  "bodyDigest": "b977de8950f78f75e53e95ea079fd4df10374e0d0c3b794d5a86ff8db3b7e8e9",
   "generated": {
     "by": "openrig-world tools/status.mjs",
     "generatorVersion": 1,
@@ -15,7 +15,24 @@
       "configurations": {
         "build.impl=claude-code,build.lead=claude-code,check.qa=claude-code,check.review=claude-code": {
           "communityReports": 0,
-          "platforms": {}
+          "platforms": {
+            "linux-x64": {
+              "date": "2026-10-04",
+              "label": "known_problem",
+              "note": "Two of four Claude seats didn't answer their startup check. OpenRig read only Claude Code's collapsed paste label in the input box, so it couldn't confirm the startup text was submitted and didn't send the line asking seats to run the check.",
+              "openrigVersion": "0.6.6",
+              "packageDigests": [
+                {
+                  "algorithm": "sha256",
+                  "coverage": "openrig.package-digest/v1",
+                  "value": "2c3bbb40641670270837fddb144533a0dc28f4e2e2273c9e84dc188e29986cfd"
+                }
+              ],
+              "recordIds": [
+                "openrig-dev-all-claude-20261004-2"
+              ]
+            }
+          }
         },
         "build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex": {
           "communityReports": 0,
