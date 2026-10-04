@@ -1,0 +1,13 @@
+{
+  "schema": "openrig.journey/v1",
+  "id": "contributor-team",
+  "version": 2,
+  "kind": "team",
+  "title": "The contributor team, from install to a pull request ready to submit",
+  "requiredSteps": [
+    { "id": "install", "description": "The bundle installs on the machine from its link or archive." },
+    { "id": "launch", "description": "Every seat launches and answers its startup check." },
+    { "id": "orient", "description": "The seats orient from the public OpenRig world and resolve the bundle's project." },
+    { "id": "ready-to-submit", "description": "The team's own review and tests pass, the pull request is drafted, and the lead stops for the person's word to publish." }
+  ]
+}
