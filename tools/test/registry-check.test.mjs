@@ -110,6 +110,18 @@ test("a seat on a need or an unknown must be pod.member", () => {
   }
 });
 
+test("the non-interruptive posture facts accept only their declared values", () => {
+  const view = JSON.parse(VIEW);
+  view.posture[0].nonInterruptive = "available";
+  view.posture[0].firstRunWarnings = { claudeBypass: "harness_asks_once" };
+  assert.deepEqual(check({ views: { [VIEW_PATH]: JSON.stringify(view) } }), []);
+  for (const [field, value] of [["nonInterruptive", "selected"], ["firstRunWarnings", { claudeBypass: "accepted" }]]) {
+    const changed = JSON.parse(JSON.stringify(view));
+    changed.posture[0][field] = value;
+    has(check({ views: { [VIEW_PATH]: JSON.stringify(changed) } }), "not a behaviour view v1");
+  }
+});
+
 test("a generated status file passes", () => {
   assert.deepEqual(check({ status: fixture("status-valid.json") }), []);
 });

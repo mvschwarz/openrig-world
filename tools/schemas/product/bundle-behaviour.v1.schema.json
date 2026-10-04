@@ -213,13 +213,26 @@
           },
           "permissionPrompts": {
             "enum": ["off", "on", "default"],
-            "description": "Archive declaration per seat: off for full_bypass (including builtin:yolo) on any runtime; on for a Claude/Codex flag-surface floor policy; default for Claude/Codex with no declared policy. Omitted for config-surface policies, host-resolved Codex profiles, and Pi except declared full bypass. Absent means not stated, never on. Host settings may differ; nativeEffect remains unknown."
+            "description": "Archive declaration per seat: off for full_bypass (including builtin:yolo) on any runtime; on for a Claude/Codex flag-surface floor policy, or Codex under auto; default for Claude/Codex with no declared policy. Omitted for Claude under auto, config-surface policies, host-resolved Codex profiles, and Pi except declared full bypass. Absent means not stated, never on. Host settings may differ; nativeEffect remains unknown."
           },
           "sourceRefs": {
             "type": "array",
             "items": {
               "$ref": "#/$defs/sourceRef"
             }
+          },
+          "firstRunWarnings": {
+            "type": "object",
+            "properties": {
+              "claudeBypass": {
+                "const": "harness_asks_once"
+              }
+            },
+            "description": "Declared full-bypass Claude seat: the harness asks for bypass-warning acceptance if it has not been remembered. No host acceptance state is read; nativeEffect stays unknown."
+          },
+          "nonInterruptive": {
+            "const": "available",
+            "description": "This declared full-bypass Claude/Codex seat can use --non-interruptive launch flags. Availability is not the operator choice or proof that no prompt will appear. Omitted for other postures, unresolved policies and runtimes with no such flags."
           }
         }
       }
