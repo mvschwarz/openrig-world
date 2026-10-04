@@ -43,12 +43,13 @@ Run records are private. They're kept beside the receipts they rest on, in a `ru
 A record's `evidence.receipt.ref` is relative to the run folder. The generator reads the receipt and compares its
 SHA-256. Only the fields listed in the status schema reach `status.json`. Of a record's own text, only
 `outcome.publicNote` does. The generator refuses to write a status file containing:
-- a private path;
+- an absolute path (any `/segment/segment…` outside a word or a URL, a `~/` path or a Windows path);
 - an address;
 - a queue row id;
 - a private host name (`.local`, `.lan`, `.internal`);
 - an IP address;
-- a non-GitHub URL.
+- a non-GitHub URL;
+- text that isn't well-formed Unicode, which canonical JSON can't carry.
 
 Plain names, a person's or a machine's, can't be recognised. Keep public notes short and factual: maintainers read
 every status pull request.
@@ -63,15 +64,23 @@ Labels are per listing, configuration and environment: the run's platform and ar
    exist, or ran on an environment outside that set, the whole listing is `status_unavailable`. That's decided first,
    whatever the record's evidence kind, so a damaged record never reads as "Not tested". An unreadable harness-check
    record makes `harnessChecks` unavailable in the same way.
-2. **Relations and receipts.**
+2. **Relations and receipts, settled per scope.**
+   - A scope is what one label covers: a listing's configuration (its source, configuration ID and accepted package
+     digests) on one platform, among records of a kind that can earn that label (`native-workflow` for team labels).
+     For harness lines, it's one harness on one platform, among the kinds a harness line uses.
+   - A `withdraws`, `supersedes` or `resolves` counts only from a record in the same scope. A record that could never
+     earn the label (another kind, configuration or platform) can't withdraw, replace or resolve anything in it; its
+     relation is ignored, not an error. To correct a mistaken FAIL, write an eligible record for the same scope.
+   - Records that match no offered configuration play no part.
    - A record named in another record's `supersedes` or `withdraws` supports nothing.
    - A withdrawal counts only from a record that isn't itself withdrawn. So withdrawing a withdrawal restores what it
      withdrew, and a withdrawn record can't clear a FAIL. Withdrawals that form a cycle make the set unavailable.
    - A supersession counts from any record that isn't withdrawn, so a chain of corrections stays replaced.
-   - Every record still in force must have its receipt, unchanged. If one is missing or changed, the listing (or
-     `harnessChecks`) is `status_unavailable`, because that record might be the FAIL that decides the label. Lost
+   - Every record still in force in a scope must have its receipt, unchanged. If one is missing or changed, the listing
+     (or `harnessChecks`) is `status_unavailable`, because that record might be the FAIL that decides the label. Lost
      evidence is never dropped quietly; to clear it, withdraw or supersede the record. A withdrawn or superseded
-     record's receipt may be gone.
+     record's receipt may be gone, and so may the receipt of a record that can't label. A community report whose
+     receipt is gone drops out of `communityReports`, because a count isn't a label.
 3. **Match.** A record applies to a configuration when its source repository and folder, configuration ID and package
    digest match the listing. A record for another package applies only through that configuration's `evidenceReuse`,
    and then the label shows both digests.
@@ -86,8 +95,8 @@ Labels are per listing, configuration and environment: the run's platform and ar
      `installed-only` or `running-seat` evidence.
 5. **Label.**
    - `known_problem`: a FAIL that's unresolved. A FAIL is resolved only by a record in force that names it in
-     `resolves`, passes that step, and ran on the same or a newer OpenRig version (SemVer order, prereleases
-     included).
+     `resolves`, passes that step, and ran on the same or a newer OpenRig version (SemVer precedence:
+     prereleases ordered, build metadata ignored).
    - Otherwise the best record decides: `tested` (every required step passed, with no help), `tested_with_help`
      (every required step passed, with help), `partly_tested` (some passed). A tie goes to the newest.
      - **The best record wins on purpose.** A newer partial or assisted run doesn't erase an older complete,

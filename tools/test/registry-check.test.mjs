@@ -107,3 +107,25 @@ test("private text in a status file is rejected even with a recomputed digest", 
   status.bodyDigest = statusBodyDigest(status);
   has(check({ status }), "private text (absolute path)");
 });
+
+test("a behaviour view that resolves outside registry/ through a symlink is rejected", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "registry-check-link-"));
+  try {
+    write(root, "registry/openrig-dev.yaml", VALID_ENTRY);
+    write(root, "outside/view.json", VIEW);
+    fs.mkdirSync(path.dirname(path.join(root, "registry", VIEW_PATH)), { recursive: true });
+    fs.symlinkSync(path.join(root, "outside/view.json"), path.join(root, "registry", VIEW_PATH));
+    fs.cpSync(path.join(REPO, "status", "journeys"), path.join(root, "status", "journeys"), { recursive: true });
+    has(checkRepository(root), "resolves outside registry/ through a symlink");
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("a status file with text that isn't well-formed Unicode is rejected", () => {
+  const status = JSON.parse(fixture("status-valid.json"));
+  const pi = Object.values(status.harnessChecks.harnesses)[0];
+  Object.values(pi)[0].note = "Unpaired " + String.fromCharCode(0xd800);
+  status.bodyDigest = statusBodyDigest(status);
+  has(check({ status }), "well-formed Unicode");
+});

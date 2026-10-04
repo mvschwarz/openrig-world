@@ -9,7 +9,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { canonicalFile } from "./lib/canonical.mjs";
 import { loadJourneys, loadRecords, loadRegistry, loadValidators, schemaError } from "./lib/load.mjs";
-import { findPrivateText } from "./lib/private-patterns.mjs";
+import { findIllFormedText, findPrivateText } from "./lib/private-patterns.mjs";
 import { deriveStatus } from "./lib/status-rule.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -32,6 +32,7 @@ export function generate({ root = REPO, recordRoots }) {
   const { status, problems: unavailable } = deriveStatus({ entries, teamFiles, harnessFiles, journeys });
   if (!validators.status(status)) problems.push(`the generated status is not bundle-status v1: ${schemaError(validators.status)}`);
   for (const leak of findPrivateText(status)) problems.push(`the generated status carries private text (${leak.kind}) at ${leak.at}`);
+  for (const at of findIllFormedText(status)) problems.push(`the generated status carries text that isn't well-formed Unicode at ${at}`);
   return { status, text: canonicalFile(status), problems, unavailable, warnings };
 }
 

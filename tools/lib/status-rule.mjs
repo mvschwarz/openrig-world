@@ -32,36 +32,35 @@ export function deriveStatus({ entries, teamFiles, harnessFiles, journeys }) {
   const problems = [];
   const listings = {};
   for (const entry of entries.filter((e) => e.status === "listed")) {
-    const settled = settle(teamFiles.get(entry.slug) ?? [], "team", journeys);
-    if (settled.problem) {
-      problems.push(`${entry.slug}: ${settled.problem}`);
+    const derived = deriveListing(entry, teamFiles.get(entry.slug) ?? [], journeys);
+    if (derived.problem) {
+      problems.push(`${entry.slug}: ${derived.problem}`);
       listings[entry.slug] = { state: "status_unavailable", configurations: {} };
     } else {
-      listings[entry.slug] = { state: "ok", configurations: deriveConfigurations(entry, settled.live) };
+      listings[entry.slug] = { state: "ok", configurations: derived.configurations };
     }
   }
-  const harness = settle(harnessFiles, "harness_check", journeys);
+  const harness = deriveHarnessChecks(harnessFiles, journeys);
   if (harness.problem) problems.push(`harness checks: ${harness.problem}`);
   const harnessChecks = harness.problem
     ? { state: "status_unavailable", harnesses: {} }
-    : { state: "ok", harnesses: deriveHarnesses(harness.live) };
+    : { state: "ok", harnesses: harness.harnesses };
   const status = { generated: { ...GENERATED }, listings, harnessChecks };
   status.bodyDigest = statusBodyDigest(status);
   return { status, problems };
 }
 
-// Steps 1 and 2: the records in force, or why the whole set is unavailable.
-function settle(files, kind, journeys) {
-  const read = readable(files, kind, journeys);
-  if (read.problem) return read;
-  const relations = relationsInForce(read.records);
+// Step 2 for one scope: the records that could label it, settled among themselves. A relation counts only
+// from a record in the same scope, so a record that could never earn this label can't change it. Lost
+// evidence is never dropped quietly: a record in force whose receipt is missing or changed might be the
+// FAIL that decides the label, so it makes the set unavailable (withdraw or supersede it to clear this).
+function settleScope(records, { lostMakesUnavailable = true } = {}) {
+  const relations = relationsInForce(records);
   if (relations.problem) return relations;
-  const live = read.records.filter((r) => !relations.gone.has(r.record.id));
-  // Lost evidence never drops a record quietly: a record in force whose receipt is missing or changed might
-  // be the FAIL that decides the label. Withdraw or supersede it to clear this.
+  const live = records.filter((r) => !relations.gone.has(r.record.id));
   const lost = live.find((r) => !r.receiptVerified);
-  if (lost) return { problem: `${lost.file}: its receipt is missing or changed` };
-  return { live };
+  if (lost && lostMakesUnavailable) return { problem: `${lost.file}: its receipt is missing or changed` };
+  return { live: live.filter((r) => r.receiptVerified) };
 }
 
 // Step 1, readability, decided before anything else: one record we can't read or interpret makes the
@@ -110,27 +109,35 @@ function relationsInForce(records) {
 }
 
 // Step 3, match: same source folder, configuration and package. A different package counts only through
-// the listing's explicit `evidenceReuse`, and then both digests are shown.
-function deriveConfigurations(entry, live) {
+// the listing's explicit `evidenceReuse`, and then both digests are shown. Each platform's eligible records
+// are one scope for step 2. A record that matches no offered configuration plays no part at all.
+function deriveListing(entry, files, journeys) {
+  const read = readable(files, "team", journeys);
+  if (read.problem) return read;
   const configurations = {};
   for (const cfg of entry.configurations) {
     const current = cfg.packageDigest;
     const accepted = new Set([current.value, ...(cfg.evidenceReuse ?? []).map((reuse) => reuse.packageDigest.value)]);
-    const matching = live.filter(({ record: { subject } }) =>
+    const matching = read.records.filter(({ record: { subject } }) =>
       subject.source.repository === entry.source.repository &&
       subject.source.folder === entry.source.folder &&
       subject.configurationId === cfg.id &&
       accepted.has(subject.packageDigest.value));
     const ours = matching.filter((r) => TEAM_LABEL_KINDS.has(r.record.evidence.kind));
-    const community = matching.filter((r) => r.record.evidence.kind === "community-reported");
     const platforms = {};
     for (const platform of unique(ours.map(environmentOf))) {
-      const label = labelFor(ours.filter((r) => environmentOf(r) === platform), current);
+      const settled = settleScope(ours.filter((r) => environmentOf(r) === platform));
+      if (settled.problem) return { problem: `${cfg.id} on ${platform}: ${settled.problem}` };
+      const label = labelFor(settled.live, current);
       if (label) platforms[platform] = label;
     }
-    configurations[cfg.id] = { platforms, communityReports: community.length };
+    // Community reports settle among themselves for the count. A lost receipt leaves a report out of the
+    // count but never makes the listing unavailable, because a count isn't a label.
+    const community = settleScope(matching.filter((r) => r.record.evidence.kind === "community-reported"), { lostMakesUnavailable: false });
+    if (community.problem) return { problem: `${cfg.id} community reports: ${community.problem}` };
+    configurations[cfg.id] = { platforms, communityReports: community.live.length };
   }
-  return configurations;
+  return { configurations };
 }
 
 // Step 4, label, per platform.
@@ -184,15 +191,19 @@ function labelEntry(label, records, current) {
 }
 
 // Harness checks never make a team label; they're a separate line per harness and platform, from the
-// newest record in force.
-function deriveHarnesses(records) {
-  const live = records.filter((r) => !HARNESS_LINE_EXCLUDED_KINDS.has(r.record.evidence.kind));
+// newest record in force. Each harness and platform's eligible records are one scope for step 2.
+function deriveHarnessChecks(files, journeys) {
+  const read = readable(files, "harness_check", journeys);
+  if (read.problem) return read;
+  const eligible = read.records.filter((r) => !HARNESS_LINE_EXCLUDED_KINDS.has(r.record.evidence.kind));
   const harnesses = {};
-  for (const harness of unique(live.map((r) => r.record.subject.harness))) {
-    harnesses[harness] = {};
-    const mine = live.filter((r) => r.record.subject.harness === harness);
+  for (const harness of unique(eligible.map((r) => r.record.subject.harness))) {
+    const mine = eligible.filter((r) => r.record.subject.harness === harness);
     for (const platform of unique(mine.map(environmentOf))) {
-      const newest = mine.filter((r) => environmentOf(r) === platform).reduce((a, b) => (newer(b, a) ? b : a));
+      const settled = settleScope(mine.filter((r) => environmentOf(r) === platform));
+      if (settled.problem) return { problem: `${harness} on ${platform}: ${settled.problem}` };
+      if (!settled.live.length) continue;
+      const newest = settled.live.reduce((a, b) => (newer(b, a) ? b : a));
       const line = {
         result: harnessResult(newest),
         date: utcDate(newest),
@@ -201,10 +212,10 @@ function deriveHarnesses(records) {
         recordIds: [newest.record.id],
       };
       if (newest.record.outcome.publicNote) line.note = newest.record.outcome.publicNote;
-      harnesses[harness][platform] = line;
+      (harnesses[harness] ??= {})[platform] = line;
     }
   }
-  return harnesses;
+  return { harnesses };
 }
 
 function harnessResult(r) {
@@ -233,7 +244,8 @@ function unique(values) {
 
 /** Compares release versions; NaN when either can't be read, so an unreadable version never resolves a FAIL. */
 export function compareVersions(a, b) {
-  const parse = (v) => /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?$/.exec(v);
+  // Build metadata (+...) doesn't change precedence, so it's parsed and ignored.
+  const parse = (v) => /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?$/.exec(v);
   const x = parse(a);
   const y = parse(b);
   if (!x || !y) return Number.NaN;

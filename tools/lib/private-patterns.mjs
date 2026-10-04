@@ -2,7 +2,9 @@
 // from an allowlist of fields, so these are a second line: they catch private text inside an allowed
 // free-text field such as a public note.
 export const PRIVATE_PATTERNS = [
-  { kind: "absolute path", re: /(^|[\s"'(=])(\/(Users|home|private|tmp|var|etc|opt|root|srv|mnt)\/|~\/|[A-Za-z]:\\)/ },
+  // Any absolute POSIX path of two or more segments, not inside a word or a URL (so "and/or" and
+  // https://github.com/... pass), plus home-relative and Windows paths.
+  { kind: "absolute path", re: /(^|[^\w/:.~-])(\/[\w.~-]+){2,}|(^|[^\w])~\/|\b[A-Za-z]:\\/ },
   { kind: "account, session or email address", re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*/ },
   { kind: "queue row id", re: /\bqitem-/i },
   { kind: "private host name", re: /\b[a-z0-9-]+\.(local|lan|internal|localdomain|home\.arpa)\b/i },
@@ -24,4 +26,14 @@ export function findPrivateText(value, at = "$") {
     }
   }
   return found;
+}
+
+/** Every string (keys included) that isn't well-formed Unicode, which RFC 8785 canonical JSON can't carry. */
+export function findIllFormedText(value, at = "$") {
+  if (typeof value === "string") return value.isWellFormed() ? [] : [at];
+  if (Array.isArray(value)) return value.flatMap((item, i) => findIllFormedText(item, `${at}[${i}]`));
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, item]) => [...findIllFormedText(key, `${at}{key}`), ...findIllFormedText(item, `${at}.${key}`)]);
+  }
+  return [];
 }

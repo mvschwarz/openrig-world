@@ -15,13 +15,13 @@ export function entry({ digest = DIGEST_A, openrig = "0.6.6", evidenceReuse } = 
 }
 
 /** A team run record; `receipt.sha256` is filled in by the test from the receipt it writes. */
-export function team(id, { steps = ALL_PASS, assistance = 0, platform = "linux", openrig = "0.6.6", digest = DIGEST_A, kind = "native-workflow", at = "2026-10-04T10:00:00Z", relations = {}, publicNote, recordedBy = "fleet", assistanceText = "a person typed one command for the seat" } = {}) {
+export function team(id, { steps = ALL_PASS, assistance = 0, platform = "linux", openrig = "0.6.6", digest = DIGEST_A, kind = "native-workflow", at = "2026-10-04T10:00:00Z", relations = {}, publicNote, recordedBy = "fleet", assistanceText = "a person typed one command for the seat", configurationId = MIX } = {}) {
   const outcome = { steps: steps.map(([step, result]) => ({ id: step, result })), assistance: { count: assistance }, recordedBy, at };
   if (assistance) outcome.assistance.description = assistanceText;
   if (publicNote) outcome.publicNote = publicNote;
   return {
     schema: "openrig.run-record/v1", id,
-    subject: { kind: "team", source: SOURCE, configurationId: MIX, packageDigest: digest, assembler: { openrigVersion: openrig } },
+    subject: { kind: "team", source: SOURCE, configurationId, packageDigest: digest, assembler: { openrigVersion: openrig } },
     execution: { resources: [], settings: {}, unknowns: [] },
     environment: { openrig: { version: openrig }, platform, arch: "x64", harnesses: [{ name: "claude-code", version: "2.1.220", knownBy: "claude --version" }] },
     evidence: { kind, receipt: { ref: "receipt.md", sha256: "" } },
@@ -111,6 +111,73 @@ export const CASES = [
       { group: "team", record: team("r3", { assistance: 2, at: "2026-10-04T13:00:00Z", relations: { supersedes: ["r2"] } }) },
     ],
     expect: ok({ platforms: { "linux-x64": { label: "tested_with_help", assistanceCount: 2, recordIds: ["r3"] } }, communityReports: 0 }),
+  },
+  // Round 3: a relation counts only from a record that could itself label the target's scope.
+  ...[["synthetic", 0], ["community-reported", 1]].map(([kind, reports]) => ({
+    name: `a ${kind} record can't withdraw a native FAIL`,
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { steps: FAIL_MERGED, at: "2026-10-04T11:00:00Z" }) },
+      { group: "team", record: team("r3", { kind, steps: [["install", "NOT_RUN"]], at: "2026-10-04T12:00:00Z", relations: { withdraws: ["r2"] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r2"] } }, communityReports: reports }),
+  })),
+  {
+    name: "a record for another configuration can't withdraw a FAIL",
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { steps: FAIL_MERGED, at: "2026-10-04T11:00:00Z" }) },
+      { group: "team", record: team("r3", { configurationId: "dev.impl=codex,dev.review=codex", steps: [["install", "NOT_RUN"]], at: "2026-10-04T12:00:00Z", relations: { withdraws: ["r2"] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r2"] } }, communityReports: 0 }),
+  },
+  {
+    name: "a record from another platform can't withdraw a FAIL",
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { steps: FAIL_MERGED, at: "2026-10-04T11:00:00Z" }) },
+      { group: "team", record: team("r3", { platform: "darwin", steps: [["install", "NOT_RUN"]], at: "2026-10-04T12:00:00Z", relations: { withdraws: ["r2"] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r2"] } }, communityReports: 0 }),
+  },
+  {
+    name: "a record for another configuration can't resolve a FAIL",
+    files: [
+      { group: "team", record: team("r1", { steps: FAIL_MERGED }) },
+      { group: "team", record: team("r2", { configurationId: "dev.impl=codex,dev.review=codex", at: "2026-10-04T12:00:00Z", relations: { resolves: [{ record: "r1", step: "merged" }] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "known_problem", recordIds: ["r1"] } }, communityReports: 0 }),
+  },
+  {
+    name: "a same-scope native withdrawal still clears a mistaken FAIL",
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { steps: FAIL_MERGED, at: "2026-10-04T11:00:00Z" }) },
+      { group: "team", record: team("r3", { steps: [["install", "NOT_RUN"]], at: "2026-10-04T12:00:00Z", relations: { withdraws: ["r2"] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "tested", recordIds: ["r1"] } }, communityReports: 0 }),
+  },
+  {
+    name: "a lost receipt on a record that can't label leaves the listing readable",
+    files: [
+      { group: "team", record: team("r1") },
+      { group: "team", record: team("r2", { kind: "synthetic" }), receipt: "missing" },
+      { group: "team", record: team("r3", { configurationId: "dev.impl=codex,dev.review=codex" }), receipt: "missing" },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "tested", recordIds: ["r1"] } }, communityReports: 0 }),
+  },
+  {
+    name: "a community report whose receipt is gone drops out of the count",
+    files: [{ group: "team", record: team("r1", { kind: "community-reported" }), receipt: "missing" }],
+    expect: ok({ platforms: {}, communityReports: 0 }),
+  },
+  {
+    name: "build metadata doesn't stop a same-version PASS resolving a FAIL",
+    files: [
+      { group: "team", record: team("r1", { steps: FAIL_MERGED, openrig: "0.6.6+build1" }) },
+      { group: "team", record: team("r2", { openrig: "0.6.6+build2", at: "2026-10-04T12:00:00Z", relations: { resolves: [{ record: "r1", step: "merged" }] } }) },
+    ],
+    expect: ok({ platforms: { "linux-x64": { label: "tested", recordIds: ["r2"] } }, communityReports: 0 }),
   },
   {
     name: "a newer run that needed help doesn't replace an older unassisted pass without supersedes",
@@ -236,6 +303,24 @@ export const CASES = [
     ],
     expect: ok({ platforms: {}, communityReports: 0 }),
     expectHarness: { state: "ok", harnesses: { pi: { "linux-x64": { result: "BLOCKED", recordIds: ["h1"] } } } },
+  },
+  {
+    name: "a synthetic harness record can't withdraw a real harness line",
+    files: [
+      { group: "_harness", record: harness("h1") },
+      { group: "_harness", record: { ...harness("h2", { at: "2026-10-04T12:00:00Z", steps: [["on-path", "NOT_RUN"]] }), relations: { supersedes: [], withdraws: ["h1"], resolves: [] }, evidence: { kind: "synthetic", receipt: { ref: "receipt.md", sha256: "" } } } },
+    ],
+    expect: ok({ platforms: {}, communityReports: 0 }),
+    expectHarness: { state: "ok", harnesses: { pi: { "linux-x64": { result: "BLOCKED", recordIds: ["h1"] } } } },
+  },
+  {
+    name: "an eligible harness record on the same harness and platform can withdraw a line",
+    files: [
+      { group: "_harness", record: harness("h1") },
+      { group: "_harness", record: { ...harness("h2", { at: "2026-10-04T12:00:00Z", steps: [["on-path", "NOT_RUN"]] }), relations: { supersedes: [], withdraws: ["h1"], resolves: [] }, evidence: { kind: "installed-only", receipt: { ref: "receipt.md", sha256: "" } } } },
+    ],
+    expect: ok({ platforms: {}, communityReports: 0 }),
+    expectHarness: { state: "ok", harnesses: { pi: { "linux-x64": { result: "NOT_RUN", recordIds: ["h2"] } } } },
   },
   {
     name: "an installed-only harness check still shows its line",

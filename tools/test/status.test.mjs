@@ -93,12 +93,29 @@ test("a public note naming a private host stops generation", () => {
   assert.ok(result.problems.some((p) => p.includes("private text (private host name)")), result.problems.join("\n"));
 });
 
+test("a public note with any absolute path stops generation; ordinary prose and GitHub links pass", () => {
+  const steps = [["install", "FAIL"]];
+  const blocked = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: "See /workspace/private/receipt.txt for the failure." }) }] });
+  assert.ok(blocked.problems.some((p) => p.includes("private text (absolute path)")), blocked.problems.join("\n"));
+  for (const note of ["The pull request did not merge.", "See https://github.com/example/rigs/issues/1 (TCP/IP and/or 1/2)."]) {
+    const result = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: note }) }] });
+    assert.deepEqual(result.problems, [], note);
+  }
+});
+
+test("text that isn't well-formed Unicode stops generation", () => {
+  const result = run({ files: [{ group: "team", record: team("r1", { steps: [["install", "FAIL"]], publicNote: "Unpaired " + String.fromCharCode(0xd800) }) }] });
+  assert.ok(result.problems.some((p) => p.includes("well-formed Unicode")), result.problems.join("\n"));
+});
+
 test("release versions order prereleases by SemVer", () => {
   assert.ok(compareVersions("0.6.6-rc.10", "0.6.6-rc.9") > 0);
   assert.ok(compareVersions("0.6.6", "0.6.6-rc.1") > 0);
   assert.ok(compareVersions("0.6.6-rc.1", "0.6.6-rc") > 0);
   assert.ok(compareVersions("0.6.6-1", "0.6.6-alpha") < 0);
   assert.ok(Number.isNaN(compareVersions("0.6", "0.6.6")));
+  assert.equal(compareVersions("0.6.6+build2", "0.6.6+build1"), 0);
+  assert.ok(compareVersions("0.6.7+b", "0.6.6") > 0);
 });
 
 test("records for a slug with no listed entry are reported, not labelled", () => {

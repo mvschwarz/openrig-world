@@ -9,7 +9,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { statusBodyDigest } from "./lib/canonical.mjs";
 import { configurationIdProblem } from "./lib/config-id.mjs";
 import { loadJourneys, loadRegistry, loadValidators, schemaError } from "./lib/load.mjs";
-import { findPrivateText } from "./lib/private-patterns.mjs";
+import { findIllFormedText, findPrivateText } from "./lib/private-patterns.mjs";
 import { GENERATED } from "./lib/status-rule.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -57,7 +57,10 @@ function checkBehaviour(root, where, cfg, validators) {
   if (!target.startsWith(registryDir + path.sep)) return [`${label} is outside registry/`];
   let view;
   try {
-    view = JSON.parse(fs.readFileSync(target, "utf8"));
+    // Read only inside registry/, through symlinks too.
+    const real = fs.realpathSync(target);
+    if (!real.startsWith(fs.realpathSync(registryDir) + path.sep)) return [`${label} resolves outside registry/ through a symlink`];
+    view = JSON.parse(fs.readFileSync(real, "utf8"));
   } catch {
     return [`${label} is missing or not readable JSON`];
   }
@@ -94,6 +97,7 @@ function checkStatus(root, validators) {
     }
   }
   for (const leak of findPrivateText(status)) findings.push(`status/status.json: private text (${leak.kind}) at ${leak.at}`);
+  for (const at of findIllFormedText(status)) findings.push(`status/status.json: text that isn't well-formed Unicode at ${at}`);
   return findings;
 }
 
