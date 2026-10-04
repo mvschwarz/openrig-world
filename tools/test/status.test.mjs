@@ -107,6 +107,8 @@ test("a public note with any absolute path stops generation; ordinary prose and 
     "Piped through a|/etc/x.",
     "See \u201c/Workspace Files/receipt.txt\u201d for the failure.",
     "See \u2018/tmp/receipt.txt\u2019 for the failure.",
+    "See ///workspace/private/receipt.txt for the failure.",
+    "Mounted at //srv/x.",
   ]) {
     const blocked = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: note }) }] });
     assert.ok(blocked.problems.some((p) => p.includes("private text (absolute path)")), `${note}: ${blocked.problems.join("; ")}`);
