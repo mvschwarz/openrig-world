@@ -6,11 +6,32 @@ description: >
   reviewer or qa. (An OpenRig profile selects resources and startup files;
   it is not a Codex permission profile.)
 
-# The repository's own developing-openrig skill is not declared here. Claude
-# Code finds it in .claude/skills/ and Codex in .agents/skills/ of the clone,
-# so every seat working in the clone already has it.
+# Claude Code and Codex discover developing-openrig in the product clone.
+# Pi selects generated snapshots explicitly; see PI-SKILLS.md and pi-skills.lock.json.
 
 resources:
+  skills:
+    # BEGIN GENERATED PI RESOURCES
+    - { id: agent-operated-software, path: skills/agent-operated-software }
+    - { id: agent-operated-workflows, path: skills/agent-operated-workflows }
+    - { id: applying-a-permission-policy, path: skills/applying-a-permission-policy }
+    - { id: delegating-work, path: skills/delegating-work }
+    - { id: developing-openrig, path: skills/developing-openrig }
+    - { id: forming-an-openrig-mental-model, path: skills/forming-an-openrig-mental-model }
+    - { id: loading-addressable-markdown, path: skills/loading-addressable-markdown }
+    - { id: messaging-the-human, path: skills/messaging-the-human }
+    - { id: mission-slice-sop, path: skills/mission-slice-sop }
+    - { id: openrig-operating-model, path: skills/openrig-operating-model }
+    - { id: openrig-skills, path: skills/openrig-skills }
+    - { id: openrig-user, path: skills/openrig-user }
+    - { id: orienting-to-an-inherited-seat, path: skills/orienting-to-an-inherited-seat }
+    - { id: queue-handoff, path: skills/queue-handoff }
+    - { id: refocusing, path: skills/refocusing }
+    - { id: retiring-and-inheriting-a-seat, path: skills/retiring-and-inheriting-a-seat }
+    - { id: seat-continuity-and-handover, path: skills/seat-continuity-and-handover }
+    - { id: session-compaction-and-restore, path: skills/session-compaction-and-restore }
+    - { id: software-for-agents, path: skills/software-for-agents }
+    # END GENERATED PI RESOURCES
   plugins:
     # OpenRig's operating skills (openrig-user, queue-handoff and others),
     # the same plugin the shipped starters use.
@@ -75,6 +96,60 @@ profiles:
     uses:
       plugins: [openrig-core]
       runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/qa.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  lead-pi:
+    summary: Turns one issue into one pull-request-sized outcome and keeps the PR description true.
+    preferences:
+      runtime: pi
+    uses:
+      # BEGIN GENERATED PI SELECTION
+      skills: &pi-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, delegating-work, developing-openrig, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-skills, openrig-user, orienting-to-an-inherited-seat, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, software-for-agents]
+      # END GENERATED PI SELECTION
+    startup:
+      files:
+        - path: guidance/lead.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  implementer-pi:
+    summary: Makes the change on its own branch and worktree and proves it by effect.
+    preferences:
+      runtime: pi
+    uses:
+      skills: *pi-skills
+    startup:
+      files:
+        - path: guidance/implementer.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  reviewer-pi:
+    summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
+    preferences:
+      runtime: pi
+    uses:
+      skills: *pi-skills
+    startup:
+      files:
+        - path: guidance/reviewer.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  qa-pi:
+    summary: Runs the test layers the change calls for, including stub-agent scenarios, and reports what each one proved.
+    preferences:
+      runtime: pi
+    uses:
+      skills: *pi-skills
     startup:
       files:
         - path: guidance/qa.md

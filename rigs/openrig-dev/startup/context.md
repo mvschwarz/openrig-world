@@ -7,11 +7,13 @@
    the rig was launched without `--cwd`. Stop and say so.
 3. Load the `developing-openrig` skill. It ships in the clone and routes you to
    ARCHITECTURE.md, docs/as-built/arteries.md and docs/as-built/test-layers.md.
+   Pi profiles also project a pinned copy. Its code-map links refer to your
+   OpenRig checkout; resolve those maps from the checkout root in step 2.
 4. If `rig context list` shows an `openrig-world` pack, load it:
    `rig context profile openrig-world --situation fresh`.
 
-If `rig` commands fail with a network or sandbox error, you are a Codex seat in
-Codex's default sandbox, which blocks the local OpenRig daemon (the rig README
+If you are a Codex seat and `rig` commands fail with a network or sandbox error,
+Codex's default sandbox may be blocking the local OpenRig daemon (the rig README
 explains it). Say so once on your screen; the lead reads screens with
 `rig capture`. You can still read code and commits and run checks that need no
 network.

@@ -1,0 +1,261 @@
+{
+  "productRepository": "https://github.com/mvschwarz/openrig",
+  "productCommit": "aeb67bd0c7afdfdade597bfde35f669e894143c5",
+  "pluginPath": "packages/daemon/assets/plugins/openrig-core",
+  "pluginVersion": "0.1.4",
+  "pluginManifestSha256": "5bd9904c982023f0b6a994dba348bb2df3f21663327017d007a2568069a681b5",
+  "excludedSkills": [
+    "claude-compaction-restore"
+  ],
+  "skills": [
+    "agent-operated-software",
+    "agent-operated-workflows",
+    "applying-a-permission-policy",
+    "delegating-work",
+    "developing-openrig",
+    "forming-an-openrig-mental-model",
+    "loading-addressable-markdown",
+    "messaging-the-human",
+    "mission-slice-sop",
+    "openrig-operating-model",
+    "openrig-skills",
+    "openrig-user",
+    "orienting-to-an-inherited-seat",
+    "queue-handoff",
+    "refocusing",
+    "retiring-and-inheriting-a-seat",
+    "seat-continuity-and-handover",
+    "session-compaction-and-restore",
+    "software-for-agents"
+  ],
+  "files": [
+    {
+      "path": "skills/LICENSE",
+      "source": "packages/daemon/assets/plugins/openrig-core/LICENSE",
+      "mode": "100644",
+      "sha256": "9ba9bf171f337262f0c9e3616f9e49463b199c109de7268b9b0f995c2c1ac743"
+    },
+    {
+      "path": "skills/agent-operated-software/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/agent-operated-software/SKILL.md",
+      "mode": "100644",
+      "sha256": "9159d26e7884bc5205f8b06adaa65625c7d9c6bef41dc2f307d91da4cc1b424b"
+    },
+    {
+      "path": "skills/agent-operated-workflows/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/agent-operated-workflows/SKILL.md",
+      "mode": "100644",
+      "sha256": "24e54cbfa979999f523516112670618b2926ae5d42c7aa0846c94db214857ea5"
+    },
+    {
+      "path": "skills/applying-a-permission-policy/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/applying-a-permission-policy/SKILL.md",
+      "mode": "100644",
+      "sha256": "e8dbd8eec75847bfd382fb06de408c63807171d584237d1b1d7e1104c7ed4acc"
+    },
+    {
+      "path": "skills/delegating-work/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/delegating-work/SKILL.md",
+      "mode": "100644",
+      "sha256": "54c061d1b28435266952d431765b40f4170581279decfffd3b10839848cd65e4"
+    },
+    {
+      "path": "skills/developing-openrig/SKILL.md",
+      "source": ".agents/skills/developing-openrig/SKILL.md",
+      "mode": "100644",
+      "sha256": "c59017278389d10bcaaab2eb068b41ccf79f205aa80b176924afcfc7a813db4d"
+    },
+    {
+      "path": "skills/forming-an-openrig-mental-model/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/forming-an-openrig-mental-model/SKILL.md",
+      "mode": "100644",
+      "sha256": "3765c0c918988cc13d90e8a6bc91c7f5019fb5532f8c7030bd6d56172f5853ff"
+    },
+    {
+      "path": "skills/loading-addressable-markdown/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/loading-addressable-markdown/SKILL.md",
+      "mode": "100644",
+      "sha256": "104dc6a02ae6e2d0eff519387c6839cb09803945b9ee35ec3498af8feaaa8d1e"
+    },
+    {
+      "path": "skills/loading-addressable-markdown/scripts/resolve-markdown.mjs",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/loading-addressable-markdown/scripts/resolve-markdown.mjs",
+      "mode": "100755",
+      "sha256": "61a6d52c6c94fb1878361d19bdfaeb4524062fc4c483f557ab2f140e516d15f9"
+    },
+    {
+      "path": "skills/messaging-the-human/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/messaging-the-human/SKILL.md",
+      "mode": "100644",
+      "sha256": "581372434f27b1994d516e144be1324c7c5981cacf64fef6f09d1a57017faa08"
+    },
+    {
+      "path": "skills/mission-slice-sop/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/mission-slice-sop/SKILL.md",
+      "mode": "100644",
+      "sha256": "2cdc12b398f6d0fc05361791ec36066c44f1abd0137afd1f4f11a88b37bcc767"
+    },
+    {
+      "path": "skills/openrig-operating-model/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/SKILL.md",
+      "mode": "100644",
+      "sha256": "8364530a6199f6e2df42b773c35434cb4ecade0ede48e439cd9fc03df4469896"
+    },
+    {
+      "path": "skills/openrig-operating-model/scripts/compose.py",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/scripts/compose.py",
+      "mode": "100755",
+      "sha256": "f71065de92b1ef4ce3ca78a8bc0cfe07bcf54ed84bb8ec5359d3889674fe385d"
+    },
+    {
+      "path": "skills/openrig-operating-model/scripts/scaffold.sh",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/scripts/scaffold.sh",
+      "mode": "100755",
+      "sha256": "873fc78d8581e463079db24cfbdef3228b845c1a4c32e0d631234eacb3094be7"
+    },
+    {
+      "path": "skills/openrig-operating-model/scripts/trace-due.sh",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/scripts/trace-due.sh",
+      "mode": "100755",
+      "sha256": "c56a8b044e624f40972654bc810df623e70303cc5daa4aa06e3ee86b262b7792"
+    },
+    {
+      "path": "skills/openrig-operating-model/scripts/trace-stamp.sh",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/scripts/trace-stamp.sh",
+      "mode": "100755",
+      "sha256": "6fd3a0999dd36ea58252181f5129489a460a60631291f0ff84c4f374b65113c7"
+    },
+    {
+      "path": "skills/openrig-operating-model/scripts/trunk-diff.sh",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/scripts/trunk-diff.sh",
+      "mode": "100755",
+      "sha256": "c0362a5a02aed2caf28b7c026989c88a6fef0bc35fa2e6ae8ba9dba2c2f9cc64"
+    },
+    {
+      "path": "skills/openrig-operating-model/templates/LEARNED.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/templates/LEARNED.md",
+      "mode": "100644",
+      "sha256": "37d67f788ffe6c4bd282e5ed0859e07e613b8940e8fa84726c84fbaef8f87fd6"
+    },
+    {
+      "path": "skills/openrig-operating-model/templates/NOTES.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/templates/NOTES.md",
+      "mode": "100644",
+      "sha256": "ca73848520871474428f87d28bb2346feeb3bd59763b299399d9dacf4d64bcf5"
+    },
+    {
+      "path": "skills/openrig-operating-model/templates/PLAYBOOK.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/templates/PLAYBOOK.md",
+      "mode": "100644",
+      "sha256": "ff6f9dc8caab06dc7b9ae21977310ddefa23e925453bd54629ce0a669403bfb0"
+    },
+    {
+      "path": "skills/openrig-operating-model/templates/SOP.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/templates/SOP.md",
+      "mode": "100644",
+      "sha256": "1eaf0daf4f9bbf0715e6a5aaf0f29f030af5fe8b8a10232488ee97c507afa6dc"
+    },
+    {
+      "path": "skills/openrig-operating-model/templates/SPEC.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-operating-model/templates/SPEC.md",
+      "mode": "100644",
+      "sha256": "f126536daa59cea3f1cfb0898d83c7cdf99f6392f6f155ea64fe55187dd0f5f1"
+    },
+    {
+      "path": "skills/openrig-skills/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-skills/SKILL.md",
+      "mode": "100644",
+      "sha256": "e5f47e24a4c3cb1afceb1a3a93647313e9c30830aff58faabb5fa57838d1206c"
+    },
+    {
+      "path": "skills/openrig-user/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-user/SKILL.md",
+      "mode": "100644",
+      "sha256": "b866b2f7fbff98089aeeac33868566b9c8a49f0de0a1d414a8cc73222085a6fd"
+    },
+    {
+      "path": "skills/orienting-to-an-inherited-seat/CHANGELOG.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/orienting-to-an-inherited-seat/CHANGELOG.md",
+      "mode": "100644",
+      "sha256": "4d0970e75e5c15b00a48d6a7150376d646257777264fd1b9a191165a8d5a6e84"
+    },
+    {
+      "path": "skills/orienting-to-an-inherited-seat/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/orienting-to-an-inherited-seat/SKILL.md",
+      "mode": "100644",
+      "sha256": "65300ce0e299cce0148a8bacd51b0475ac1b59cd77a51a9bb2db9d43bda6e208"
+    },
+    {
+      "path": "skills/queue-handoff/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/queue-handoff/SKILL.md",
+      "mode": "100644",
+      "sha256": "d4d7e3e8772886b3771daffd60523b5f79040309b892c8be1afd47d1f7287f7b"
+    },
+    {
+      "path": "skills/refocusing/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/SKILL.md",
+      "mode": "100644",
+      "sha256": "9f5b903b26430f60334b6dcaf66009df195c67ecf825437d1883d2a06a90d790"
+    },
+    {
+      "path": "skills/refocusing/references/refocus.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/references/refocus.md",
+      "mode": "100644",
+      "sha256": "6e71513e82bd815e1506b0be4f9a972eecd3053a8deb06340c10b1d1792489bc"
+    },
+    {
+      "path": "skills/refocusing/scripts/trace-to-root.py",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/scripts/trace-to-root.py",
+      "mode": "100755",
+      "sha256": "c07f70c58e95cdcf3e80f64ee692174303256b1911fdb60cafa2eed67c3599e6"
+    },
+    {
+      "path": "skills/retiring-and-inheriting-a-seat/CHANGELOG.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/retiring-and-inheriting-a-seat/CHANGELOG.md",
+      "mode": "100644",
+      "sha256": "1756a0a6dadc015e2744b4c39a3e7cd08813d9d421e788e953ac5ad75b064197"
+    },
+    {
+      "path": "skills/retiring-and-inheriting-a-seat/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/retiring-and-inheriting-a-seat/SKILL.md",
+      "mode": "100644",
+      "sha256": "ebe58e4db60ed963fd721a1685c4c2afe1e45d93beddd211518dfb5f0b48bdcc"
+    },
+    {
+      "path": "skills/seat-continuity-and-handover/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/seat-continuity-and-handover/SKILL.md",
+      "mode": "100644",
+      "sha256": "c08aa84aa1888b8a5d63d5e3a6d2ec8b700b8b13177fba48661ba7c7508f44ff"
+    },
+    {
+      "path": "skills/seat-continuity-and-handover/references/apprentice-evidence-toolkit.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/seat-continuity-and-handover/references/apprentice-evidence-toolkit.md",
+      "mode": "100644",
+      "sha256": "a50bd7a3107762dbb6accd5d2fb7e058b408b85b09067ac79a7a8af6212234fd"
+    },
+    {
+      "path": "skills/seat-continuity-and-handover/references/apprentice-successor-seat-cutover.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/seat-continuity-and-handover/references/apprentice-successor-seat-cutover.md",
+      "mode": "100644",
+      "sha256": "0c865b76c9b0908373d3cf17439ef31b08e20a769c1cef1bea2403d963887840"
+    },
+    {
+      "path": "skills/seat-continuity-and-handover/references/orchestrator-role.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/seat-continuity-and-handover/references/orchestrator-role.md",
+      "mode": "100644",
+      "sha256": "2ddf05125e0bf22e2dc64cb328fcc4bd94fa62eb2fcfd21d75f21c488c72ecaa"
+    },
+    {
+      "path": "skills/session-compaction-and-restore/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/session-compaction-and-restore/SKILL.md",
+      "mode": "100644",
+      "sha256": "6218ebe601901fc19c3b40a6c29d57c304c82984825595f74b19120754839b63"
+    },
+    {
+      "path": "skills/software-for-agents/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/software-for-agents/SKILL.md",
+      "mode": "100644",
+      "sha256": "c36c6d3ae7484f477f1bd24e8ff72846f6dfbff685aef1e780f6011072a51ac7"
+    }
+  ]
+}
