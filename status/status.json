@@ -1,5 +1,5 @@
 {
-  "bodyDigest": "2c577a2ef7420dae5b5483e712b02a5195db5fbcd5895ee5fa78b7cabd36e734",
+  "bodyDigest": "ef6cacfb2ea379c52e66c820b17f2b37df7565bf0524788a1960fa859c0e7e08",
   "generated": {
     "by": "openrig-world tools/status.mjs",
     "generatorVersion": 1,
@@ -29,7 +29,7 @@
                 {
                   "algorithm": "sha256",
                   "coverage": "openrig.package-digest/v1",
-                  "value": "d1877047c9ce68c498771acf67933ff96e3d51f5ff94473cab5d9ef24f972e8b"
+                  "value": "810264a5434db5e93fbdb662ffeb2cb4226c7409f624865de042a444401c40b8"
                 },
                 {
                   "algorithm": "sha256",
