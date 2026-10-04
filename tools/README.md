@@ -44,7 +44,8 @@ A record's `evidence.receipt.ref` is relative to the run folder. The generator r
 SHA-256. Only the fields listed in the status schema reach `status.json`. Of a record's own text, only
 `outcome.publicNote` does. The generator refuses to write a status file containing:
 - an absolute path: any token that starts with `/` and a non-space character, `~/`, or a drive letter with `:\` or `:/`,
-  quoted or not, with any characters after it. A slash inside a word or a URL doesn't start one;
+  quoted or not, with any characters after it. A slash inside a word or a URL doesn't start one. Known limits:
+  `path:/…` and `file:///…` pass, because the `:` that lets `https://` through also lets them through;
 - an address;
 - a queue row id;
 - a private host name (`.local`, `.lan`, `.internal`);

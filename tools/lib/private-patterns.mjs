@@ -3,9 +3,11 @@
 // free-text field such as a public note.
 export const PRIVATE_PATTERNS = [
   // Any token that starts like a path: "/" and a non-space character, "~/", or a drive letter with ":\" or
-  // ":/". Quoted or not, with any segment characters (spaces inside quotes, Unicode). A slash inside a word
-  // or a URL doesn't start a token, so "and/or", "1/2" and https://github.com/... pass.
-  { kind: "absolute path", re: /(^|[\s"'`(\[{<=,;])(\/[^\s\/]|~\/|[A-Za-z]:[\\/])/u },
+  // ":/", whatever follows (spaces inside quotes, Unicode). It starts a token unless the character before it is
+  // a letter, digit or one of _ / : . ~ - (Unicode letters and digits included), so "and/or", "1/2",
+  // "résumé/données" and https://github.com/... pass, while **bold**, 2>/redirects, |pipes and typographic
+  // quotes don't hide a path. Known limits: "path:/x" and "file:///x" pass, because ":" is what lets "https:" pass.
+  { kind: "absolute path", re: /(^|[^\p{L}\p{N}_\/:.~-])(\/[^\s\/]|~\/|[A-Za-z]:[\\/])/u },
   { kind: "account, session or email address", re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*/ },
   { kind: "queue row id", re: /\bqitem-/i },
   { kind: "private host name", re: /\b[a-z0-9-]+\.(local|lan|internal|localdomain|home\.arpa)\b/i },

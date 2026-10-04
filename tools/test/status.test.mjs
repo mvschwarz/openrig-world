@@ -102,11 +102,16 @@ test("a public note with any absolute path stops generation; ordinary prose and 
     "See C:/workspace/receipt.txt for the failure.",
     "See C:\\workspace\\receipt.txt for the failure.",
     "Log at ~/run.log.",
+    "See **/Users/admin/receipt.txt** for the failure.",
+    "The log went to 2>/var/log/x.log.",
+    "Piped through a|/etc/x.",
+    "See \u201c/Workspace Files/receipt.txt\u201d for the failure.",
+    "See \u2018/tmp/receipt.txt\u2019 for the failure.",
   ]) {
     const blocked = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: note }) }] });
     assert.ok(blocked.problems.some((p) => p.includes("private text (absolute path)")), `${note}: ${blocked.problems.join("; ")}`);
   }
-  for (const note of ["The pull request did not merge.", "See https://github.com/example/rigs/issues/1 (TCP/IP and/or 1/2).", "Fixed w/o a rerun on 2026/10/04."]) {
+  for (const note of ["The pull request did not merge.", "See https://github.com/example/rigs/issues/1 (TCP/IP and/or 1/2).", "Fixed w/o a rerun on 2026/10/04.", "Notes on r\u00e9sum\u00e9/donn\u00e9es pages."]) {
     const result = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: note }) }] });
     assert.deepEqual(result.problems, [], note);
   }
