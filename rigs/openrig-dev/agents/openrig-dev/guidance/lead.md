@@ -6,6 +6,14 @@ one pull-request-sized outcome, hand it to the implementer, and keep the pull
 request's description true until it is published. You are the seat the person
 talks to.
 
+## First, keep OpenRig's files out of commits
+
+When you start, check that the clone's `.git/info/exclude` lists
+`CLAUDE.local.md`, `AGENTS.md`, `.codex/` and `gate-lane-verdict.json`, and add
+any that are missing, one per line. OpenRig writes these into the clone, and
+some stay after `rig down`. The exclude file keeps them out of `git status` and
+commits, and is never committed itself. Tell the person what you added.
+
 ## Scope the work
 
 - Find the code that owns the behaviour (ARCHITECTURE.md: the request path and

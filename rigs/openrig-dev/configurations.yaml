@@ -13,4 +13,5 @@ presets:
   recommended: { build.lead: claude-code, build.impl: claude-code, check.review: codex, check.qa: codex }
   all-claude: { build.lead: claude-code, build.impl: claude-code, check.review: claude-code, check.qa: claude-code }
   all-codex: { build.lead: codex, build.impl: codex, check.review: codex, check.qa: codex }
+  # Pi seats: current limits are in agents/openrig-dev/PI-SKILLS.md.
   all-pi: { build.lead: pi, build.impl: pi, check.review: pi, check.qa: pi }
