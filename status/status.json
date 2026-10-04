@@ -1,0 +1,36 @@
+{
+  "bodyDigest": "2650870034824630246486aff7b4f87e522b98137e4b95519fffd5b6c5e3855d",
+  "generated": {
+    "by": "openrig-world tools/status.mjs",
+    "generatorVersion": 1,
+    "notice": "Generated file. Do not edit by hand; regenerate it.",
+    "rule": "openrig.status-rule/v1"
+  },
+  "harnessChecks": {
+    "harnesses": {},
+    "state": "ok"
+  },
+  "listings": {
+    "openrig-dev": {
+      "configurations": {
+        "build.impl=claude-code,build.lead=claude-code,check.qa=claude-code,check.review=claude-code": {
+          "communityReports": 0,
+          "platforms": {}
+        },
+        "build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex": {
+          "communityReports": 0,
+          "platforms": {}
+        },
+        "build.impl=codex,build.lead=codex,check.qa=codex,check.review=codex": {
+          "communityReports": 0,
+          "platforms": {}
+        },
+        "build.impl=pi,build.lead=pi,check.qa=pi,check.review=pi": {
+          "communityReports": 0,
+          "platforms": {}
+        }
+      },
+      "state": "ok"
+    }
+  }
+}

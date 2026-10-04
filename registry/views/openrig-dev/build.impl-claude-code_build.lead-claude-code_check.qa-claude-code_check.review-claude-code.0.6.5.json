@@ -1,0 +1,897 @@
+{
+  "schema": "openrig.bundle-behaviour/v1",
+  "state": "generated",
+  "identity": {
+    "source": {
+      "repository": "https://github.com/mvschwarz/openrig-world",
+      "folder": "rigs/openrig-dev",
+      "requestedRef": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+      "resolvedCommit": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/2251cfb9d6336bce19a326074942f81dfdbe1f32/rigs/openrig-dev"
+    },
+    "configurationId": "build.impl=claude-code,build.lead=claude-code,check.qa=claude-code,check.review=claude-code",
+    "packageDigest": {
+      "algorithm": "sha256",
+      "value": "3cf7a8220eefc6b1ae39f0f77d69b32eead37d8bac46b5172273d6128947d216",
+      "coverage": "openrig.package-digest/v1"
+    },
+    "assembler": {
+      "openrigVersion": "0.6.5"
+    },
+    "generator": {
+      "openrigVersion": "0.6.5"
+    },
+    "compatibility": {
+      "minCliVersion": "0.6.6"
+    },
+    "statedProvenance": {
+      "source": {
+        "repository": "https://github.com/mvschwarz/openrig-world",
+        "folder": "rigs/openrig-dev",
+        "requestedRef": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+        "resolvedCommit": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/2251cfb9d6336bce19a326074942f81dfdbe1f32/rigs/openrig-dev"
+      },
+      "created_at": "2026-10-04T19:25:43.988Z",
+      "source_host": "24e223a2a002",
+      "daemon_version": "0.6.5",
+      "cli_version": "0.6.5"
+    },
+    "integrity": {
+      "digestValid": true,
+      "filesVerified": true
+    }
+  },
+  "team": [
+    {
+      "seat": "build.lead",
+      "pod": "build",
+      "member": "lead",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "lead",
+      "runtime": "claude-code",
+      "cwd": "."
+    },
+    {
+      "seat": "build.impl",
+      "pod": "build",
+      "member": "impl",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "implementer",
+      "runtime": "claude-code",
+      "cwd": "."
+    },
+    {
+      "seat": "check.review",
+      "pod": "check",
+      "member": "review",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "reviewer",
+      "runtime": "claude-code",
+      "cwd": "."
+    },
+    {
+      "seat": "check.qa",
+      "pod": "check",
+      "member": "qa",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "qa",
+      "runtime": "claude-code",
+      "cwd": "."
+    }
+  ],
+  "posture": [
+    {
+      "seat": "build.lead",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "acceptEdits (conditional launch floor)",
+      "basis": "product_default",
+      "permissionPrompts": "default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.lead"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "acceptEdits (conditional launch floor)",
+      "basis": "product_default",
+      "permissionPrompts": "default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.impl"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "acceptEdits (conditional launch floor)",
+      "basis": "product_default",
+      "permissionPrompts": "default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.review"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "acceptEdits (conditional launch floor)",
+      "basis": "product_default",
+      "permissionPrompts": "default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.qa"
+        }
+      ]
+    }
+  ],
+  "toldFiles": [
+    {
+      "seat": "build.lead",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/lead.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.lead.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "build.lead",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "build.lead",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/implementer.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.implementer.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.review",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/reviewer.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.reviewer.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.review",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "check.review",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/qa.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.qa.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    }
+  ],
+  "alsoRuns": [
+    {
+      "seat": "build.lead",
+      "kind": "plugins",
+      "pathOrRef": "openrig-home:plugins/openrig-core",
+      "resolution": "host_at_launch",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "build.lead",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/openrig-dev/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "build.lead",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "plugins",
+      "pathOrRef": "openrig-home:plugins/openrig-core",
+      "resolution": "host_at_launch",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/openrig-dev/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "plugins",
+      "pathOrRef": "openrig-home:plugins/openrig-core",
+      "resolution": "host_at_launch",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "check.review",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/openrig-dev/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "check.review",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "plugins",
+      "pathOrRef": "openrig-home:plugins/openrig-core",
+      "resolution": "host_at_launch",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/openrig-dev/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    }
+  ],
+  "writes": [
+    {
+      "seat": "build.lead",
+      "kind": "managed_guidance",
+      "destinationBase": "seat_cwd",
+      "path": "CLAUDE.local.md",
+      "operation": "merge managed blocks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.lead"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "plugins",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/plugins/openrig-core",
+      "operation": "project",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "managed_guidance",
+      "destinationBase": "seat_cwd",
+      "path": "CLAUDE.local.md",
+      "operation": "merge managed blocks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.impl"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "plugins",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/plugins/openrig-core",
+      "operation": "project",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "managed_guidance",
+      "destinationBase": "seat_cwd",
+      "path": "CLAUDE.local.md",
+      "operation": "merge managed blocks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.review"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "plugins",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/plugins/openrig-core",
+      "operation": "project",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "managed_guidance",
+      "destinationBase": "seat_cwd",
+      "path": "CLAUDE.local.md",
+      "operation": "merge managed blocks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.qa"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "plugins",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/plugins/openrig-core",
+      "operation": "project",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
+      "kind": "bundle_files",
+      "destinationBase": "install_target",
+      "path": ".",
+      "operation": "materialize archive",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml"
+        }
+      ]
+    }
+  ],
+  "outsideAddresses": [
+    {
+      "domain": "agentskills.io",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/forming-an-openrig-mental-model/SKILL.md"
+        }
+      ]
+    },
+    {
+      "domain": "code.claude.com",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/applying-a-permission-policy/SKILL.md"
+        }
+      ]
+    },
+    {
+      "domain": "github.com",
+      "sourceRefs": [
+        {
+          "path": "README.md"
+        },
+        {
+          "path": "agents/openrig-dev/pi-skills.lock.json"
+        },
+        {
+          "path": "bundle.yaml"
+        }
+      ]
+    },
+    {
+      "domain": "learn.chatgpt.com",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/applying-a-permission-policy/SKILL.md"
+        }
+      ]
+    },
+    {
+      "domain": "www.apache.org",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/LICENSE"
+        }
+      ]
+    },
+    {
+      "domain": "www.openrig.dev",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/openrig-skills/SKILL.md"
+        }
+      ]
+    }
+  ],
+  "needs": [
+    {
+      "seat": "build.lead",
+      "kind": "runtime",
+      "name": "claude-code",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.lead"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "login",
+      "name": "claude-code: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.lead"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "runtime",
+      "name": "claude-code",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.impl"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "login",
+      "name": "claude-code: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.impl"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "runtime",
+      "name": "claude-code",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.review"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "login",
+      "name": "claude-code: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.review"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "runtime",
+      "name": "claude-code",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.qa"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "login",
+      "name": "claude-code: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.qa"
+        }
+      ]
+    },
+    {
+      "kind": "precondition",
+      "name": "Set up a clone of openrig, add this repository's context pack, and run the install from the root of that clone.",
+      "commands": [
+        "git clone https://github.com/mvschwarz/openrig.git",
+        "cd openrig",
+        "npm ci",
+        "npm run build",
+        "rig context add --git https://github.com/mvschwarz/openrig-world"
+      ],
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "preconditions[0]"
+        }
+      ]
+    },
+    {
+      "kind": "version",
+      "name": "OpenRig CLI",
+      "versionConstraint": ">=0.6.6",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "compatibility.min_cli_version"
+        }
+      ]
+    }
+  ],
+  "unknownBeforeLaunch": [
+    {
+      "seat": "build.lead",
+      "subject": "openrig-home:plugins/openrig-core",
+      "reason": "Resolved on the installing host at launch; contents were not read.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "openrig-home:plugins/openrig-core",
+      "reason": "Resolved on the installing host at launch; contents were not read.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "openrig-home:plugins/openrig-core",
+      "reason": "Resolved on the installing host at launch; contents were not read.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "openrig-home:plugins/openrig-core",
+      "reason": "Resolved on the installing host at launch; contents were not read.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.plugins.openrig-core"
+        }
+      ]
+    },
+    {
+      "subject": "host and native settings",
+      "reason": "Effective permissions, login, model availability, runtime versions, host catalogs/plugins and configured paths are not checked before launch.",
+      "sourceRefs": []
+    },
+    {
+      "subject": "runtime behavior",
+      "reason": "Scripts and agents can compute other actions and addresses. Literal URL occurrences are not a prediction of network traffic.",
+      "sourceRefs": []
+    },
+    {
+      "subject": "built-in and host integration",
+      "reason": "The installed OpenRig/runtime adds culture, onboarding, session identity and host context, and can provision runtime hook/settings files. Those bytes and effects are outside this archive.",
+      "sourceRefs": []
+    }
+  ]
+}
