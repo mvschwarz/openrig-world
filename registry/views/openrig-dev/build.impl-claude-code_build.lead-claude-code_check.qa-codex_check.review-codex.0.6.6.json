@@ -5,14 +5,14 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/openrig-dev",
-      "requestedRef": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
-      "resolvedCommit": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/78578dcfe79e567732e73b3a7da4c05a2fa2db4d/rigs/openrig-dev"
+      "requestedRef": "26046ea41b998ab478bc292014c032abc5fef659",
+      "resolvedCommit": "26046ea41b998ab478bc292014c032abc5fef659",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/26046ea41b998ab478bc292014c032abc5fef659/rigs/openrig-dev"
     },
     "configurationId": "build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "d1877047c9ce68c498771acf67933ff96e3d51f5ff94473cab5d9ef24f972e8b",
+      "value": "810264a5434db5e93fbdb662ffeb2cb4226c7409f624865de042a444401c40b8",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
@@ -28,12 +28,12 @@
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/openrig-dev",
-        "requestedRef": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
-        "resolvedCommit": "78578dcfe79e567732e73b3a7da4c05a2fa2db4d",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/78578dcfe79e567732e73b3a7da4c05a2fa2db4d/rigs/openrig-dev"
+        "requestedRef": "26046ea41b998ab478bc292014c032abc5fef659",
+        "resolvedCommit": "26046ea41b998ab478bc292014c032abc5fef659",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/26046ea41b998ab478bc292014c032abc5fef659/rigs/openrig-dev"
       },
-      "created_at": "2026-10-04T20:19:00.451Z",
-      "source_host": "0a09cc2ae140",
+      "created_at": "2026-10-04T21:47:52.995Z",
+      "source_host": "2aef291f7ab3",
       "daemon_version": "0.6.6",
       "cli_version": "0.6.6"
     },
@@ -87,6 +87,10 @@
       "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
+      "nonInterruptive": "available",
+      "firstRunWarnings": {
+        "claudeBypass": "harness_asks_once"
+      },
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -101,6 +105,10 @@
       "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
+      "nonInterruptive": "available",
+      "firstRunWarnings": {
+        "claudeBypass": "harness_asks_once"
+      },
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -115,6 +123,7 @@
       "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
+      "nonInterruptive": "available",
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -129,6 +138,7 @@
       "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
+      "nonInterruptive": "available",
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
