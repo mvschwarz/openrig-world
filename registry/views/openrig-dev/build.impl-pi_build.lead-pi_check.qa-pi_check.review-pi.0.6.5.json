@@ -1,0 +1,2313 @@
+{
+  "schema": "openrig.bundle-behaviour/v1",
+  "state": "generated",
+  "identity": {
+    "source": {
+      "repository": "https://github.com/mvschwarz/openrig-world",
+      "folder": "rigs/openrig-dev",
+      "requestedRef": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+      "resolvedCommit": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/2251cfb9d6336bce19a326074942f81dfdbe1f32/rigs/openrig-dev"
+    },
+    "configurationId": "build.impl=pi,build.lead=pi,check.qa=pi,check.review=pi",
+    "packageDigest": {
+      "algorithm": "sha256",
+      "value": "22a6272d5a76c0e47916ad1bfdd182a09267b5db559582dbde8c3fa9aec2c0f4",
+      "coverage": "openrig.package-digest/v1"
+    },
+    "assembler": {
+      "openrigVersion": "0.6.5"
+    },
+    "generator": {
+      "openrigVersion": "0.6.5"
+    },
+    "compatibility": {
+      "minCliVersion": "0.6.6"
+    },
+    "statedProvenance": {
+      "source": {
+        "repository": "https://github.com/mvschwarz/openrig-world",
+        "folder": "rigs/openrig-dev",
+        "requestedRef": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+        "resolvedCommit": "2251cfb9d6336bce19a326074942f81dfdbe1f32",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/2251cfb9d6336bce19a326074942f81dfdbe1f32/rigs/openrig-dev"
+      },
+      "created_at": "2026-10-04T19:25:49.058Z",
+      "source_host": "24e223a2a002",
+      "daemon_version": "0.6.5",
+      "cli_version": "0.6.5"
+    },
+    "integrity": {
+      "digestValid": true,
+      "filesVerified": true
+    }
+  },
+  "team": [
+    {
+      "seat": "build.lead",
+      "pod": "build",
+      "member": "lead",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "lead-pi",
+      "runtime": "pi",
+      "cwd": "."
+    },
+    {
+      "seat": "build.impl",
+      "pod": "build",
+      "member": "impl",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "implementer-pi",
+      "runtime": "pi",
+      "cwd": "."
+    },
+    {
+      "seat": "check.review",
+      "pod": "check",
+      "member": "review",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "reviewer-pi",
+      "runtime": "pi",
+      "cwd": "."
+    },
+    {
+      "seat": "check.qa",
+      "pod": "check",
+      "member": "qa",
+      "agentRef": "local:agents/openrig-dev",
+      "profile": "qa-pi",
+      "runtime": "pi",
+      "cwd": "."
+    }
+  ],
+  "posture": [
+    {
+      "seat": "build.lead",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "resource trust resolved at launch; not a native permission policy",
+      "basis": "product_default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.lead"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "resource trust resolved at launch; not a native permission policy",
+      "basis": "product_default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.impl"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "resource trust resolved at launch; not a native permission policy",
+      "basis": "product_default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.review"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
+      "selection": "resource trust resolved at launch; not a native permission policy",
+      "basis": "product_default",
+      "nativeEffect": "unknown",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.qa"
+        }
+      ]
+    }
+  ],
+  "toldFiles": [
+    {
+      "seat": "build.lead",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/lead.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.lead-pi.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-software",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-workflows",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/applying-a-permission-policy",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/delegating-work",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/developing-openrig",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/forming-an-openrig-mental-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/loading-addressable-markdown",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/messaging-the-human",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/mission-slice-sop",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-operating-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-skills",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-user",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/orienting-to-an-inherited-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/queue-handoff",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/refocusing",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/retiring-and-inheriting-a-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/seat-continuity-and-handover",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/session-compaction-and-restore",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/software-for-agents",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "build.lead",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/implementer.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.implementer-pi.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-software",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-workflows",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/applying-a-permission-policy",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/delegating-work",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/developing-openrig",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/forming-an-openrig-mental-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/loading-addressable-markdown",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/messaging-the-human",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/mission-slice-sop",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-operating-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-skills",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-user",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/orienting-to-an-inherited-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/queue-handoff",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/refocusing",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/retiring-and-inheriting-a-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/seat-continuity-and-handover",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/session-compaction-and-restore",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/software-for-agents",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "build.impl",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.review",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/reviewer.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.reviewer-pi.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-software",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-workflows",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/applying-a-permission-policy",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/delegating-work",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/developing-openrig",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/forming-an-openrig-mental-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/loading-addressable-markdown",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/messaging-the-human",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/mission-slice-sop",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-operating-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-skills",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-user",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/orienting-to-an-inherited-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/queue-handoff",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/refocusing",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/retiring-and-inheriting-a-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/seat-continuity-and-handover",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/session-compaction-and-restore",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/software-for-agents",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "check.review",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "startup",
+      "pathOrRef": "agents/openrig-dev/guidance/qa.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "profiles.qa-pi.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-software",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/agent-operated-workflows",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/applying-a-permission-policy",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/delegating-work",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/developing-openrig",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/forming-an-openrig-mental-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/loading-addressable-markdown",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/messaging-the-human",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/mission-slice-sop",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-operating-model",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-skills",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/openrig-user",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/orienting-to-an-inherited-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/queue-handoff",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/refocusing",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/retiring-and-inheriting-a-seat",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/seat-continuity-and-handover",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/session-compaction-and-restore",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "skills",
+      "pathOrRef": "agents/openrig-dev/skills/software-for-agents",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "culture",
+      "pathOrRef": "CULTURE.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "culture_file"
+        }
+      ],
+      "delivery": "guidance_merge"
+    },
+    {
+      "seat": "check.qa",
+      "kind": "startup",
+      "pathOrRef": "startup/context.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ],
+      "delivery": "send_text"
+    }
+  ],
+  "alsoRuns": [
+    {
+      "seat": "build.lead",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "startup_startup_proof",
+      "pathOrRef": "authenticated",
+      "resolution": "archive",
+      "trigger": "after_files; fresh_start, restore",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "startup"
+        }
+      ]
+    }
+  ],
+  "writes": [
+    {
+      "kind": "bundle_files",
+      "destinationBase": "install_target",
+      "path": ".",
+      "operation": "materialize archive",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml"
+        }
+      ]
+    }
+  ],
+  "outsideAddresses": [
+    {
+      "domain": "agentskills.io",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/forming-an-openrig-mental-model/SKILL.md"
+        }
+      ]
+    },
+    {
+      "domain": "code.claude.com",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/applying-a-permission-policy/SKILL.md"
+        }
+      ]
+    },
+    {
+      "domain": "github.com",
+      "sourceRefs": [
+        {
+          "path": "README.md"
+        },
+        {
+          "path": "agents/openrig-dev/pi-skills.lock.json"
+        },
+        {
+          "path": "bundle.yaml"
+        }
+      ]
+    },
+    {
+      "domain": "learn.chatgpt.com",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/applying-a-permission-policy/SKILL.md"
+        }
+      ]
+    },
+    {
+      "domain": "www.apache.org",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/LICENSE"
+        }
+      ]
+    },
+    {
+      "domain": "www.openrig.dev",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/skills/openrig-skills/SKILL.md"
+        }
+      ]
+    }
+  ],
+  "needs": [
+    {
+      "seat": "build.lead",
+      "kind": "runtime",
+      "name": "pi",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.lead"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "kind": "login",
+      "name": "pi: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.lead"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "runtime",
+      "name": "pi",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.impl"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "kind": "login",
+      "name": "pi: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.build.members.impl"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "runtime",
+      "name": "pi",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.review"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "kind": "login",
+      "name": "pi: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.review"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "runtime",
+      "name": "pi",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.qa"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "kind": "login",
+      "name": "pi: the user's own runtime account or provider configuration",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.check.members.qa"
+        }
+      ]
+    },
+    {
+      "kind": "precondition",
+      "name": "Set up a clone of openrig, add this repository's context pack, and run the install from the root of that clone.",
+      "commands": [
+        "git clone https://github.com/mvschwarz/openrig.git",
+        "cd openrig",
+        "npm ci",
+        "npm run build",
+        "rig context add --git https://github.com/mvschwarz/openrig-world"
+      ],
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "preconditions[0]"
+        }
+      ]
+    },
+    {
+      "kind": "version",
+      "name": "OpenRig CLI",
+      "versionConstraint": ">=0.6.6",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "compatibility.min_cli_version"
+        }
+      ]
+    }
+  ],
+  "unknownBeforeLaunch": [
+    {
+      "seat": "build.lead",
+      "subject": "agent-operated-software",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "agent-operated-workflows",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "applying-a-permission-policy",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "delegating-work",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "developing-openrig",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "forming-an-openrig-mental-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "loading-addressable-markdown",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "messaging-the-human",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "mission-slice-sop",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "openrig-operating-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "openrig-skills",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "openrig-user",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "orienting-to-an-inherited-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "queue-handoff",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "refocusing",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "retiring-and-inheriting-a-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "seat-continuity-and-handover",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "session-compaction-and-restore",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "build.lead",
+      "subject": "software-for-agents",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "agent-operated-software",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "agent-operated-workflows",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "applying-a-permission-policy",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "delegating-work",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "developing-openrig",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "forming-an-openrig-mental-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "loading-addressable-markdown",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "messaging-the-human",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "mission-slice-sop",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "openrig-operating-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "openrig-skills",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "openrig-user",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "orienting-to-an-inherited-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "queue-handoff",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "refocusing",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "retiring-and-inheriting-a-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "seat-continuity-and-handover",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "session-compaction-and-restore",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "build.impl",
+      "subject": "software-for-agents",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "agent-operated-software",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "agent-operated-workflows",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "applying-a-permission-policy",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "delegating-work",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "developing-openrig",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "forming-an-openrig-mental-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "loading-addressable-markdown",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "messaging-the-human",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "mission-slice-sop",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "openrig-operating-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "openrig-skills",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "openrig-user",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "orienting-to-an-inherited-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "queue-handoff",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "refocusing",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "retiring-and-inheriting-a-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "seat-continuity-and-handover",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "session-compaction-and-restore",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "check.review",
+      "subject": "software-for-agents",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "agent-operated-software",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-software"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "agent-operated-workflows",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.agent-operated-workflows"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "applying-a-permission-policy",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.applying-a-permission-policy"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "delegating-work",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.delegating-work"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "developing-openrig",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.developing-openrig"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "forming-an-openrig-mental-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.forming-an-openrig-mental-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "loading-addressable-markdown",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.loading-addressable-markdown"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "messaging-the-human",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.messaging-the-human"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "mission-slice-sop",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.mission-slice-sop"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "openrig-operating-model",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-operating-model"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "openrig-skills",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-skills"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "openrig-user",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.openrig-user"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "orienting-to-an-inherited-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.orienting-to-an-inherited-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "queue-handoff",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.queue-handoff"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "refocusing",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.refocusing"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "retiring-and-inheriting-a-seat",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.retiring-and-inheriting-a-seat"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "seat-continuity-and-handover",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.seat-continuity-and-handover"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "session-compaction-and-restore",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.session-compaction-and-restore"
+        }
+      ]
+    },
+    {
+      "seat": "check.qa",
+      "subject": "software-for-agents",
+      "reason": "Projection destination depends on the installed runtime adapter.",
+      "sourceRefs": [
+        {
+          "path": "agents/openrig-dev/agent.yaml",
+          "field": "resources.skills.software-for-agents"
+        }
+      ]
+    },
+    {
+      "subject": "host and native settings",
+      "reason": "Effective permissions, login, model availability, runtime versions, host catalogs/plugins and configured paths are not checked before launch.",
+      "sourceRefs": []
+    },
+    {
+      "subject": "runtime behavior",
+      "reason": "Scripts and agents can compute other actions and addresses. Literal URL occurrences are not a prediction of network traffic.",
+      "sourceRefs": []
+    },
+    {
+      "subject": "built-in and host integration",
+      "reason": "The installed OpenRig/runtime adds culture, onboarding, session identity and host context, and can provision runtime hook/settings files. Those bytes and effects are outside this archive.",
+      "sourceRefs": []
+    }
+  ]
+}
