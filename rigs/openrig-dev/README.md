@@ -92,10 +92,13 @@ Every seat starts with permission prompts off. `rig.yaml` sets
 your openrig clone, run `claude --dangerously-skip-permissions`, accept its
 prompts (including "Yes, I accept" on the bypass warning), then type `/exit`.
 Claude Code remembers your answer on this machine, so the seats start without
-stopping. If a Claude seat does stop at the warning, accept it there, then run
-`rig down openrig-dev` and `rig up openrig-dev --existing --fresh build.lead build.impl`
-(name each seat that stalled) so it gets its start steps. That command reports
-`partially_restored` and exits 1, which is expected.
+stopping. If a Claude seat does stop at the warning (`rig ps --nodes` shows it
+needs attention), accept it in that seat's terminal (`rig` opens the TUI), then
+run `rig seat continue <seat>`, for example
+`rig seat continue build-lead@openrig-dev`, or press `c` on it in the TUI. Its
+start steps arrive in the same conversation, with no relaunch. That needs
+OpenRig 0.6.6; on 0.6.5, run `rig down openrig-dev`, then
+`rig up openrig-dev --existing --fresh <the stalled seats>` instead.
 
 **Or let OpenRig accept the warnings for you (OpenRig 0.6.6 or later).** Add
 `--non-interruptive` to your `rig up` or `rig bundle install` command, for
