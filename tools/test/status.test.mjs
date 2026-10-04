@@ -95,9 +95,18 @@ test("a public note naming a private host stops generation", () => {
 
 test("a public note with any absolute path stops generation; ordinary prose and GitHub links pass", () => {
   const steps = [["install", "FAIL"]];
-  const blocked = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: "See /workspace/private/receipt.txt for the failure." }) }] });
-  assert.ok(blocked.problems.some((p) => p.includes("private text (absolute path)")), blocked.problems.join("\n"));
-  for (const note of ["The pull request did not merge.", "See https://github.com/example/rigs/issues/1 (TCP/IP and/or 1/2)."]) {
+  for (const note of [
+    "See /workspace/private/receipt.txt for the failure.",
+    'See "/Workspace Files/receipt.txt" for the failure.',
+    "See /données/receipt.txt for the failure.",
+    "See C:/workspace/receipt.txt for the failure.",
+    "See C:\\workspace\\receipt.txt for the failure.",
+    "Log at ~/run.log.",
+  ]) {
+    const blocked = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: note }) }] });
+    assert.ok(blocked.problems.some((p) => p.includes("private text (absolute path)")), `${note}: ${blocked.problems.join("; ")}`);
+  }
+  for (const note of ["The pull request did not merge.", "See https://github.com/example/rigs/issues/1 (TCP/IP and/or 1/2).", "Fixed w/o a rerun on 2026/10/04."]) {
     const result = run({ files: [{ group: "team", record: team("r1", { steps, publicNote: note }) }] });
     assert.deepEqual(result.problems, [], note);
   }

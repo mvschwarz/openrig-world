@@ -43,7 +43,8 @@ Run records are private. They're kept beside the receipts they rest on, in a `ru
 A record's `evidence.receipt.ref` is relative to the run folder. The generator reads the receipt and compares its
 SHA-256. Only the fields listed in the status schema reach `status.json`. Of a record's own text, only
 `outcome.publicNote` does. The generator refuses to write a status file containing:
-- an absolute path (any `/segment/segment…` outside a word or a URL, a `~/` path or a Windows path);
+- an absolute path: any token that starts with `/` and a non-space character, `~/`, or a drive letter with `:\` or `:/`,
+  quoted or not, with any characters after it. A slash inside a word or a URL doesn't start one;
 - an address;
 - a queue row id;
 - a private host name (`.local`, `.lan`, `.internal`);

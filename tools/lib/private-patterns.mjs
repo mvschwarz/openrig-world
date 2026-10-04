@@ -2,9 +2,10 @@
 // from an allowlist of fields, so these are a second line: they catch private text inside an allowed
 // free-text field such as a public note.
 export const PRIVATE_PATTERNS = [
-  // Any absolute POSIX path of two or more segments, not inside a word or a URL (so "and/or" and
-  // https://github.com/... pass), plus home-relative and Windows paths.
-  { kind: "absolute path", re: /(^|[^\w/:.~-])(\/[\w.~-]+){2,}|(^|[^\w])~\/|\b[A-Za-z]:\\/ },
+  // Any token that starts like a path: "/" and a non-space character, "~/", or a drive letter with ":\" or
+  // ":/". Quoted or not, with any segment characters (spaces inside quotes, Unicode). A slash inside a word
+  // or a URL doesn't start a token, so "and/or", "1/2" and https://github.com/... pass.
+  { kind: "absolute path", re: /(^|[\s"'`(\[{<=,;])(\/[^\s\/]|~\/|[A-Za-z]:[\\/])/u },
   { kind: "account, session or email address", re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*/ },
   { kind: "queue row id", re: /\bqitem-/i },
   { kind: "private host name", re: /\b[a-z0-9-]+\.(local|lan|internal|localdomain|home\.arpa)\b/i },
