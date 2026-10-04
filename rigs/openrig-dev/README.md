@@ -19,7 +19,9 @@ docs/as-built/test-layers.md. `CULTURE.md` holds the team's values.
 ## Before you start
 
 - A GitHub account that can fork repositories and open pull requests, with push credentials configured on this machine.
-- OpenRig installed (`rig --version`), Node 22 or 24, and tmux.
+- OpenRig 0.6.5 or later (`rig --version`), Node 22 or 24, and tmux. This spec
+  uses `openrig-home:` plugin paths to select the plugin seeded under the
+  daemon's configured home, including a non-default `OPENRIG_HOME`.
 - Claude Code and Codex installed and logged in.
 - A clone of the openrig repository, set up as CONTRIBUTING.md describes
   (`npm install`, `npm run build`).
