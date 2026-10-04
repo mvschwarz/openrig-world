@@ -1,0 +1,5 @@
+# Read when this rig is built or installed from its GitHub link: the oldest
+# OpenRig CLI it works with. GitHub links need OpenRig 0.6.6. A build from a
+# local folder takes its minimum from --min-cli-version instead.
+compatibility:
+  min_cli_version: "0.6.6"
