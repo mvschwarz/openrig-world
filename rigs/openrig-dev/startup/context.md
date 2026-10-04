@@ -18,4 +18,9 @@ explains it). Say so once on your screen; the lead reads screens with
 `rig capture`. You can still read code and commits and run checks that need no
 network.
 
+Last, submit your startup proof: run the `rig startup-proof submit` command from
+the "OpenRig startup orientation challenge" in your startup text, exactly as
+given. It tells OpenRig and the lead that you read your start steps. If your
+`rig` commands fail in the sandbox, say so instead.
+
 Then wait for work. The lead brings it from the person, and an idle seat is fine.

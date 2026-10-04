@@ -32,11 +32,12 @@ into your clone, and the openrig repository does not ignore them. From your
 openrig clone:
 
 ```sh
-printf '%s\n' CLAUDE.local.md AGENTS.md gate-lane-verdict.json >> .git/info/exclude
+printf '%s\n' CLAUDE.local.md AGENTS.md .codex/ gate-lane-verdict.json >> .git/info/exclude
 ```
 
 This file is local to your clone and is never committed. It applies to the
-worktrees the seats create, too.
+worktrees the seats create, too. If you skip this step, the lead adds any
+missing entries when it starts.
 
 Optional: if this repository's context pack is not installed yet, add it so the
 seats can load it at start (`rig context add --help` has the options):
