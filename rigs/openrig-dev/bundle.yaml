@@ -6,10 +6,11 @@
 compatibility:
   min_cli_version: "0.6.6"
 
-# preconditions: setup to do before installing, shown before install. Run the
-# commands in order in one shell, then run the install command in that same
-# shell. OpenRig shows them; it doesn't run or check them.
+# preconditions: what to know and do before installing, shown before install.
+# Run the commands in order in one shell, then run the install command in that
+# same shell. OpenRig shows them; it doesn't run or check them.
 preconditions:
+  - name: "Install and run the rig as your normal user, not root: Claude Code refuses to bypass permissions as root or under sudo."
   - name: Set up a clone of openrig, add this repository's context pack, and run the install from the root of that clone.
     commands:
       - git clone https://github.com/mvschwarz/openrig.git
@@ -17,3 +18,4 @@ preconditions:
       - npm ci
       - npm run build
       - rig context add --git https://github.com/mvschwarz/openrig-world
+  - name: "The first time on a machine, each Claude seat stops at Claude Code's bypass-permissions warning: open the seat (rig opens the TUI) and accept it. Claude Code then remembers it on this machine."
