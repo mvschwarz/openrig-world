@@ -88,6 +88,15 @@ Every seat starts with permission prompts off. `rig.yaml` sets
 - **A seat on Pi,** if a configuration puts one there, with Pi's full resource
   trust (`--approve`).
 
+**The first time, accept Claude Code's warning in each Claude seat.** On a
+machine where Claude Code has not run with permissions bypassed before, each
+Claude seat stops at a warning that asks you to accept bypass mode. Open the seat
+(`rig` opens the TUI) and accept it; until then that seat waits. After you
+accept, Claude Code remembers it on this machine.
+
+**Install and run the rig as your normal user, not root.** Claude Code refuses
+to bypass permissions when it runs as root or under `sudo`.
+
 The team works without stopping to ask, and each seat can run any command on
 this machine as you: change or delete files you can reach, install packages and
 use the network. Install it where you are comfortable with that.
