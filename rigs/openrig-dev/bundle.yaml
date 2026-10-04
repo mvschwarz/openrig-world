@@ -18,4 +18,4 @@ preconditions:
       - npm ci
       - npm run build
       - rig context add --git https://github.com/mvschwarz/openrig-world
-  - name: "The first time on a machine, each Claude seat stops at Claude Code's bypass-permissions warning: open the seat (rig opens the TUI) and accept it. Claude Code then remembers it on this machine."
+  - name: "Before your first install on a machine, run claude --dangerously-skip-permissions once in the clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping."
