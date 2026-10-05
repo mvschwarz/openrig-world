@@ -1,17 +1,24 @@
-# Start (every seat on openrig-dev)
+# Start (every seat on this rig)
 
 1. Run `rig whoami --json`. It names your seat and your peers' sessions. Use
    those names; do not guess addresses. During launch a peer may not be listed
-   yet: if one of the four seats (build-lead, build-impl, check-review,
-   check-qa) is missing, check `rig ps --nodes` again a little later before
+   yet: if one of the four seats (the lead, the builder, the code reviewer and
+   the QA seat) is missing, check `rig ps --nodes` again a little later before
    telling anyone it is missing.
-2. Check that you are in an openrig clone: `ARCHITECTURE.md` and
-   `packages/daemon/` exist at `git rev-parse --show-toplevel`. If they don't,
-   the rig was launched without `--cwd`. Stop and say so.
-3. Load the `developing-openrig` skill. It ships in the clone and routes you to
-   ARCHITECTURE.md, docs/as-built/arteries.md and docs/as-built/test-layers.md.
-   Pi profiles also project a pinned copy. Its code-map links refer to your
-   OpenRig checkout; resolve those maps from the checkout root in step 2.
+2. Find the repository you work in: `git rev-parse --show-toplevel`. If that
+   fails, or your working directory is this rig's own folder (it holds this
+   rig's `rig.yaml`), the rig was launched without `--cwd`. Stop and say so.
+3. Get the big picture before anyone changes anything:
+   - In a clone of OpenRig (`ARCHITECTURE.md` and `packages/daemon/` at the
+     root from step 2), load the `developing-openrig` skill. It ships in the
+     clone and routes you to ARCHITECTURE.md, docs/as-built/arteries.md and
+     docs/as-built/test-layers.md. Pi profiles also project a pinned copy. Its
+     code-map links refer to your OpenRig checkout; resolve those maps from the
+     root in step 2.
+   - In any other repository, read its own maps: the README, and ARCHITECTURE,
+     CONTRIBUTING, AGENTS.md or a docs index where it has them. Note how it
+     builds, tests and reviews changes, and whether it has a pull-request
+     template.
 4. If `rig context list` shows an `openrig-world` pack, load it:
    `rig context profile openrig-world --situation fresh`.
 
@@ -26,4 +33,8 @@ the "OpenRig startup orientation challenge" in your startup text, exactly as
 given. It tells OpenRig and the lead that you read your start steps. If your
 `rig` commands fail in the sandbox, say so instead.
 
-Then wait for work. The lead brings it from the person, and an idle seat is fine.
+Then the lead looks for the first piece of work: the repository's `ROADMAP.md`
+if it has one, and candidate work such as open issues, TODOs and failing tests.
+It proposes one item to the person, says why that one, and asks before
+starting. Everyone else waits for work. The lead brings it, and an idle seat is
+fine.
