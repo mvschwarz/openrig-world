@@ -1,5 +1,5 @@
 {
-  "bodyDigest": "388368d70fc5592a4c63a0ddad0c552adc28b1ac5efc0d2180c944af986094d4",
+  "bodyDigest": "2ac544ea1ffa2fb0b5719e9aeacc33fc7caf835a21b17f7ea098a038e1c7fcc1",
   "generated": {
     "by": "openrig-world tools/status.mjs",
     "generatorVersion": 1,
@@ -11,86 +11,21 @@
     "state": "ok"
   },
   "listings": {
-    "openrig-dev": {
+    "workshop": {
       "configurations": {
-        "build.impl=claude-code,build.lead=claude-code,check.qa=claude-code,check.review=claude-code": {
-          "communityReports": 0,
-          "platforms": {
-            "linux-x64": {
-              "date": "2026-10-05",
-              "label": "partly_tested",
-              "note": "Install, launch and orientation passed with no input. The team wasn't given a task, so getting a change ready to submit wasn't tested.",
-              "openrigVersion": "0.6.6",
-              "packageDigests": [
-                {
-                  "algorithm": "sha256",
-                  "coverage": "openrig.package-digest/v1",
-                  "value": "73c1883cf52fe73a75057768403a102b1f74dc9bd5723bb6c9996f95b09bebb6"
-                },
-                {
-                  "algorithm": "sha256",
-                  "coverage": "openrig.package-digest/v1",
-                  "value": "b12ea96d8e33961c31b903c14521c8ec14c5421a054d25faf0ba49c932159127"
-                }
-              ],
-              "recordIds": [
-                "openrig-dev-all-claude-20261005-2"
-              ]
-            }
-          }
-        },
-        "build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex": {
-          "communityReports": 0,
-          "platforms": {
-            "darwin-arm64": {
-              "assistanceCount": 12,
-              "date": "2026-10-05",
-              "label": "tested_with_help",
-              "openrigVersion": "0.6.6",
-              "packageDigests": [
-                {
-                  "algorithm": "sha256",
-                  "coverage": "openrig.package-digest/v1",
-                  "value": "a030e81eb57edf26f84a78188173d008fe542ecfaf4392452614097e428b43e3"
-                },
-                {
-                  "algorithm": "sha256",
-                  "coverage": "openrig.package-digest/v1",
-                  "value": "c8841e177191796cb8b757db2603ba758bc1427b8420bcecec110a255690fffb"
-                }
-              ],
-              "recordIds": [
-                "openrig-dev-recommended-20261005-1"
-              ]
-            },
-            "linux-x64": {
-              "assistanceCount": 4,
-              "date": "2026-10-04",
-              "label": "tested_with_help",
-              "openrigVersion": "0.6.6",
-              "packageDigests": [
-                {
-                  "algorithm": "sha256",
-                  "coverage": "openrig.package-digest/v1",
-                  "value": "a030e81eb57edf26f84a78188173d008fe542ecfaf4392452614097e428b43e3"
-                },
-                {
-                  "algorithm": "sha256",
-                  "coverage": "openrig.package-digest/v1",
-                  "value": "eaf7c450f86a7958217b5365365c25b5e6106800b30cf5a4646a5744861125dc"
-                }
-              ],
-              "recordIds": [
-                "openrig-dev-recommended-20261004-3"
-              ]
-            }
-          }
-        },
-        "build.impl=codex,build.lead=codex,check.qa=codex,check.review=codex": {
+        "dev.build=claude-code,orch.lead=claude-code,review.code=claude-code,review.qa=claude-code": {
           "communityReports": 0,
           "platforms": {}
         },
-        "build.impl=pi,build.lead=pi,check.qa=pi,check.review=pi": {
+        "dev.build=claude-code,orch.lead=claude-code,review.code=codex,review.qa=codex": {
+          "communityReports": 0,
+          "platforms": {}
+        },
+        "dev.build=codex,orch.lead=codex,review.code=codex,review.qa=codex": {
+          "communityReports": 0,
+          "platforms": {}
+        },
+        "dev.build=pi,orch.lead=pi,review.code=pi,review.qa=pi": {
           "communityReports": 0,
           "platforms": {}
         }
