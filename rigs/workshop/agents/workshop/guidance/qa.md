@@ -61,3 +61,7 @@ at the worktree root, which must not be committed.
 
 Send results to the builder and the lead. If you cannot reach the daemon, write
 them on your screen under a clear heading.
+
+When you pick up a specialization others should know to ask you about, such as
+a kind of check you now run well, tell the lead so it goes in the team's
+roster.

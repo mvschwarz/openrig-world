@@ -55,3 +55,7 @@ the person decide when the branch goes out.
 
 Send the lead a report they can quote in the pull request: what changed, each
 command you ran with the commit and the result, and what you could not run.
+
+When you pick up a specialization others should know to ask you about, such as
+a part of the code you now know well, tell the lead so it goes in the team's
+roster.

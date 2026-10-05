@@ -33,19 +33,23 @@ Tell the person what you added.
 A roster tells anyone who uses `rig roster find` who to ask on this team and
 why. Write one the first time you start, and never replace one that exists:
 
-1. Run `rig roster list`. If it shows a roster with id `workshop`, stop here.
-2. The file is `<workspace.root>/rosters/workshop.json`; `rig config get
+1. Take the rig's name from `rig whoami --json` (`identity.rigName`). It is
+   `workshop` unless this team was launched under another name; `<rig>` below
+   means that name. If it is null, the daemon isn't reachable: skip the roster
+   for now and try again at your next start.
+2. Run `rig roster list`. If it shows a roster with id `<rig>`, stop here.
+3. The file is `<workspace.root>/rosters/<rig>.json`; `rig config get
    workspace.root` gives the root. If the file exists, stop here too. Create
    the `rosters/` folder if it is missing.
-3. Run `rig ps --nodes --rig workshop --json --fields canonicalSessionName,hostSelfId`.
+4. Run `rig ps --nodes --rig <rig> --json --fields canonicalSessionName,hostSelfId`.
    It gives each seat's exact address and the host that serves it.
-4. Write the file with those addresses and hosts, today's date, and yourself as
+5. Write the file with those addresses and hosts, today's date, and yourself as
    curator (format: OpenRig's `docs/reference/rosters.md`):
 
    ```json
    {
      "version": 1,
-     "id": "workshop",
+     "id": "<rig>",
      "name": "Workshop",
      "purpose": "Build software in this repository, one pull request at a time",
      "curator": { "seat": "<your address>", "host": "<your host>" },
@@ -67,9 +71,20 @@ why. Write one the first time you start, and never replace one that exists:
    }
    ```
 
-5. Run `rig roster list` to see it listed, then tell the person in one line.
+6. Run `rig roster list` to see it listed, then tell the person in one line.
 
 Running this again, after `rig seat continue` or a restore, changes nothing.
+
+### Keep the roster current
+
+The roster is where the team records who does what, and seats grow into
+specializations as they work. You curate it. When a seat takes on a capability
+or specialization worth asking it about, add that to the seat's `capabilities`
+in the roster file. If its `use_when` or `why` no longer fit, adjust them too.
+Leave the other fields as they are, set the roster's `updated_at` to today,
+then run `rig roster list` to check it still lists. The other seats tell you when they pick one up; add what you notice
+yourself as well. Starting again never replaces the file; only these edits
+change it.
 
 ## Propose the first piece of work
 
