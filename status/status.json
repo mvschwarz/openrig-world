@@ -1,5 +1,5 @@
 {
-  "bodyDigest": "003067a0b5b8c2a097aacad00dc7b7fc76cdebcb3ebb9e1dc6d7b2916d7b7852",
+  "bodyDigest": "34b5084f3ff244e81a361fa52e5b7e51778870ebf940f1b3d50064ad9876b349",
   "generated": {
     "by": "openrig-world tools/status.mjs",
     "generatorVersion": 1,
@@ -37,6 +37,22 @@
         "build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex": {
           "communityReports": 0,
           "platforms": {
+            "darwin-arm64": {
+              "assistanceCount": 12,
+              "date": "2026-10-05",
+              "label": "tested_with_help",
+              "openrigVersion": "0.6.6",
+              "packageDigests": [
+                {
+                  "algorithm": "sha256",
+                  "coverage": "openrig.package-digest/v1",
+                  "value": "c8841e177191796cb8b757db2603ba758bc1427b8420bcecec110a255690fffb"
+                }
+              ],
+              "recordIds": [
+                "openrig-dev-recommended-20261005-1"
+              ]
+            },
             "linux-x64": {
               "assistanceCount": 4,
               "date": "2026-10-04",
