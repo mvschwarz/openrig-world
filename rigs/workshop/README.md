@@ -81,8 +81,8 @@ it with your name if you want the lead to know who sent it:
 rig send orch-lead@workshop "Please take issue #<number>: <one line on what you want>"
 ```
 
-At first start the lead also publishes the team's roster, `<workspace.root>/rosters/workshop.json`,
-if there isn't one yet. Need expertise your team lacks? `rig roster find <topic>` lists who to ask and why.
+At first start the lead also publishes the team's roster, `<workspace.root>/rosters/workshop.json`
+(named after the rig), if there isn't one yet. Need expertise your team lacks? `rig roster find <topic>` lists who to ask and why.
 
 Stop the team with `rig down workshop`. That removes OpenRig's blocks from
 `CLAUDE.local.md` and `AGENTS.md`. The seats' git worktrees under `.worktrees/`
