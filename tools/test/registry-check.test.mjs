@@ -6,7 +6,7 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { statusBodyDigest } from "../lib/canonical.mjs";
 import { readYaml } from "../lib/load.mjs";
-import { RECEIVED, checkRepository, submissionNotices } from "../registry-check.mjs";
+import { RECEIVED, checkRepository, nameTaken, submissionNotices } from "../registry-check.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, "..", "..");
@@ -50,6 +50,18 @@ test("a submission with repository, folder and ref passes and is acknowledged", 
     assert.deepEqual(findings, [], name);
     assert.deepEqual(notices, [{ file: `registry/submissions/${name}`, message: RECEIVED }], name);
   }
+});
+
+test("a submission whose name is already listed still passes, with a hint to choose a distinct name", () => {
+  for (const name of ["openrig-dev.yaml", "OpenRig-Dev.yml"]) {
+    const { findings, notices } = check({ entries: withEntry({ [`submissions/${name}`]: SUBMISSION }), withNotices: true });
+    assert.deepEqual(findings, [], name);
+    const stem = name.replace(/\.ya?ml$/, "");
+    assert.deepEqual(notices, [{ file: `registry/submissions/${name}`, message: `${RECEIVED} ${nameTaken(stem)}` }], name);
+    assert.ok(notices[0].message.endsWith(`for example ${stem}-<your-name>.`), name);
+  }
+  const free = check({ entries: withEntry({ "submissions/openrig-dev-alice.yaml": SUBMISSION }), withNotices: true });
+  assert.deepEqual(free.notices, [{ file: "registry/submissions/openrig-dev-alice.yaml", message: RECEIVED }]);
 });
 
 test("a malformed submission fails with what a submission needs", () => {
