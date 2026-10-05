@@ -1,0 +1,26 @@
+name: team
+version: "1.0"
+resources:
+  skills:
+    - { id: notes, path: skills/notes }
+  plugins:
+    - id: kit
+      source:
+        kind: local
+        path: "openrig-home:plugins/kit"
+  runtime_resources:
+    - { id: activity-hooks, path: runtime/activity-hooks.json, runtime: claude-code, type: claude_activity_hooks }
+    - { id: tools-mcp, path: runtime/mcp.json, runtime: claude-code, type: claude_mcp_fragment }
+profiles:
+  lead:
+    preferences: { runtime: claude-code }
+    uses:
+      skills: [notes]
+      plugins: [kit]
+      runtime_resources: [activity-hooks, tools-mcp]
+  reviewer:
+    preferences: { runtime: codex }
+    uses:
+      skills: [notes]
+      plugins: [kit]
+      runtime_resources: [activity-hooks]

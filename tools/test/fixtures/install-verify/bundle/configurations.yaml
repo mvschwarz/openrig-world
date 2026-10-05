@@ -1,0 +1,8 @@
+schema: openrig.bundle-configurations/v1
+recommended: recommended
+seats:
+  build.lead: { runtimes: { claude-code: lead, codex: lead } }
+  check.review: { runtimes: { codex: reviewer, claude-code: reviewer } }
+presets:
+  recommended: { build.lead: claude-code, check.review: codex }
+  all-claude: { build.lead: claude-code, check.review: claude-code }
