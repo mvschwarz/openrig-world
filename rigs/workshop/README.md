@@ -20,7 +20,7 @@ repository's own `developing-openrig` skill.
 
 ## Before you start
 
-- OpenRig 0.6.5 or later (`rig --version`), Node 22 or 24, and tmux.
+- OpenRig 0.6.6 or later (`rig --version`), Node 22 or 24, and tmux.
 - Claude Code and Codex installed and logged in.
 - A clone of the repository you want to work on, set up the way its README or
   CONTRIBUTING says.
@@ -108,10 +108,9 @@ stopping. If a Claude seat does stop at the warning (`rig ps --nodes` shows it
 needs attention), accept it in that seat's terminal (`rig` opens the TUI), then
 run `rig seat continue <seat>`, for example `rig seat continue orch-lead@workshop`,
 or press `c` on it in the TUI. Its start steps arrive in the same conversation,
-with no relaunch. That needs OpenRig 0.6.6; on 0.6.5, run `rig down workshop`,
-then `rig up workshop --existing --fresh <the stalled seats>` instead.
+with no relaunch.
 
-**Or let OpenRig accept the warnings for you (OpenRig 0.6.6 or later).** Add
+**Or let OpenRig accept the warnings for you.** Add
 `--non-interruptive` to your `rig up` or `rig bundle install` command, for
 example:
 

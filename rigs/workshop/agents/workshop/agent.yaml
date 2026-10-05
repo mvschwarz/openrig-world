@@ -1,9 +1,9 @@
-name: openrig-dev
+name: workshop
 version: "1.0"
 description: >
-  A seat on the openrig-dev rig, which builds OpenRig from a clone of its
-  repository. The rig member's profile picks the role: lead, implementer,
-  reviewer or qa. (An OpenRig profile selects resources and startup files;
+  A seat on the workshop rig, which works in a clone of any repository,
+  OpenRig's own included. The rig member's profile picks the role: lead,
+  builder, code-reviewer or qa. (An OpenRig profile selects resources and startup files;
   it is not a Codex permission profile.)
 
 # Claude Code and Codex seats get the skills their profile lists below, projected into the
@@ -71,7 +71,7 @@ profiles:
           required: true
       actions: []
 
-  implementer:
+  builder:
     summary: Makes the change on its own branch and worktree and proves it by effect.
     preferences:
       runtime: claude-code
@@ -81,12 +81,12 @@ profiles:
       runtime_resources: [claude-activity-hooks]
     startup:
       files:
-        - path: guidance/implementer.md
+        - path: guidance/builder.md
           delivery_hint: send_text
           required: true
       actions: []
 
-  reviewer:
+  code-reviewer:
     summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
     preferences:
       runtime: codex
@@ -96,7 +96,7 @@ profiles:
       runtime_resources: [claude-activity-hooks]
     startup:
       files:
-        - path: guidance/reviewer.md
+        - path: guidance/code-reviewer.md
           delivery_hint: send_text
           required: true
       actions: []
@@ -131,7 +131,7 @@ profiles:
           required: true
       actions: []
 
-  implementer-pi:
+  builder-pi:
     summary: Makes the change on its own branch and worktree and proves it by effect.
     preferences:
       runtime: pi
@@ -139,12 +139,12 @@ profiles:
       skills: *pi-skills
     startup:
       files:
-        - path: guidance/implementer.md
+        - path: guidance/builder.md
           delivery_hint: send_text
           required: true
       actions: []
 
-  reviewer-pi:
+  code-reviewer-pi:
     summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
     preferences:
       runtime: pi
@@ -152,7 +152,7 @@ profiles:
       skills: *pi-skills
     startup:
       files:
-        - path: guidance/reviewer.md
+        - path: guidance/code-reviewer.md
           delivery_hint: send_text
           required: true
       actions: []

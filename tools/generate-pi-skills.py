@@ -8,7 +8,7 @@ import re
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-AGENT = ROOT / "rigs/openrig-dev/agents/openrig-dev"
+AGENT = ROOT / "rigs/workshop/agents/workshop"
 LOCK = AGENT / "pi-skills.lock.json"
 PLUGIN = "packages/daemon/assets/plugins/openrig-core"
 # This skill operates Claude's native compaction, not Pi's RPC runtime.

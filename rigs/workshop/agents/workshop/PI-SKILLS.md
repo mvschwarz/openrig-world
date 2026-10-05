@@ -1,6 +1,6 @@
 # Pi skill inputs
 
-`lead-pi`, `implementer-pi`, `reviewer-pi` and `qa-pi` reuse the contributor
+`lead-pi`, `builder-pi`, `code-reviewer-pi` and `qa-pi` reuse the rig's
 roles and explicitly select skills. They do not select the Claude/Codex plugin
 or Claude activity hooks. The recommended profiles retain those selections.
 
