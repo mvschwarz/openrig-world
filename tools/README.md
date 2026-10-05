@@ -6,7 +6,7 @@ anything, or run anything a submitted bundle contains.
 
 | Program | What it does | Where it runs |
 |---|---|---|
-| `registry-check.mjs` | Checks `registry/*.yaml`, each entry's behaviour views, `status/journeys/` and `status/status.json` | CI on every pull request and push to main |
+| `registry-check.mjs` | Checks `registry/*.yaml`, each entry's behaviour views, `registry/submissions/`, `status/journeys/` and `status/status.json` | CI on every pull request and push to main |
 | `status.mjs` | Generates `status/status.json` from run records, or checks that the committed file equals regenerated output | Wherever the run records and their receipts are kept |
 
 ```sh

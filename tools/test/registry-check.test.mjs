@@ -6,7 +6,7 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { statusBodyDigest } from "../lib/canonical.mjs";
 import { readYaml } from "../lib/load.mjs";
-import { checkRepository } from "../registry-check.mjs";
+import { RECEIVED, checkRepository, submissionNotices } from "../registry-check.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, "..", "..");
@@ -16,13 +16,14 @@ const VIEW_PATH = readYaml(path.join(HERE, "fixtures", "registry-valid.yaml")).c
 const VIEW = fixture("behaviour-generated.json");
 
 /** A temporary openrig-world tree: registry files by name, views by registry path, an optional status file. */
-function check({ entries = { "openrig-dev.yaml": VALID_ENTRY }, views = { [VIEW_PATH]: VIEW }, status } = {}) {
+function check({ entries = { "openrig-dev.yaml": VALID_ENTRY }, views = { [VIEW_PATH]: VIEW }, status, withNotices = false } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "registry-check-"));
   try {
     for (const [name, text] of Object.entries(entries)) write(root, `registry/${name}`, text);
     for (const [name, text] of Object.entries(views)) write(root, `registry/${name}`, text);
     fs.cpSync(path.join(REPO, "status", "journeys"), path.join(root, "status", "journeys"), { recursive: true });
     if (status !== undefined) write(root, "status/status.json", typeof status === "string" ? status : JSON.stringify(status, null, 2));
+    if (withNotices) return { findings: checkRepository(root), notices: submissionNotices(root) };
     return checkRepository(root);
   } finally {
     fs.rmSync(root, { recursive: true, force: true });
@@ -38,6 +39,45 @@ const has = (findings, text) => assert.ok(findings.some((f) => f.includes(text))
 
 test("this repository as committed passes", () => {
   assert.deepEqual(checkRepository(REPO), []);
+});
+
+const SUBMISSION = "repository: https://github.com/someone/rigs\nfolder: rigs/my-team\nref: main\n";
+const withEntry = (files) => ({ "openrig-dev.yaml": VALID_ENTRY, ...files });
+
+test("a submission with repository, folder and ref passes and is acknowledged", () => {
+  for (const name of ["my-team.yaml", "my-team.yml"]) {
+    const { findings, notices } = check({ entries: withEntry({ [`submissions/${name}`]: SUBMISSION }), withNotices: true });
+    assert.deepEqual(findings, [], name);
+    assert.deepEqual(notices, [{ file: `registry/submissions/${name}`, message: RECEIVED }], name);
+  }
+});
+
+test("a malformed submission fails with what a submission needs", () => {
+  for (const [name, text] of [
+    ["no-ref.yaml", "repository: https://github.com/someone/rigs\nfolder: rigs/my-team\n"],
+    ["not-github.yaml", "repository: https://gitlab.com/someone/rigs\nfolder: rigs/my-team\nref: main\n"],
+    ["parent-folder.yaml", "repository: https://github.com/someone/rigs\nfolder: ../elsewhere\nref: main\n"],
+    ["extra-field.yaml", `${SUBMISSION}packageDigest: abc\n`],
+    ["notes.json", "{}"],
+  ]) {
+    const { findings, notices } = check({ entries: withEntry({ [`submissions/${name}`]: text }), withNotices: true });
+    has(findings, "a submission has exactly three fields: repository");
+    assert.deepEqual(notices, [], name);
+  }
+});
+
+test("a file name that could break CI output is quoted, never echoed", () => {
+  const { findings, notices } = check({ entries: withEntry({ "submissions/x\n::warning::y.yaml": SUBMISSION }), withNotices: true });
+  has(findings, 'registry/submissions/"x\\n::warning::y.yaml"');
+  assert.ok(findings.every((f) => !f.includes("\n")), findings.join(" | "));
+  assert.deepEqual(notices, []);
+});
+
+test("a submission placed beside the entries is pointed to submissions/; a broken full entry is not", () => {
+  has(check({ entries: withEntry({ "my-team.yaml": SUBMISSION }) }), "add registry/submissions/my-team.yaml with only repository, folder and ref");
+  const broken = check({ entries: { "openrig-dev.yaml": VALID_ENTRY.replace(/^review:[\s\S]*?(?=^status:)/m, "") } });
+  has(broken, "not a registry entry v1");
+  assert.ok(broken.every((f) => !f.includes("registry/submissions/")), broken.join("\n"));
 });
 
 test("a valid entry with its behaviour view passes", () => {

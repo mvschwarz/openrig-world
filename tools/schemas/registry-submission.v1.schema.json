@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openrig.dev/schemas/registry-submission.v1.json",
+  "title": "Registry submission v1 (openrig-world/registry/submissions/<name>.yaml)",
+  "description": "A rig bundle submitted for listing: where it lives, nothing else. A maintainer completes the registry entry (pinned commit, configurations, package digests, behaviour views, review). A submission is never listed.",
+  "type": "object",
+  "required": ["repository", "folder", "ref"],
+  "additionalProperties": false,
+  "properties": {
+    "repository": { "$ref": "https://openrig.dev/schemas/bundle-common.v1.json#/$defs/source/properties/repository" },
+    "folder": { "$ref": "https://openrig.dev/schemas/bundle-common.v1.json#/$defs/source/properties/folder" },
+    "ref": { "type": "string", "minLength": 1, "description": "A branch, tag or commit." }
+  }
+}
