@@ -42,11 +42,26 @@ worktrees the seats create, too. If you skip this step, the lead adds any
 missing entries when it starts.
 
 Optional: if this repository's context pack is not installed yet, add it so the
-seats can load it at start (`rig context add --help` has the options):
+seats can load it at start (`rig context add --help` has the options). It needs
+the OpenRig daemon running. `rig up` starts the daemon by itself, but this step
+comes first, so if `rig context add` stops with "Daemon not running.", run
+`rig daemon start` and then add the pack again:
 
 ```sh
 rig context add --git <path-or-URL-of-your-openrig-world-clone>
 ```
+
+**If you ask Claude Code to do this setup for you,** plan to run some steps
+yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto
+mode declined three of them:
+
+- **Cloning and building the openrig repository** (`[Code from External]`).
+  Run the clone and the build yourself.
+- **Adding a permission rule for itself** (`[Self-Modification]`). Auto mode
+  doesn't let Claude change its own permissions. If you want a rule, add it
+  yourself with `/permissions` or in `.claude/settings.local.json`.
+- **`rig context add --git`** (`[Untrusted Code Integration]`), even with an
+  allow rule for that command. Run it yourself.
 
 ## Run it
 
