@@ -47,9 +47,14 @@ test("reports present, missing and unknown per seat in its runtime's own locatio
   assert.equal(statusOf(review, "resource: activity-hooks"), undefined);
 }));
 
-test("without --home only the project's skill folder counts", () => withInstall(({ cwd }) => {
-  const review = bySeat(verifyInstall({ bundleDir: BUNDLE, cwd }))["check.review"];
-  assert.equal(statusOf(review, "skills: map"), "missing");
+test("without --home a skill not in the project's folder is unknown, and --home settles it", () => withInstall(({ cwd, home }) => {
+  const without = bySeat(verifyInstall({ bundleDir: BUNDLE, cwd }))["check.review"];
+  assert.equal(statusOf(without, "skills: map"), "unknown");
+  assert.match(without.items.find((i) => i.item === "skills: map").detail, /^not found in the project's skill folder; pass --home to check the user's/);
+  assert.equal(statusOf(without, "skills: handoff"), "present"); // the project folder still decides when it has the skill
+  const withHome = bySeat(verifyInstall({ bundleDir: BUNDLE, cwd, home }))["check.review"];
+  assert.equal(statusOf(withHome, "skills: map"), "present");
+  assert.equal(statusOf(withHome, "skills: notes"), "missing");
 }));
 
 test("a preset switches the runtime and the locations checked", () => withInstall(({ cwd, home }) => {

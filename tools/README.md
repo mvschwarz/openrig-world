@@ -28,8 +28,8 @@ what each seat is declared to get and looks for it where that seat's runtime rea
 - **The managed block target and its blocks:** OpenRig's default culture, the rig's culture file, and Markdown startup
   files, in `CLAUDE.md` (or the rig's `managed_blocks` file) for Claude Code and in `AGENTS.md` for Codex.
 - **Skills,** including each skill in a selected plugin: `.claude/skills/<name>` or `.agents/skills/<name>`, in the
-  project or, with `--home`, the user's home. A plugin's projected copy (`.claude/plugins/<id>`,
-  `.codex/plugins/<id>`) is reported, but it isn't a skill folder.
+  project or, with `--home`, the user's home. Without `--home`, a skill not in the project's folder is `unknown`.
+  A plugin's projected copy (`.claude/plugins/<id>`, `.codex/plugins/<id>`) is reported, but it isn't a skill folder.
 - **MCP servers and runtime resources** (activity hooks, settings fragments).
 - **Startup files typed in at launch** are `unknown` here. The seat's own session shows them.
 

@@ -131,9 +131,14 @@ function checkSeat(rig, s, { bundleDir, cwd, home, openrigHome }) {
     declared.skills.push(name);
     const project = path.join(loc.skillRoot, name, "SKILL.md");
     if (isFile(path.join(seatCwd, project))) return add(`skills: ${name}`, "present", project, from ?? null);
-    if (home && isFile(path.join(home, loc.skillRoot, name, "SKILL.md"))) return add(`skills: ${name}`, "present", `~/${project}`, from ?? null);
+    // The runtime also reads the user's skill folder, so without --home a project miss is unknown, not missing.
+    if (!home) {
+      return add(`skills: ${name}`, "unknown", path.join(loc.skillRoot, name),
+        ["not found in the project's skill folder; pass --home to check the user's", from, copyNote].filter(Boolean).join("; "));
+    }
+    if (isFile(path.join(home, loc.skillRoot, name, "SKILL.md"))) return add(`skills: ${name}`, "present", `~/${project}`, from ?? null);
     add(`skills: ${name}`, "missing", path.join(loc.skillRoot, name),
-      [`not in a skill folder ${s.runtime} reads (${home ? "project or user" : "project; pass --home for the user's"})`, from, copyNote].filter(Boolean).join("; "));
+      [`not in a skill folder ${s.runtime} reads (project or user)`, from, copyNote].filter(Boolean).join("; "));
   };
   for (const id of s.profile?.uses?.skills ?? []) skill(id);
 
