@@ -41,9 +41,9 @@ For work in a git worktree, read `docs/reference/worktree-builds.md`: each workt
 
 ## Optional: a small contributor rig
 
-One agent in one terminal is enough to contribute. If you want a pair, one agent that builds and
-one that checks the result, see the contributor rig in [`rigs/openrig-dev/`](../rigs/openrig-dev/)
-and follow its README.
+One agent in one terminal is enough to contribute. If you want a team, with agents that build and
+others that check the result, see the workshop rig in [`rigs/workshop/`](../rigs/workshop/) and
+follow its README.
 
 Whatever rig you launch, preview it first with `rig up <spec> --plan`, which shows what would
 happen without doing it.

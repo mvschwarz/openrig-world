@@ -1,0 +1,19 @@
+# Read by OpenRig when it builds this rig into a bundle.
+#
+# compatibility: the oldest OpenRig CLI that a build from the GitHub link works
+# with (GitHub links need 0.6.6). A build from a local folder takes its minimum
+# from --min-cli-version instead.
+compatibility:
+  min_cli_version: "0.6.6"
+
+# preconditions: what to know and do before installing, shown before install.
+# Run the commands in order in one shell, then run the install command in that
+# same shell. OpenRig shows them; it doesn't run or check them.
+preconditions:
+  - name: "Install and run the rig as your normal user, not root: Claude Code refuses to bypass permissions as root or under sudo."
+  - name: Open a shell at the root of your clone of the repository you want to work on, set up the way its README says. Optionally add OpenRig's public context pack, then run the install from that same shell.
+    commands:
+      - rig context add --git https://github.com/mvschwarz/openrig-world
+  - name: "Keep OpenRig's files out of your commits: from the root of your clone, add CLAUDE.local.md, AGENTS.md, /.openrig/ and .claude/settings.local.json to .git/info/exclude (the README has the command). The lead adds any that are missing when it starts."
+  - name: "If you ask Claude Code to do this setup for you, plan to run two steps yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto mode declined adding a permission rule for itself ([Self-Modification]), so add any rule yourself with /permissions or in .claude/settings.local.json; and rig context add --git ([Untrusted Code Integration]), even with an allow rule for that command, so run it yourself."
+  - name: "Before your first install on a machine, run claude --dangerously-skip-permissions once in your clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping."

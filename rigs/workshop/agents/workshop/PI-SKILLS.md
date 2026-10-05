@@ -1,16 +1,20 @@
 # Pi skill inputs
 
-`lead-pi`, `implementer-pi`, `reviewer-pi` and `qa-pi` reuse the contributor
-roles and explicitly select skills. They do not select the Claude/Codex plugin
-or Claude activity hooks. The recommended profiles retain those selections.
+`lead-pi`, `builder-pi`, `code-reviewer-pi` and `qa-pi` reuse the rig's
+roles and explicitly select skills. They do not select the Claude activity
+hooks, which the Claude Code and Codex profiles keep.
 
 `skills/` is generated, not an independently maintained skill library. Its
 canonical sources are the public OpenRig product's bundled `openrig-core`
 skills and `.agents/skills/developing-openrig/SKILL.md`. The lock records the
 full product commit, bundled plugin version, source paths, file hashes and Git
 modes. Complete skill directories include helper scripts and reference files.
-The Claude-specific `claude-compaction-restore` skill and plugin hooks are not
-selected for Pi. The copied Apache-2.0 license is in `skills/LICENSE`.
+The Claude-specific `claude-compaction-restore` skill is copied for the Claude
+Code and Codex profiles but not selected for Pi (`piUnselectedSkills` in the
+lock), and plugin hooks are not selected for Pi. The generator appends the
+rig's own skills in `bundle-skills/` to the Pi selection; each must also be
+declared under `resources.skills`. The copied Apache-2.0 license is in
+`skills/LICENSE`.
 
 Starting with OpenRig 0.6.6, a bundle's explicitly selected skill is used over a
 managed catalog copy with the same identity when their contents or permissions

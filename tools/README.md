@@ -17,7 +17,7 @@ node --test test/*.test.mjs
 node registry-check.mjs
 node status.mjs generate --records <folder> [--records <folder> ...]
 node status.mjs check --records <folder> [--records <folder> ...]
-node install-verify.mjs --bundle ../rigs/openrig-dev --cwd <installed working directory> [--preset <name>] [--home <dir>] [--json]
+node install-verify.mjs --bundle ../rigs/workshop --cwd <installed working directory> [--preset <name>] [--home <dir>] [--json]
 ```
 
 ## Install check (`install-verify.mjs`)

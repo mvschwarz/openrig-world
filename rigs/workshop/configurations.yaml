@@ -1,0 +1,17 @@
+# The configurations this rig offers: which runtime each seat may use, and the profile it uses there.
+# `rig bundle configurations rigs/workshop/rig.yaml` lists them with their configuration IDs, and
+# `rig bundle create rigs/workshop/rig.yaml --preset <name>` (or `--seat pod.member=runtime`) builds one.
+# Format: openrig.bundle-configurations/v1 (OpenRig's docs/reference/bundle-formats.md).
+schema: openrig.bundle-configurations/v1
+recommended: recommended
+seats:
+  orch.lead: { runtimes: { claude-code: lead, codex: lead, pi: lead-pi } }
+  dev.build: { runtimes: { claude-code: builder, codex: builder, pi: builder-pi } }
+  review.code: { runtimes: { codex: code-reviewer, claude-code: code-reviewer, pi: code-reviewer-pi } }
+  review.qa: { runtimes: { codex: qa, claude-code: qa, pi: qa-pi } }
+presets:
+  recommended: { orch.lead: claude-code, dev.build: claude-code, review.code: codex, review.qa: codex }
+  all-claude: { orch.lead: claude-code, dev.build: claude-code, review.code: claude-code, review.qa: claude-code }
+  all-codex: { orch.lead: codex, dev.build: codex, review.code: codex, review.qa: codex }
+  # Pi seats: current limits are in agents/workshop/PI-SKILLS.md.
+  all-pi: { orch.lead: pi, dev.build: pi, review.code: pi, review.qa: pi }
