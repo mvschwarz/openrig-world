@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { statusBodyDigest } from "../lib/canonical.mjs";
 import { compareVersions } from "../lib/status-rule.mjs";
 import { generate } from "../status.mjs";
-import { CASES, PLANTED, entry, plantedRecord, team } from "./fixtures/status-cases.mjs";
+import { CASES, MIX, PLANTED, entry, plantedRecord, team } from "./fixtures/status-cases.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
@@ -80,6 +80,17 @@ test("private values planted in every private field never reach the status file"
   assert.deepEqual(result.problems, []);
   assert.equal(result.status.listings.team.configurations[Object.keys(result.status.listings.team.configurations)[0]].platforms["linux-x64"].label, "tested_with_help");
   for (const value of PLANTED) assert.ok(!result.text.includes(value), `status carries ${value}`);
+});
+
+test("a Partly tested label carries its record's public note, and none without one", () => {
+  const steps = [["install", "PASS"], ["launch", "PASS"], ["orient", "PASS"], ["pull-request", "NOT_RUN"]];
+  const label = (record) => run({ files: [{ group: "team", record }] }).status.listings.team.configurations[MIX].platforms["linux-x64"];
+  const noted = label(team("r1", { steps, publicNote: "Scope: install to orientation; no task was run." }));
+  assert.equal(noted.label, "partly_tested");
+  assert.equal(noted.note, "Scope: install to orientation; no task was run.");
+  const plain = label(team("r1", { steps }));
+  assert.equal(plain.label, "partly_tested");
+  assert.ok(!("note" in plain));
 });
 
 test("a public note carrying private text stops generation", () => {

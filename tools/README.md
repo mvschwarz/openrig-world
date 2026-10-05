@@ -108,7 +108,8 @@ Labels are per listing, configuration and environment: the run's platform and ar
    - A harness-check line shows the newest harness-check record in force for that harness and environment.
 
 The OpenRig version is shown, not matched: a label carries forward to later releases, dated, until new evidence
-changes it. Each label carries the date, OpenRig version, record ids and package digest(s) it rests on.
+changes it. Each label carries the date, OpenRig version, record ids and package digest(s) it rests on. A Known
+problem or Partly tested label also carries the deciding record's `publicNote` as `note`, when it has one.
 
 ## Wording
 

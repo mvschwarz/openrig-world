@@ -186,7 +186,8 @@ function labelEntry(label, records, current) {
     packageDigests: [current, ...[...tested.keys()].sort().map((value) => tested.get(value))],
   };
   if (label === "tested_with_help") out.assistanceCount = newest.record.outcome.assistance.count;
-  if (label === "known_problem" && newest.record.outcome.publicNote) out.note = newest.record.outcome.publicNote;
+  // A note says what failed (known problem) or what a partial run left out (partly tested).
+  if ((label === "known_problem" || label === "partly_tested") && newest.record.outcome.publicNote) out.note = newest.record.outcome.publicNote;
   return out;
 }
 
