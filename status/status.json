@@ -1,5 +1,5 @@
 {
-  "bodyDigest": "ef27b819e0337ab2613f788fc9a19570ec335c6828d27aa7690e48d69aaefb1a",
+  "bodyDigest": "003067a0b5b8c2a097aacad00dc7b7fc76cdebcb3ebb9e1dc6d7b2916d7b7852",
   "generated": {
     "by": "openrig-world tools/status.mjs",
     "generatorVersion": 1,
@@ -19,7 +19,7 @@
             "linux-x64": {
               "date": "2026-10-05",
               "label": "partly_tested",
-              "note": "All four Claude seats started with no warning screen, received the startup check and passed it with no input. Scope: install to orientation; no task was run.",
+              "note": "Install, launch and orientation passed with no input. The team wasn't given a task, so getting a change ready to submit wasn't tested.",
               "openrigVersion": "0.6.6",
               "packageDigests": [
                 {
@@ -29,7 +29,7 @@
                 }
               ],
               "recordIds": [
-                "openrig-dev-all-claude-20261005-1"
+                "openrig-dev-all-claude-20261005-2"
               ]
             }
           }
