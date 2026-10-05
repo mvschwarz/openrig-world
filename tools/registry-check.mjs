@@ -8,23 +8,45 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { statusBodyDigest } from "./lib/canonical.mjs";
 import { configurationIdProblem } from "./lib/config-id.mjs";
-import { loadJourneys, loadRegistry, loadValidators, schemaError } from "./lib/load.mjs";
+import { loadJourneys, loadRegistry, loadSubmissions, loadValidators, readYaml, schemaError } from "./lib/load.mjs";
 import { findIllFormedText, findPrivateText } from "./lib/private-patterns.mjs";
 import { GENERATED } from "./lib/status-rule.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+export const RECEIVED = "Submission received; a maintainer completes the pinned commit, package digests and views before it's listed.";
 
 /** Every finding as one line; an empty list means the repository passes. */
 export function checkRepository(root = REPO) {
   const validators = loadValidators();
   const findings = [...validators.problems];
   for (const item of loadRegistry(root, validators)) {
-    if (item.problem) findings.push(`${item.file}: ${item.problem}`);
+    if (item.problem) findings.push(misplacedSubmission(root, item.file) ?? `${item.file}: ${item.problem}`);
     else findings.push(...checkEntry(root, item.file, item.entry, validators));
   }
+  for (const item of loadSubmissions(root, validators)) if (item.problem) findings.push(`${item.file}: ${item.problem}`);
   findings.push(...loadJourneys(root, validators).problems);
   findings.push(...checkStatus(root, validators));
   return findings;
+}
+
+/** One notice per well-formed submission in `registry/submissions/`. */
+export function submissionNotices(root = REPO) {
+  return loadSubmissions(root, loadValidators()).filter((item) => !item.problem).map((item) => ({ file: item.file, message: RECEIVED }));
+}
+
+// A file here with no configurations can never be an entry; it's most likely a submission in the wrong place, and
+// the schema's first error would only mislead. Say where it goes instead.
+function misplacedSubmission(root, file) {
+  try {
+    const value = readYaml(path.join(root, file));
+    if (value && typeof value === "object" && !Array.isArray(value) && !("configurations" in value)) {
+      return `${file}: this isn't a complete registry entry (it has no configurations). To submit a rig for listing, add ` +
+        `registry/submissions/${path.basename(file)} with only repository, folder and ref; a maintainer completes the entry.`;
+    }
+  } catch {
+    // Unreadable YAML: the finding already says so.
+  }
+  return null;
 }
 
 function checkEntry(root, file, entry, validators) {
@@ -109,6 +131,11 @@ function main(argv) {
     return 2;
   }
   const findings = checkRepository(root);
+  for (const { file, message } of submissionNotices(root)) {
+    console.log(`${file}: ${message}`);
+    // Shown on the pull request itself, so a submitter needn't open the log.
+    if (process.env.GITHUB_ACTIONS === "true") console.log(`::notice file=${file},title=Submission received::${message}`);
+  }
   for (const finding of findings) console.error(finding);
   if (findings.length) {
     console.error(`registry check failed: ${findings.length} finding(s)`);

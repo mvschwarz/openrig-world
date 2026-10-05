@@ -17,3 +17,10 @@ Every listing carries the line: "Reviewed for listing on <date> at commit <short
 The registry check (`tools/registry-check.mjs`) runs on every pull request. It rejects entries that don't match the
 format, commits that aren't 40 hex characters, configuration IDs that aren't canonical, behaviour views that are
 missing or describe another package, and a status file that was edited by hand.
+
+## Submitting a rig
+
+Add `registry/submissions/<your-team>.yaml` with three fields (see `submissions/README.md`): your repository, the
+folder holding `rig.yaml`, and a branch, tag or commit. The check accepts it and says "Submission received". A
+maintainer then writes the full entry here, at a pinned commit, and removes the submission. A submission is never
+listed: the site and the status file read only the entries in this folder.

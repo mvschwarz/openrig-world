@@ -29,6 +29,8 @@ export function loadValidators() {
   }
   const journey = JSON.parse(fs.readFileSync(path.join(SCHEMAS, "journey.v1.schema.json"), "utf8"));
   ajv.addSchema(journey);
+  const submission = JSON.parse(fs.readFileSync(path.join(SCHEMAS, "registry-submission.v1.schema.json"), "utf8"));
+  ajv.addSchema(submission);
   const get = (id) => ajv.getSchema(id);
   return {
     problems,
@@ -37,6 +39,7 @@ export function loadValidators() {
     registryEntry: get("https://openrig.dev/schemas/registry-entry.v1.json"),
     behaviour: get("https://openrig.dev/schemas/bundle-behaviour.v1.json"),
     journey: get(journey.$id),
+    submission: get(submission.$id),
   };
 }
 
@@ -66,6 +69,34 @@ export function loadRegistry(root, validators) {
     }
     if (!validators.registryEntry(entry)) return { file, problem: `not a registry entry v1: ${schemaError(validators.registryEntry)}` };
     return { file, entry };
+  });
+}
+
+export const SUBMISSION_SHAPE =
+  "a submission has exactly three fields: repository (https://github.com/<owner>/<repo>), folder (the folder holding " +
+  "rig.yaml, or . for the repository root) and ref (a branch, tag or commit)";
+
+/**
+ * `registry/submissions/*.yaml` as `{ file, submission?, problem? }`, sorted by file name. A submission is a request
+ * for listing, never a listing: loadRegistry, the status generator and the site read only `registry/*.yaml`.
+ */
+export function loadSubmissions(root, validators) {
+  const dir = path.join(root, "registry", "submissions");
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir).filter((name) => name !== "README.md").sort().map((name) => {
+    // Names are echoed into CI output (and a notice), so only plain names are read; any other is quoted.
+    if (!/^[A-Za-z0-9][A-Za-z0-9._-]*\.ya?ml$/.test(name)) {
+      return { file: `registry/submissions/${JSON.stringify(name)}`, problem: `name the file <your-team>.yaml (letters, digits, ".", "_", "-"); ${SUBMISSION_SHAPE}` };
+    }
+    const file = `registry/submissions/${name}`;
+    let submission;
+    try {
+      submission = readYaml(path.join(dir, name));
+    } catch (error) {
+      return { file, problem: `not readable YAML: ${error.message}` };
+    }
+    if (!validators.submission(submission)) return { file, problem: `${SUBMISSION_SHAPE} (${schemaError(validators.submission)})` };
+    return { file, submission };
   });
 }
 
