@@ -1,5 +1,5 @@
 {
-  "bodyDigest": "34b5084f3ff244e81a361fa52e5b7e51778870ebf940f1b3d50064ad9876b349",
+  "bodyDigest": "388368d70fc5592a4c63a0ddad0c552adc28b1ac5efc0d2180c944af986094d4",
   "generated": {
     "by": "openrig-world tools/status.mjs",
     "generatorVersion": 1,
@@ -25,6 +25,11 @@
                 {
                   "algorithm": "sha256",
                   "coverage": "openrig.package-digest/v1",
+                  "value": "73c1883cf52fe73a75057768403a102b1f74dc9bd5723bb6c9996f95b09bebb6"
+                },
+                {
+                  "algorithm": "sha256",
+                  "coverage": "openrig.package-digest/v1",
                   "value": "b12ea96d8e33961c31b903c14521c8ec14c5421a054d25faf0ba49c932159127"
                 }
               ],
@@ -46,6 +51,11 @@
                 {
                   "algorithm": "sha256",
                   "coverage": "openrig.package-digest/v1",
+                  "value": "a030e81eb57edf26f84a78188173d008fe542ecfaf4392452614097e428b43e3"
+                },
+                {
+                  "algorithm": "sha256",
+                  "coverage": "openrig.package-digest/v1",
                   "value": "c8841e177191796cb8b757db2603ba758bc1427b8420bcecec110a255690fffb"
                 }
               ],
@@ -62,7 +72,7 @@
                 {
                   "algorithm": "sha256",
                   "coverage": "openrig.package-digest/v1",
-                  "value": "c8841e177191796cb8b757db2603ba758bc1427b8420bcecec110a255690fffb"
+                  "value": "a030e81eb57edf26f84a78188173d008fe542ecfaf4392452614097e428b43e3"
                 },
                 {
                   "algorithm": "sha256",
