@@ -11,8 +11,11 @@ ROOT = Path(__file__).resolve().parents[1]
 AGENT = ROOT / "rigs/workshop/agents/workshop"
 LOCK = AGENT / "pi-skills.lock.json"
 PLUGIN = "packages/daemon/assets/plugins/openrig-core"
-# This skill operates Claude's native compaction, not Pi's RPC runtime.
-EXCLUDED = ["claude-compaction-restore"]
+# Copied and declared for the Claude Code and Codex profiles, but not selected for Pi:
+# this skill operates Claude's native compaction, not Pi's RPC runtime.
+PI_UNSELECTED = ["claude-compaction-restore"]
+# The rig's own skills (not generated); each must also be declared under resources.skills.
+BUNDLE_SKILLS = "bundle-skills"
 
 
 def generate(source, revision, check):
@@ -38,8 +41,6 @@ def generate(source, revision, check):
         path = path_bytes.decode()
         relative = path.removeprefix(prefix)
         skill = relative.split("/", 1)[0]
-        if skill in EXCLUDED:
-            continue
         if kind != "blob" or mode not in ("100644", "100755"):
             raise ValueError("Expected a regular skill file: " + path)
         destination = "skills/" + relative
@@ -66,12 +67,20 @@ def generate(source, revision, check):
             "productCommit": revision, "pluginPath": PLUGIN,
             "pluginVersion": plugin["version"],
             "pluginManifestSha256": hashlib.sha256(manifest_bytes).hexdigest(),
-            "excludedSkills": EXCLUDED, "skills": sorted(skills), "files": records}
-    resources = "\n".join("    - { id: " + name + ", path: skills/" + name + " }"
-                          for name in sorted(skills))
-    selection = "      skills: &pi-skills [" + ", ".join(sorted(skills)) + "]"
+            "piUnselectedSkills": PI_UNSELECTED, "skills": sorted(skills), "files": records}
     agent_path = AGENT / "agent.yaml"
     agent = agent_path.read_text()
+    extras = sorted(d.name for d in (AGENT / BUNDLE_SKILLS).iterdir() if (d / "SKILL.md").is_file()) \
+        if (AGENT / BUNDLE_SKILLS).is_dir() else []
+    for name in extras:
+        if name in skills:
+            raise ValueError("A bundle skill shadows a generated skill: " + name)
+        if "{ id: " + name + ", path: " + BUNDLE_SKILLS + "/" + name + " }" not in agent:
+            raise ValueError("Declare the bundle skill under resources.skills first: " + name)
+    resources = "\n".join("    - { id: " + name + ", path: skills/" + name + " }"
+                          for name in sorted(skills))
+    pi_selected = sorted((skills - set(PI_UNSELECTED)) | set(extras))
+    selection = "      skills: &pi-skills [" + ", ".join(pi_selected) + "]"
     for name, text in [("RESOURCES", resources), ("SELECTION", selection)]:
         pattern = r"(?m)^( *# BEGIN GENERATED PI " + name + r"\n).*?(^ *# END GENERATED PI " + name + r"$)"
         agent, count = re.subn(pattern, lambda m: m[1] + text + "\n" + m[2], agent, flags=re.S)

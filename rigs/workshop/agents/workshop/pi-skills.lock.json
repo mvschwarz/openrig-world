@@ -4,13 +4,14 @@
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
   "pluginVersion": "0.1.4",
   "pluginManifestSha256": "5bd9904c982023f0b6a994dba348bb2df3f21663327017d007a2568069a681b5",
-  "excludedSkills": [
+  "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
   "skills": [
     "agent-operated-software",
     "agent-operated-workflows",
     "applying-a-permission-policy",
+    "claude-compaction-restore",
     "delegating-work",
     "developing-openrig",
     "forming-an-openrig-mental-model",
@@ -52,6 +53,42 @@
       "source": "packages/daemon/assets/plugins/openrig-core/skills/applying-a-permission-policy/SKILL.md",
       "mode": "100644",
       "sha256": "e8dbd8eec75847bfd382fb06de408c63807171d584237d1b1d7e1104c7ed4acc"
+    },
+    {
+      "path": "skills/claude-compaction-restore/SKILL.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/SKILL.md",
+      "mode": "100644",
+      "sha256": "e86560d6ce8fa5678ed569abfe9bfd2d2a2251eaf5ae453b8e13c5bc4a0da1e1"
+    },
+    {
+      "path": "skills/claude-compaction-restore/reference/SKILL-v1.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/reference/SKILL-v1.md",
+      "mode": "100644",
+      "sha256": "6af2a889c9c38227fb186897c6e29185f81b215822070b469a6ceeb47734e133"
+    },
+    {
+      "path": "skills/claude-compaction-restore/scripts/precompact-hook.mjs",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/scripts/precompact-hook.mjs",
+      "mode": "100755",
+      "sha256": "8eb4cccdaec654fca9eacba3676b0418d2bac383649ce31544434c73af8b8772"
+    },
+    {
+      "path": "skills/claude-compaction-restore/scripts/restore-from-jsonl.mjs",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/scripts/restore-from-jsonl.mjs",
+      "mode": "100755",
+      "sha256": "5584cff4ab36cd843e14c81bd201e4a2f8e498e995abacc4f81ec6c1fc556b10"
+    },
+    {
+      "path": "skills/claude-compaction-restore/templates/compact-instruction.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/templates/compact-instruction.md",
+      "mode": "100644",
+      "sha256": "682c778464517b831902ddc2678c055545899b4751a1d32391ce965d5eb7061d"
+    },
+    {
+      "path": "skills/claude-compaction-restore/templates/post-compact-restore-instruction.md",
+      "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/templates/post-compact-restore-instruction.md",
+      "mode": "100644",
+      "sha256": "10a5a7e5e052f3aa000a4209f386dc4eb90a3c2bba449ca685f124714f59e47a"
     },
     {
       "path": "skills/delegating-work/SKILL.md",

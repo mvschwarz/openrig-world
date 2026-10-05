@@ -10,7 +10,10 @@ description: >
 # working directory's .claude/skills and .agents/skills. Two are left out of those lists:
 # developing-openrig, because an OpenRig clone tracks its own copy at those paths (and it
 # doesn't apply elsewhere), and openrig-skills, which the daemon seeds into the home folder.
-# Pi selects generated snapshots explicitly; see PI-SKILLS.md and pi-skills.lock.json.
+# claude-compaction-restore is for Claude Code seats; skills can't be scoped to one runtime,
+# so a Codex seat on the same profile carries it too, unused.
+# Pi selects generated snapshots explicitly, plus the bundle-skills/ below (the generator
+# appends them); see PI-SKILLS.md and pi-skills.lock.json.
 
 resources:
   skills:
@@ -18,6 +21,7 @@ resources:
     - { id: agent-operated-software, path: skills/agent-operated-software }
     - { id: agent-operated-workflows, path: skills/agent-operated-workflows }
     - { id: applying-a-permission-policy, path: skills/applying-a-permission-policy }
+    - { id: claude-compaction-restore, path: skills/claude-compaction-restore }
     - { id: delegating-work, path: skills/delegating-work }
     - { id: developing-openrig, path: skills/developing-openrig }
     - { id: forming-an-openrig-mental-model, path: skills/forming-an-openrig-mental-model }
@@ -61,7 +65,7 @@ profiles:
       runtime: claude-code
     uses:
       # The Claude Code and Codex roles share this list (see the note at the top).
-      skills: &seat-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, delegating-work, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-user, orienting-to-an-inherited-seat, ponytail, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, using-the-tui-together]
+      skills: &seat-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, claude-compaction-restore, delegating-work, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-user, orienting-to-an-inherited-seat, ponytail, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, using-the-tui-together]
       plugins: [openrig-core]
       runtime_resources: [claude-activity-hooks]
     startup:
@@ -122,7 +126,7 @@ profiles:
       runtime: pi
     uses:
       # BEGIN GENERATED PI SELECTION
-      skills: &pi-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, delegating-work, developing-openrig, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-skills, openrig-user, orienting-to-an-inherited-seat, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, software-for-agents]
+      skills: &pi-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, delegating-work, developing-openrig, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-skills, openrig-user, orienting-to-an-inherited-seat, ponytail, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, software-for-agents, using-the-tui-together]
       # END GENERATED PI SELECTION
     startup:
       files:
