@@ -18,4 +18,6 @@ preconditions:
       - npm ci
       - npm run build
       - rig context add --git https://github.com/mvschwarz/openrig-world
+  - name: "rig context add needs the OpenRig daemon running. rig up starts the daemon by itself, but this step comes first, so if rig context add stops with \"Daemon not running.\", run rig daemon start and then add the pack again."
+  - name: "If you ask Claude Code to do this setup for you, plan to run some steps yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto mode declined three of them: cloning and building the openrig repository ([Code from External]), so run the clone and the build yourself; adding a permission rule for itself ([Self-Modification]), which auto mode doesn't let Claude do, so add any rule yourself with /permissions or in .claude/settings.local.json; and rig context add --git ([Untrusted Code Integration]), even with an allow rule for that command, so run it yourself."
   - name: "Before your first install on a machine, run claude --dangerously-skip-permissions once in the clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping."
