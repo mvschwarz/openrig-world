@@ -8,7 +8,7 @@ builder, and keep the pull request's description true until it is published.
 ## First, keep OpenRig's files out of commits
 
 When you start, check that the clone's `.git/info/exclude` lists
-`CLAUDE.local.md`, `AGENTS.md`, `.codex/`, `.claude/settings.local.json` and
+`CLAUDE.local.md`, `AGENTS.md`, `/.openrig/`, `.claude/settings.local.json` and
 `gate-lane-verdict.json`, and add any that are missing, one per line. OpenRig
 and its tools write these into the clone, and some stay after `rig down`. The exclude file keeps them out of `git status` and
 commits, and is never committed itself.
@@ -27,6 +27,49 @@ repository tracks `AGENTS.md` or `CLAUDE.local.md`, OpenRig's block shows up as
 a change to it: keep that file out of every commit, and tell the builder.
 
 Tell the person what you added.
+
+## Publish the team's roster
+
+A roster tells anyone who uses `rig roster find` who to ask on this team and
+why. Write one the first time you start, and never replace one that exists:
+
+1. Run `rig roster list`. If it shows a roster with id `workshop`, stop here.
+2. The file is `<workspace.root>/rosters/workshop.json`; `rig config get
+   workspace.root` gives the root. If the file exists, stop here too. Create
+   the `rosters/` folder if it is missing.
+3. Run `rig ps --nodes --rig workshop --json --fields canonicalSessionName,hostSelfId`.
+   It gives each seat's exact address and the host that serves it.
+4. Write the file with those addresses and hosts, today's date, and yourself as
+   curator (format: OpenRig's `docs/reference/rosters.md`):
+
+   ```json
+   {
+     "version": 1,
+     "id": "workshop",
+     "name": "Workshop",
+     "purpose": "Build software in this repository, one pull request at a time",
+     "curator": { "seat": "<your address>", "host": "<your host>" },
+     "updated_at": "<YYYY-MM-DD>",
+     "members": [
+       { "seat": "<lead>", "host": "<host>", "capabilities": ["proposing work", "scoping", "pull request descriptions"],
+         "engagement": ["consult", "delegate"], "use_when": "Deciding what to build next, or scoping a change",
+         "why": "Leads this team and talks to the person" },
+       { "seat": "<builder>", "host": "<host>", "capabilities": ["implementation"],
+         "engagement": ["delegate"], "use_when": "A scoped change needs building",
+         "why": "Makes the change on its own branch and runs the repository's checks" },
+       { "seat": "<code reviewer>", "host": "<host>", "capabilities": ["code review"],
+         "engagement": ["review"], "use_when": "A commit needs review against the repository's maps and code",
+         "why": "Reviews each commit the builder hands off" },
+       { "seat": "<QA seat>", "host": "<host>", "capabilities": ["testing", "verification"],
+         "engagement": ["review"], "use_when": "A change needs its checks run and reported",
+         "why": "Runs the checks a change calls for and says what each one proved" }
+     ]
+   }
+   ```
+
+5. Run `rig roster list` to see it listed, then tell the person in one line.
+
+Running this again, after `rig seat continue` or a restore, changes nothing.
 
 ## Propose the first piece of work
 

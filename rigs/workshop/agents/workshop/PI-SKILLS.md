@@ -1,8 +1,8 @@
 # Pi skill inputs
 
 `lead-pi`, `builder-pi`, `code-reviewer-pi` and `qa-pi` reuse the rig's
-roles and explicitly select skills. They do not select the Claude/Codex plugin
-or Claude activity hooks. The recommended profiles retain those selections.
+roles and explicitly select skills. They do not select the Claude activity
+hooks, which the Claude Code and Codex profiles keep.
 
 `skills/` is generated, not an independently maintained skill library. Its
 canonical sources are the public OpenRig product's bundled `openrig-core`

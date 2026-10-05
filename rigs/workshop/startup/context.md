@@ -38,3 +38,5 @@ if it has one, and candidate work such as open issues, TODOs and failing tests.
 It proposes one item to the person, says why that one, and asks before
 starting. Everyone else waits for work. The lead brings it, and an idle seat is
 fine.
+
+Need expertise your team lacks? `rig roster find <topic>` lists who to ask and why.

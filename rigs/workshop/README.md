@@ -28,11 +28,11 @@ repository's own `developing-openrig` skill.
 - To publish the pull request: a GitHub account that can fork repositories and
   open pull requests, with push credentials configured on this machine.
 
-Keep OpenRig's files out of your commits. OpenRig writes instruction files and
-settings into your clone. From the root of your clone:
+Keep OpenRig's files out of your commits. OpenRig writes instruction files,
+settings and helper scripts into your clone. From the root of your clone:
 
 ```sh
-printf '%s\n' CLAUDE.local.md AGENTS.md .codex/ .claude/settings.local.json >> .git/info/exclude
+printf '%s\n' CLAUDE.local.md AGENTS.md /.openrig/ .claude/settings.local.json >> .git/info/exclude
 ```
 
 This file is local to your clone and is never committed. It applies to the
@@ -43,9 +43,7 @@ repository already tracks: if yours tracks `AGENTS.md` or `CLAUDE.local.md`,
 OpenRig's block shows up as a change to it, and the seats keep that file out of
 their commits.
 
-Optional: add OpenRig's public context pack, so the seats load it at start. It
-needs the OpenRig daemon running; if `rig context add` stops with "Daemon not
-running.", run `rig daemon start` and add it again:
+Optional: add OpenRig's public context pack, so the seats load it at start:
 
 ```sh
 rig context add --git https://github.com/mvschwarz/openrig-world
@@ -82,6 +80,9 @@ it with your name if you want the lead to know who sent it:
 ```sh
 rig send orch-lead@workshop "Please take issue #<number>: <one line on what you want>"
 ```
+
+At first start the lead also publishes the team's roster, `<workspace.root>/rosters/workshop.json`,
+if there isn't one yet. Need expertise your team lacks? `rig roster find <topic>` lists who to ask and why.
 
 Stop the team with `rig down workshop`. That removes OpenRig's blocks from
 `CLAUDE.local.md` and `AGENTS.md`. The seats' git worktrees under `.worktrees/`

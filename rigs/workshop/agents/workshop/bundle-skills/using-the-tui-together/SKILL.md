@@ -32,8 +32,8 @@ and let them answer it.
 - `rig tui` opens the TUI in the current terminal.
 - `rig tui --shared` joins the shared TUI that OpenRig's kernel rig runs, so you and the person see the same screen.
   Detach with Ctrl-b d.
-- To show the seats' own terminals beside it, `rig terminal open <rig>` opens each live seat as a tile, if herdr is
-  installed. The `openrig-herdr` skill covers that, including what to do when herdr isn't there.
+- To show the seats' own terminals beside it: `rig terminal open <rig>` opens each live seat as a tile if herdr is
+  installed; `rig terminal --help` has the options.
 
 ## Drive it, saying what you're doing
 

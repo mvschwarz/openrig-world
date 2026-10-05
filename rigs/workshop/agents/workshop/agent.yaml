@@ -44,13 +44,6 @@ resources:
     # at 0e3fd0cfeeea6ed0081e5ee0e169d8521dd3750e, with its LICENSE beside it.
     - { id: ponytail, path: bundle-skills/ponytail }
     - { id: using-the-tui-together, path: bundle-skills/using-the-tui-together }
-  plugins:
-    # OpenRig's operating skills (openrig-user, queue-handoff and others),
-    # the same plugin the shipped starters use.
-    - id: openrig-core
-      source:
-        kind: local
-        path: "openrig-home:plugins/openrig-core"
   runtime_resources:
     # Turns on activity reporting for Claude Code seats. Codex seats skip it.
     - id: claude-activity-hooks
@@ -66,7 +59,6 @@ profiles:
     uses:
       # The Claude Code and Codex roles share this list (see the note at the top).
       skills: &seat-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, claude-compaction-restore, delegating-work, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-user, orienting-to-an-inherited-seat, ponytail, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, using-the-tui-together]
-      plugins: [openrig-core]
       runtime_resources: [claude-activity-hooks]
     startup:
       files:
@@ -81,7 +73,6 @@ profiles:
       runtime: claude-code
     uses:
       skills: *seat-skills
-      plugins: [openrig-core]
       runtime_resources: [claude-activity-hooks]
     startup:
       files:
@@ -96,7 +87,6 @@ profiles:
       runtime: codex
     uses:
       skills: *seat-skills
-      plugins: [openrig-core]
       runtime_resources: [claude-activity-hooks]
     startup:
       files:
@@ -111,7 +101,6 @@ profiles:
       runtime: codex
     uses:
       skills: *seat-skills
-      plugins: [openrig-core]
       runtime_resources: [claude-activity-hooks]
     startup:
       files:
