@@ -1,10 +1,10 @@
 version: "0.2"
 name: openrig-dev
 summary: >
-  A small team for building OpenRig itself, launched from a clone of the
-  openrig repository with --cwd: a lead who turns one issue into one pull
-  request and keeps its description true, an implementer, a reviewer and a
-  QA seat. Claude Code and Codex are both on the team.
+  A small team that works in any repository, OpenRig's own included, launched
+  from your clone with --cwd: a lead who proposes work and turns it into one
+  pull request with a true description, a builder, a code reviewer and a QA
+  seat. Claude Code and Codex are both on the team.
 
 culture_file: CULTURE.md
 
@@ -25,10 +25,9 @@ startup:
       idempotent: true
 
 # OpenRig writes its instruction blocks into each seat's working directory.
-# The openrig repository tracks neither CLAUDE.md nor CLAUDE.local.md, so
-# OpenRig's blocks go in the local file and stay out of the project's own
-# CLAUDE.md. Codex seats always use AGENTS.md. The README says how to keep
-# both files out of your pull requests.
+# Claude Code seats get them in CLAUDE.local.md, so they stay out of a
+# project's own CLAUDE.md. Codex seats always use AGENTS.md. The README says
+# how to keep both files out of your pull requests.
 managed_blocks:
   claude-code: CLAUDE.local.md
 
@@ -69,13 +68,13 @@ pods:
         cwd: "."
         # Default posture only: opt-in network for this seat; see the README,
         # "Codex seats and the sandbox".
-        # codex_config_profile: openrig-dev-net
+        # codex_config_profile: workshop-net
       - id: qa
         agent_ref: "local:agents/openrig-dev"
         profile: qa
         runtime: codex
         cwd: "."
-        # codex_config_profile: openrig-dev-net
+        # codex_config_profile: workshop-net
     edges: []
 
 edges:

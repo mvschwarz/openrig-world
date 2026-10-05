@@ -1,92 +1,89 @@
-# openrig-dev
+# workshop
 
-A four-seat OpenRig team for working on OpenRig itself. You launch it from your
-clone of the openrig repository, give the lead an issue, and the team turns it
-into one pull request with an honest description. You decide when it is pushed.
-Every seat runs with permission prompts off; "Permissions" below says what that
-means and how to turn them back on.
+A four-seat OpenRig team that works in any repository, OpenRig's own included.
+You launch it from your clone. The lead reads the repository, proposes one
+piece of work and asks before starting; the team turns it into one pull request
+with an honest description. You decide when it is pushed. Every seat runs with
+permission prompts off; "Permissions" below says what that means and how to
+turn them back on.
 
 | Seat | Runtime | Does |
 |---|---|---|
-| `build-lead@openrig-dev` | Claude Code | Scopes the issue into one pull-request-sized outcome, hands it on, owns the PR description. Talk to this seat. |
-| `build-impl@openrig-dev` | Claude Code | Makes the change on its own branch and worktree, runs build, lint and tests. |
-| `check-review@openrig-dev` | Codex | Reviews the handed-off commit against ARCHITECTURE.md, arteries.md and the code; runs the tests that bear on it. |
-| `check-qa@openrig-dev` | Codex | Runs the test layers the change calls for, including stub-agent scenarios, and reports what each one proved. |
+| `orch-lead@workshop` | Claude Code | Proposes work, scopes it into one pull-request-sized outcome, hands it on, owns the PR description. Talk to this seat. |
+| `dev-build@workshop` | Claude Code | Makes the change on its own branch and worktree, and runs the repository's build and tests. |
+| `review-code@workshop` | Codex | Reviews the handed-off commit against the repository's maps and the code, and runs the tests that bear on it. |
+| `review-qa@workshop` | Codex | Runs the checks the change calls for and reports what each one proved. |
 
-Every seat works in your clone and loads the repository's own
-`developing-openrig` skill (`.claude/skills/` and `.agents/skills/`), which
-points at ARCHITECTURE.md, docs/as-built/arteries.md and
-docs/as-built/test-layers.md. `CULTURE.md` holds the team's values.
+`CULTURE.md` holds the team's values. Each seat's role is in
+`agents/workshop/guidance/`. In a clone of OpenRig, the seats also load that
+repository's own `developing-openrig` skill.
 
 ## Before you start
 
-- A GitHub account that can fork repositories and open pull requests, with push credentials configured on this machine.
-- OpenRig 0.6.5 or later (`rig --version`), Node 22 or 24, and tmux. This spec
-  uses `openrig-home:` plugin paths to select the plugin seeded under the
-  daemon's configured home, including a non-default `OPENRIG_HOME`.
+- OpenRig 0.6.5 or later (`rig --version`), Node 22 or 24, and tmux.
 - Claude Code and Codex installed and logged in.
-- A clone of the openrig repository, set up as CONTRIBUTING.md describes
-  (`npm install`, `npm run build`).
-- A clone of this repository, anywhere on disk.
+- A clone of the repository you want to work on, set up the way its README or
+  CONTRIBUTING says.
+- A clone of this repository (openrig-world), anywhere on disk.
+- To publish the pull request: a GitHub account that can fork repositories and
+  open pull requests, with push credentials configured on this machine.
 
-Keep OpenRig's instruction files out of your pull requests. OpenRig writes them
-into your clone, and the openrig repository does not ignore them. From your
-openrig clone:
+Keep OpenRig's files out of your commits. OpenRig writes instruction files and
+settings into your clone. From the root of your clone:
 
 ```sh
-printf '%s\n' CLAUDE.local.md AGENTS.md .codex/ gate-lane-verdict.json >> .git/info/exclude
+printf '%s\n' CLAUDE.local.md AGENTS.md .codex/ .claude/settings.local.json >> .git/info/exclude
 ```
 
 This file is local to your clone and is never committed. It applies to the
 worktrees the seats create, too. If you skip this step, the lead adds any
-missing entries when it starts.
+missing entries when it starts, along with the skill folders the rig puts in
+`.claude/skills/` or `.agents/skills/`. An exclude line can't hide a file the
+repository already tracks: if yours tracks `AGENTS.md` or `CLAUDE.local.md`,
+OpenRig's block shows up as a change to it, and the seats keep that file out of
+their commits.
 
-Optional: if this repository's context pack is not installed yet, add it so the
-seats can load it at start (`rig context add --help` has the options). It needs
-the OpenRig daemon running. `rig up` starts the daemon by itself, but this step
-comes first, so if `rig context add` stops with "Daemon not running.", run
-`rig daemon start` and then add the pack again:
+Optional: add OpenRig's public context pack, so the seats load it at start. It
+needs the OpenRig daemon running; if `rig context add` stops with "Daemon not
+running.", run `rig daemon start` and add it again:
 
 ```sh
-rig context add --git <path-or-URL-of-your-openrig-world-clone>
+rig context add --git https://github.com/mvschwarz/openrig-world
 ```
 
-**If you ask Claude Code to do this setup for you,** plan to run some steps
+**If you ask Claude Code to do this setup for you,** plan to run two steps
 yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto
-mode declined three of them:
-
-- **Cloning and building the openrig repository** (`[Code from External]`).
-  Run the clone and the build yourself.
-- **Adding a permission rule for itself** (`[Self-Modification]`). Auto mode
-  doesn't let Claude change its own permissions. If you want a rule, add it
-  yourself with `/permissions` or in `.claude/settings.local.json`.
-- **`rig context add --git`** (`[Untrusted Code Integration]`), even with an
-  allow rule for that command. Run it yourself.
+mode declined them: adding a permission rule for itself (`[Self-Modification]`;
+add any rule yourself with `/permissions` or in `.claude/settings.local.json`),
+and `rig context add --git` (`[Untrusted Code Integration]`), even with an allow
+rule for that command.
 
 ## Run it
 
-From the root of your openrig clone, preview, then launch:
+From the root of your clone, preview, then launch:
 
 ```sh
-rig up <path-to>/openrig-world/rigs/openrig-dev/rig.yaml --cwd . --plan
-rig up <path-to>/openrig-world/rigs/openrig-dev/rig.yaml --cwd .
+rig up <path-to>/openrig-world/rigs/workshop/rig.yaml --cwd . --plan
+rig up <path-to>/openrig-world/rigs/workshop/rig.yaml --cwd .
 ```
 
 `--cwd .` matters. Member working directories in a rig spec resolve against the
-spec's own folder, so without it the seats would start in this repository
-instead of your clone. Each seat checks for this at start and stops if it is in
-the wrong place.
+spec's own folder, so without it the seats would start in openrig-world instead
+of your clone. Each seat checks for this at start and stops if it is in the
+wrong place.
 
-Then give the lead some work. Open the TUI with `rig` and open the lead's
-terminal, or send from any shell. A message from your own terminal arrives
-marked as from an unsigned sender, because it doesn't come from a seat. That's
-expected; start it with your name if you want the lead to know who sent it:
+Once the seats are up, the lead reads the repository's `ROADMAP.md` if it has
+one and looks for candidate work (open issues, TODOs, failing checks). It
+proposes one item, says why, and asks before starting. Answer it in the lead's
+terminal (`rig` opens the TUI), or give it work of your own from any shell. A
+message from your own terminal arrives marked as from an unsigned sender; start
+it with your name if you want the lead to know who sent it:
 
 ```sh
-rig send build-lead@openrig-dev "Please take issue #<number>: <one line on what you want>"
+rig send orch-lead@workshop "Please take issue #<number>: <one line on what you want>"
 ```
 
-Stop the team with `rig down openrig-dev`. That removes OpenRig's blocks from
+Stop the team with `rig down workshop`. That removes OpenRig's blocks from
 `CLAUDE.local.md` and `AGENTS.md`. The seats' git worktrees under `.worktrees/`
 stay; remove them with `git worktree remove` when you are done.
 
@@ -104,33 +101,32 @@ Every seat starts with permission prompts off. `rig.yaml` sets
   trust (`--approve`).
 
 **Before your first install, accept Claude Code's bypass warning once.** In
-your openrig clone, run `claude --dangerously-skip-permissions`, accept its
-prompts (including "Yes, I accept" on the bypass warning), then type `/exit`.
-Claude Code remembers your answer on this machine, so the seats start without
+your clone, run `claude --dangerously-skip-permissions`, accept its prompts
+(including "Yes, I accept" on the bypass warning), then type `/exit`. Claude
+Code remembers your answer on this machine, so the seats start without
 stopping. If a Claude seat does stop at the warning (`rig ps --nodes` shows it
 needs attention), accept it in that seat's terminal (`rig` opens the TUI), then
-run `rig seat continue <seat>`, for example
-`rig seat continue build-lead@openrig-dev`, or press `c` on it in the TUI. Its
-start steps arrive in the same conversation, with no relaunch. That needs
-OpenRig 0.6.6; on 0.6.5, run `rig down openrig-dev`, then
-`rig up openrig-dev --existing --fresh <the stalled seats>` instead.
+run `rig seat continue <seat>`, for example `rig seat continue orch-lead@workshop`,
+or press `c` on it in the TUI. Its start steps arrive in the same conversation,
+with no relaunch. That needs OpenRig 0.6.6; on 0.6.5, run `rig down workshop`,
+then `rig up workshop --existing --fresh <the stalled seats>` instead.
 
 **Or let OpenRig accept the warnings for you (OpenRig 0.6.6 or later).** Add
 `--non-interruptive` to your `rig up` or `rig bundle install` command, for
 example:
 
 ```sh
-rig up <path-to>/openrig-world/rigs/openrig-dev/rig.yaml --cwd . --non-interruptive
+rig up <path-to>/openrig-world/rigs/workshop/rig.yaml --cwd . --non-interruptive
 ```
 
 OpenRig then accepts Claude Code's bypass-permissions warning with a launch flag
 and hides Codex's full-access and GPT-5.1 migration notices, so the seats start
 without stopping. It writes nothing to your Claude or Codex settings. The choice
 is saved on the rig, so later launches keep it; to turn it off, stop the rig with
-`rig down openrig-dev`, then run `rig up openrig-dev --existing --no-non-interruptive`.
+`rig down workshop`, then run `rig up workshop --existing --no-non-interruptive`.
 Sign-in stays yours, and a notice that a newer harness version adds can still
-stop a seat (Codex's GPT-5.1-Codex-Max notice is one today). docs/reference/non-interruptive-mode.md
-in the openrig repository has the details.
+stop a seat (Codex's GPT-5.1-Codex-Max notice is one today). OpenRig's
+`docs/reference/non-interruptive-mode.md` has the details.
 
 **Install and run the rig as your normal user, not root.** Claude Code refuses
 to bypass permissions when it runs as root or under `sudo`.
@@ -145,15 +141,15 @@ branch, opens a pull request or comments only after you say so (CULTURE.md, and
 neither Claude Code nor Codex enforces that: it rests on the seats following
 their instructions.
 
-At start each seat runs `rig startup-proof submit`, and `rig ps --nodes` shows
-ORIENTED `verified` once it has.
+At start each seat runs `rig startup-proof submit`, and `rig ps --nodes --full`
+shows ORIENTED `verified` once it has.
 
 ### Going back to OpenRig's default posture
 
 Remove the `permission_policy: builtin:yolo` line from `rig.yaml` before you
 launch. It applies to the next launch from the spec. A seat that is already
 running keeps its permissions, and so does a stopped rig when OpenRig restores
-it (see "Already running" in docs/reference/getting-started.md).
+it (see "Already running" in OpenRig's `docs/reference/getting-started.md`).
 
 In the default posture, Claude Code seats launch with `acceptEdits`: file edits
 go ahead, and other commands, including `rig`, follow your Claude Code rules and
@@ -165,10 +161,10 @@ two sections below cover what changes for each.
 
 Claude seats ask before some ordinary commands they run while working, such as
 creating directories, committing and running the tests. To stop those prompts
-for this project only, merge these entries into `.claude/settings.local.json` in
-your openrig clone before launch, and keep the file valid JSON: OpenRig writes
-its own hooks into the same file at launch. The clone's `.gitignore` already
-keeps `.claude/` out of your commits.
+for this project only, merge entries like these into `.claude/settings.local.json`
+in your clone before launch, adding your repository's own build and test
+commands. Keep the file valid JSON: OpenRig writes its own hooks into the same
+file at launch. The exclude line above keeps it out of your commits.
 
 ```json
 {
@@ -177,7 +173,7 @@ keeps `.claude/` out of your commits.
       "Bash(rig *)",
       "Bash(git add *)", "Bash(git commit *)", "Bash(git fetch *)",
       "Bash(git worktree add *)", "Bash(git worktree list *)", "Bash(git switch -c *)",
-      "Bash(npm run *)", "Bash(npm test *)", "Bash(npx vitest *)", "Bash(npx tsc *)",
+      "Bash(npm test *)",
       "Bash(mkdir *)", "Bash(basename *)", "Bash(dirname *)"
     ],
     "ask": ["Bash(git push *)", "Bash(gh *)"]
@@ -189,28 +185,27 @@ Claude Code checks `ask` rules before `allow` rules, so pushing and GitHub
 commands still prompt. A spelling such as `git -C <dir> push` does not match the
 `ask` rule, so the lead's role still says to publish only on your word. Commands
 not listed keep asking. To have your agent add these entries and later remove
-exactly them, see "Have your agent configure permissions" in
-docs/reference/getting-started.md. This does not affect Codex seats.
+exactly them, see "Have your agent configure permissions" in OpenRig's
+`docs/reference/getting-started.md`. This does not affect Codex seats.
 
 #### Codex seats and the sandbox
 
 `-s workspace-write` blocks network access, including localhost and so the
-local OpenRig daemon. The reviewer and QA seats then cannot run `rig` commands,
-`npm install`, `git fetch` or `gh`, or the package tests and stub-agent
-scenarios that start a private daemon on localhost. Those commands fail, or wait
-for your approval in that seat's terminal, depending on your Codex approval
-setting. ORIENTED reads `missing` for them
-([openrig #275](https://github.com/mvschwarz/openrig/issues/275)). The seats can
-still read the code and the implementer's commits, run the typecheck and run
-tests that need no network, and they say which failures come from the sandbox.
-The lead reaches them with `rig send` and reads their reports with `rig capture`.
+local OpenRig daemon. The code reviewer and the QA seat then cannot run `rig`
+commands, install dependencies, run `git fetch` or `gh`, or run tests that need
+the network or a local server. Those commands fail, or wait for your approval in
+that seat's terminal, depending on your Codex approval setting. ORIENTED reads
+`missing` for them ([openrig #275](https://github.com/mvschwarz/openrig/issues/275)).
+The seats can still read the code and the builder's commits and run checks that
+need no network, and they say which failures come from the sandbox. The lead
+reaches them with `rig send` and reads their reports with `rig capture`.
 
 To give the two Codex seats network access while keeping approvals, opt in
 before launch:
 
-1. Create a Codex named profile called `openrig-dev-net`, as described under
-   "Codex: select sandbox and approvals together" in
-   docs/reference/getting-started.md, with these settings:
+1. Create a Codex named profile called `workshop-net`, as described under
+   "Codex: select sandbox and approvals together" in OpenRig's
+   `docs/reference/getting-started.md`, with these settings:
 
    ```toml
    sandbox_mode = "workspace-write"
@@ -220,8 +215,8 @@ before launch:
    network_access = true
    ```
 
-2. In `rig.yaml`, uncomment `codex_config_profile: openrig-dev-net` on the
-   `review` and `qa` members.
+2. In `rig.yaml`, uncomment `codex_config_profile: workshop-net` on the `code`
+   and `qa` members.
 3. Launch, then check `/status` in each Codex seat before giving it work.
 
 This grants those seats network access in general, not only to the daemon.
@@ -229,17 +224,12 @@ This grants those seats network access in general, not only to the daemon.
 ## Limits
 
 - **A starter, not a process.** The team prepares one pull request. Merging,
-  releases and maintainer decisions stay with the openrig maintainers.
-- **The seats run on your installed OpenRig, not your checkout.** Tests use the
-  repository's own harnesses, which start a private daemon and tmux server. Seeing
-  your change drive real Claude Code or Codex seats needs an isolated
-  environment (CONTRIBUTING.md), which this rig does not set up.
-- **Stub scenarios have limits.** Host mode cannot run a seeded regression; the
-  seeded pair runs in CI, or on a Docker host you reach over SSH. A stub proves
-  OpenRig's plumbing, not provider behaviour. docs/as-built/test-layers.md has
-  the details.
+  releases and maintainer decisions stay with the repository's maintainers.
 - **Four seats share one clone.** Each seat that builds uses its own worktree
-  and `npm install`, which costs disk and time.
+  and installs the repository's dependencies there, which costs disk and time.
 - **Four seats run at once,** so expect four seats' worth of provider usage.
-- **Every map here is incomplete.** These files, the developing-openrig skill and
-  the repository's maps can be stale. The code and its behaviour decide.
+- **In a clone of OpenRig,** the seats run on your installed OpenRig, not your
+  checkout. The repository's own test harnesses start a private daemon; its
+  `docs/as-built/test-layers.md` says what each layer can prove.
+- **Every map here is incomplete.** These files and the repository's own maps
+  can be stale. The code and its behaviour decide.

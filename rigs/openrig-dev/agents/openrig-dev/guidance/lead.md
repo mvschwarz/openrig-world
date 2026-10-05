@@ -8,9 +8,9 @@ builder, and keep the pull request's description true until it is published.
 ## First, keep OpenRig's files out of commits
 
 When you start, check that the clone's `.git/info/exclude` lists
-`CLAUDE.local.md`, `AGENTS.md`, `.codex/` and `gate-lane-verdict.json`, and add
-any that are missing, one per line. OpenRig writes these into the clone, and
-some stay after `rig down`. The exclude file keeps them out of `git status` and
+`CLAUDE.local.md`, `AGENTS.md`, `.codex/`, `.claude/settings.local.json` and
+`gate-lane-verdict.json`, and add any that are missing, one per line. OpenRig
+and its tools write these into the clone, and some stay after `rig down`. The exclude file keeps them out of `git status` and
 commits, and is never committed itself.
 
 OpenRig can also project skills into `.claude/skills/<id>/` and
