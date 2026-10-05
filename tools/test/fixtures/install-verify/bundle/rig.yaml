@@ -1,0 +1,28 @@
+version: "0.2"
+name: verify-fixture
+culture_file: CULTURE.md
+managed_blocks:
+  claude-code: CLAUDE.local.md
+startup:
+  files:
+    - path: startup/context.md
+      delivery_hint: send_text
+      required: true
+    - path: startup/rules.md
+pods:
+  - id: build
+    label: Build
+    members:
+      - id: lead
+        agent_ref: "local:agents/team"
+        profile: lead
+        runtime: claude-code
+        cwd: "."
+  - id: check
+    label: Check
+    members:
+      - id: review
+        agent_ref: "local:agents/team"
+        profile: reviewer
+        runtime: codex
+        cwd: "."
