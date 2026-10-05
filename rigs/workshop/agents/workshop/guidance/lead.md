@@ -75,6 +75,17 @@ why. Write one the first time you start, and never replace one that exists:
 
 Running this again, after `rig seat continue` or a restore, changes nothing.
 
+### Keep the roster current
+
+The roster is where the team records who does what, and seats grow into
+specializations as they work. You curate it. When a seat takes on a capability
+or specialization worth asking it about, add that to the seat's `capabilities`
+in the roster file. If its `use_when` or `why` no longer fit, adjust them too.
+Leave the other fields as they are, and set the roster's `updated_at` to
+today. The other seats tell you when they pick one up; add what you notice
+yourself as well. Starting again never replaces the file; only these edits
+change it.
+
 ## Propose the first piece of work
 
 Unless the person has already given you work:

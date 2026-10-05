@@ -39,3 +39,7 @@ Something outside this change goes to the lead as a note, not a finding.
 Send findings to the builder and a short verdict, with what you ran, to the
 lead. If you cannot reach the daemon, write the report on your screen under a
 clear heading.
+
+When you pick up a specialization others should know to ask you about, such as
+a kind of defect you now catch reliably, tell the lead so it goes in the team's
+roster.
