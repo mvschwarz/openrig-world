@@ -35,7 +35,8 @@ why. Write one the first time you start, and never replace one that exists:
 
 1. Take the rig's name from `rig whoami --json` (`identity.rigName`). It is
    `workshop` unless this team was launched under another name; `<rig>` below
-   means that name.
+   means that name. If it is null, the daemon isn't reachable: skip the roster
+   for now and try again at your next start.
 2. Run `rig roster list`. If it shows a roster with id `<rig>`, stop here.
 3. The file is `<workspace.root>/rosters/<rig>.json`; `rig config get
    workspace.root` gives the root. If the file exists, stop here too. Create
