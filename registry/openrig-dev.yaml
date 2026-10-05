@@ -5,8 +5,8 @@ summary: A four-seat team for building OpenRig itself, launched from a clone of 
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/openrig-dev
-  resolvedCommit: 0aacdc8e627f8649a653b9e009a1457040e4f57d
-  requestedRef: 0aacdc8e627f8649a653b9e009a1457040e4f57d
+  resolvedCommit: 94af8cac6b56cc98bfdcfc32adcccf83a69a5363
+  requestedRef: 94af8cac6b56cc98bfdcfc32adcccf83a69a5363
 configurations:
   - id: build.impl=claude-code,build.lead=claude-code,check.qa=codex,check.review=codex
     alias: recommended
@@ -16,9 +16,9 @@ configurations:
     behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-codex_check.review-codex.0.6.6.json
     evidenceReuse:
       - packageDigest: { algorithm: sha256, value: c8841e177191796cb8b757db2603ba758bc1427b8420bcecec110a255690fffb, coverage: openrig.package-digest/v1 }
-        reason: "Only README.md changed in the package (setup notes: the context-pack step needs a running daemon, and the steps Claude Code's auto mode declines); the setup commands are unchanged."
+        reason: "Only README.md changed in the package (setup notes: the context-pack step needs a running daemon, and the steps Claude Code's auto mode declines), and the manifest shows the same notes as two display-only preconditions; the setup commands are unchanged."
       - packageDigest: { algorithm: sha256, value: eaf7c450f86a7958217b5365365c25b5e6106800b30cf5a4646a5744861125dc, coverage: openrig.package-digest/v1 }
-        reason: "Only README.md changed in the package (first-run, non-interruptive and stalled-seat recovery instructions, and the setup notes); the setup commands are unchanged."
+        reason: "Only README.md changed in the package (first-run, non-interruptive and stalled-seat recovery instructions, and the setup notes), and the manifest's preconditions were reworded and extended for display; the setup commands are unchanged."
   - id: build.impl=claude-code,build.lead=claude-code,check.qa=claude-code,check.review=claude-code
     alias: all-claude
     packageDigest: { algorithm: sha256, value: 73c1883cf52fe73a75057768403a102b1f74dc9bd5723bb6c9996f95b09bebb6, coverage: openrig.package-digest/v1 }
@@ -26,7 +26,7 @@ configurations:
     behaviour: views/openrig-dev/build.impl-claude-code_build.lead-claude-code_check.qa-claude-code_check.review-claude-code.0.6.6.json
     evidenceReuse:
       - packageDigest: { algorithm: sha256, value: b12ea96d8e33961c31b903c14521c8ec14c5421a054d25faf0ba49c932159127, coverage: openrig.package-digest/v1 }
-        reason: "Only README.md changed in the package (setup notes: the context-pack step needs a running daemon, and the steps Claude Code's auto mode declines); the setup commands are unchanged."
+        reason: "Only README.md changed in the package (setup notes: the context-pack step needs a running daemon, and the steps Claude Code's auto mode declines), and the manifest shows the same notes as two display-only preconditions; the setup commands are unchanged."
   - id: build.impl=codex,build.lead=codex,check.qa=codex,check.review=codex
     alias: all-codex
     packageDigest: { algorithm: sha256, value: 03f229abaf1ff6d6ab8ad96286a8a6b59073db60b3e8312049d0c60881063555, coverage: openrig.package-digest/v1 }
