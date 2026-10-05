@@ -5,14 +5,14 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/openrig-dev",
-      "requestedRef": "64c7efdd245c020c2ed9c78afe80b8dabab848f4",
-      "resolvedCommit": "64c7efdd245c020c2ed9c78afe80b8dabab848f4",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/64c7efdd245c020c2ed9c78afe80b8dabab848f4/rigs/openrig-dev"
+      "requestedRef": "94af8cac6b56cc98bfdcfc32adcccf83a69a5363",
+      "resolvedCommit": "94af8cac6b56cc98bfdcfc32adcccf83a69a5363",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/94af8cac6b56cc98bfdcfc32adcccf83a69a5363/rigs/openrig-dev"
     },
     "configurationId": "build.impl=codex,build.lead=codex,check.qa=codex,check.review=codex",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "87f8871a28e47c523f0491a425434a3a78dbf1ded865d4b4957bfa6d9a57772d",
+      "value": "03f229abaf1ff6d6ab8ad96286a8a6b59073db60b3e8312049d0c60881063555",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
@@ -28,12 +28,12 @@
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/openrig-dev",
-        "requestedRef": "64c7efdd245c020c2ed9c78afe80b8dabab848f4",
-        "resolvedCommit": "64c7efdd245c020c2ed9c78afe80b8dabab848f4",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/64c7efdd245c020c2ed9c78afe80b8dabab848f4/rigs/openrig-dev"
+        "requestedRef": "94af8cac6b56cc98bfdcfc32adcccf83a69a5363",
+        "resolvedCommit": "94af8cac6b56cc98bfdcfc32adcccf83a69a5363",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/94af8cac6b56cc98bfdcfc32adcccf83a69a5363/rigs/openrig-dev"
       },
-      "created_at": "2026-10-04T23:27:33.530Z",
-      "source_host": "24d8b59a9456",
+      "created_at": "2026-10-05T10:01:08.116Z",
+      "source_host": "ec5c01e0771b",
       "daemon_version": "0.6.6",
       "cli_version": "0.6.6"
     },
@@ -725,12 +725,34 @@
     },
     {
       "kind": "precondition",
-      "name": "Before your first install on a machine, run claude --dangerously-skip-permissions once in the clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping.",
+      "name": "rig context add needs the OpenRig daemon running. rig up starts the daemon by itself, but this step comes first, so if rig context add stops with \"Daemon not running.\", run rig daemon start and then add the pack again.",
       "status": "not_checked",
       "sourceRefs": [
         {
           "path": "bundle.yaml",
           "field": "preconditions[2]"
+        }
+      ]
+    },
+    {
+      "kind": "precondition",
+      "name": "If you ask Claude Code to do this setup for you, plan to run some steps yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto mode declined three of them: cloning and building the openrig repository ([Code from External]), so run the clone and the build yourself; adding a permission rule for itself ([Self-Modification]), which auto mode doesn't let Claude do, so add any rule yourself with /permissions or in .claude/settings.local.json; and rig context add --git ([Untrusted Code Integration]), even with an allow rule for that command, so run it yourself.",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "preconditions[3]"
+        }
+      ]
+    },
+    {
+      "kind": "precondition",
+      "name": "Before your first install on a machine, run claude --dangerously-skip-permissions once in the clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping.",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "preconditions[4]"
         }
       ]
     },
