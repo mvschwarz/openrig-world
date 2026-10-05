@@ -12,3 +12,6 @@ ref: main              # a branch, tag or commit
 The registry check accepts it and says "Submission received". A maintainer then pins your link to an exact commit,
 reviews the bundle, writes the full entry in `registry/`, and removes this file. If it isn't listed, you get a short
 reply saying why.
+
+Rig names on openrig.dev/rigs are unique. If `registry/<your-team>.yaml` already exists, the check still passes but
+says the name is taken; rename your file to a distinct one, for example `<taken-name>-<your-name>.yaml`.

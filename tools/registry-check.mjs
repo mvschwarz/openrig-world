@@ -29,9 +29,19 @@ export function checkRepository(root = REPO) {
   return findings;
 }
 
+/** Rig names on openrig.dev/rigs are unique; a taken one gets a friendly hint, never a failure. */
+export const nameTaken = (name) => `That name is taken. Choose a distinct one, for example ${name}-<your-name>.`;
+
 /** One notice per well-formed submission in `registry/submissions/`. */
 export function submissionNotices(root = REPO) {
-  return loadSubmissions(root, loadValidators()).filter((item) => !item.problem).map((item) => ({ file: item.file, message: RECEIVED }));
+  const registry = path.join(root, "registry");
+  const taken = new Set(fs.existsSync(registry)
+    ? fs.readdirSync(registry).filter((n) => n.endsWith(".yaml")).map((n) => n.slice(0, -".yaml".length).toLowerCase())
+    : []);
+  return loadSubmissions(root, loadValidators()).filter((item) => !item.problem).map((item) => {
+    const name = path.basename(item.file).replace(/\.ya?ml$/, "");
+    return { file: item.file, message: taken.has(name.toLowerCase()) ? `${RECEIVED} ${nameTaken(name)}` : RECEIVED };
+  });
 }
 
 // A file here with no configurations can never be an entry; it's most likely a submission in the wrong place, and
