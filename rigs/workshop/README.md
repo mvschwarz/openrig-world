@@ -72,10 +72,25 @@ wrong place.
 
 Once the seats are up, the lead reads the repository's `ROADMAP.md` if it has
 one and looks for candidate work (open issues, TODOs, failing checks). It
-proposes one item, says why, and asks before starting. Answer it in the lead's
-terminal (`rig` opens the TUI), or give it work of your own from any shell. A
-message from your own terminal arrives marked as from an unsigned sender; start
-it with your name if you want the lead to know who sent it:
+proposes one item, says why, and asks before starting.
+
+**Reaching the team.** The rig is named `workshop` unless it was launched under
+another name (`rig ps` lists your rigs), and the lead's session is
+`orch-lead@<rig>`. Use whichever suits you; an agent that installed the team
+for you can do the first one itself:
+
+- From any shell, read the lead's screen with `rig capture orch-lead@workshop`
+  and answer with `rig send` (below).
+- Put a terminal on the lead with `tmux attach -t orch-lead@workshop`. From
+  inside tmux, use `tmux switch-client -t orch-lead@workshop`. Press Ctrl-b,
+  then d, to leave it running. `rig ps --nodes --rig workshop --json --fields canonicalSessionName,tmuxAttachCommand`
+  prints this command for every seat.
+- Run `rig` for OpenRig's TUI.
+- Open every seat as a tile with `rig terminal open workshop`, if
+  `rig terminal status` shows a terminal provider (herdr by default, or cmux).
+
+A message from your own terminal arrives marked as from an unsigned sender;
+start it with your name if you want the lead to know who sent it:
 
 ```sh
 rig send orch-lead@workshop "Please take issue #<number>: <one line on what you want>"

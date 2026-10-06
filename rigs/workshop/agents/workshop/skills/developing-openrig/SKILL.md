@@ -23,6 +23,7 @@ not by restarting the daemon you live in.
 
 | You want to know | Read | How much to trust it |
 |---|---|---|
+| What OpenRig can already do, before you decide something is missing | `rig context get onboarding-width/public-what-you-can-do.md` | The capability map; check it before proposing a new command or calling a gap a defect |
 | How the packages fit, the request path, where to add a command, route, migration, adapter, skill, context pack or scenario | [`ARCHITECTURE.md`](../../../ARCHITECTURE.md) | Checked against the commit it names; counts come with the command to refresh them |
 | Whether your change touches a high-risk area, what depends on it, what broke there before | [`docs/as-built/arteries.md`](../../../docs/as-built/arteries.md) | Incomplete by design: absence from it doesn't make a change safe |
 | What to run before you push, and what each layer can and can't prove | [`docs/as-built/test-layers.md`](../../../docs/as-built/test-layers.md) | Checked against the commit it names |
@@ -56,6 +57,8 @@ stub-agent scenarios, which run the real CLI, daemon, tmux and SQLite with scrip
 OpenRig is a coordination layer for a trusted environment: it should help agents and people keep work flowing.
 
 - A change that removes friction, or makes state more truthful, is usually welcome.
+- OpenRig runs on agents working in context with tools. Before adding code for a behaviour, ask whether an agent with
+  the right instructions and today's commands could do it. A skill or a page of guidance is often the better change.
 - A change that adds a refusal, a prompt or a required step needs the concrete case in CONTRIBUTING.md: who is
   harmed, how, and what it costs everyone else.
 - One concern per pull request. Keep the diff reviewable in one sitting.
