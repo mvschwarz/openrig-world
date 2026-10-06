@@ -5,14 +5,14 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/workshop",
-      "requestedRef": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
-      "resolvedCommit": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/888ec4653e0dbd3d1c9787081cd28def554d29a2/rigs/workshop"
+      "requestedRef": "a322fe46a64171d4bcf72dc5a1ccd42219716c1f",
+      "resolvedCommit": "a322fe46a64171d4bcf72dc5a1ccd42219716c1f",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/a322fe46a64171d4bcf72dc5a1ccd42219716c1f/rigs/workshop"
     },
-    "configurationId": "dev.build=codex,orch.lead=codex,review.code=codex,review.qa=codex",
+    "configurationId": "dev.build=claude-code,dev.qa=claude-code,dev.review=claude-code,orch.lead=claude-code",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "3f9459a84f469dbd503aa2e518f32a921c770be3be1baff9aac6898f8d0b55a3",
+      "value": "8a3dc50e81e9709798ee77b621f7ed1503585d41ef8580754c8a894a7e61af6e",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
@@ -28,14 +28,12 @@
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/workshop",
-        "requestedRef": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
-        "resolvedCommit": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/888ec4653e0dbd3d1c9787081cd28def554d29a2/rigs/workshop"
+        "requestedRef": "a322fe46a64171d4bcf72dc5a1ccd42219716c1f",
+        "resolvedCommit": "a322fe46a64171d4bcf72dc5a1ccd42219716c1f",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/a322fe46a64171d4bcf72dc5a1ccd42219716c1f/rigs/workshop"
       },
-      "created_at": "2026-10-06T03:32:11.657Z",
-      "source_host": "ef2bff1246a5",
-      "daemon_version": "0.6.6",
-      "cli_version": "0.6.6"
+      "created_at": "2026-10-06T07:58:11.859Z",
+      "daemon_version": "0.6.6"
     },
     "integrity": {
       "digestValid": true,
@@ -49,7 +47,7 @@
       "member": "lead",
       "agentRef": "local:agents/workshop",
       "profile": "lead",
-      "runtime": "codex",
+      "runtime": "claude-code",
       "cwd": "."
     },
     {
@@ -58,25 +56,25 @@
       "member": "build",
       "agentRef": "local:agents/workshop",
       "profile": "builder",
-      "runtime": "codex",
+      "runtime": "claude-code",
       "cwd": "."
     },
     {
-      "seat": "review.code",
-      "pod": "review",
-      "member": "code",
+      "seat": "dev.review",
+      "pod": "dev",
+      "member": "review",
       "agentRef": "local:agents/workshop",
       "profile": "code-reviewer",
-      "runtime": "codex",
+      "runtime": "claude-code",
       "cwd": "."
     },
     {
-      "seat": "review.qa",
-      "pod": "review",
+      "seat": "dev.qa",
+      "pod": "dev",
       "member": "qa",
       "agentRef": "local:agents/workshop",
       "profile": "qa",
-      "runtime": "codex",
+      "runtime": "claude-code",
       "cwd": "."
     }
   ],
@@ -84,10 +82,13 @@
     {
       "seat": "orch.lead",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
+      "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
       "nonInterruptive": "available",
+      "firstRunWarnings": {
+        "claudeBypass": "harness_asks_once"
+      },
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -99,10 +100,13 @@
     {
       "seat": "dev.build",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
+      "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
       "nonInterruptive": "available",
+      "firstRunWarnings": {
+        "claudeBypass": "harness_asks_once"
+      },
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
@@ -112,32 +116,38 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
+      "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
       "nonInterruptive": "available",
+      "firstRunWarnings": {
+        "claudeBypass": "harness_asks_once"
+      },
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.code"
+          "field": "pods.dev.members.review"
         }
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "shellAccess": "Can run shell commands as the launching user, subject to runtime and host policy.",
-      "selection": "Permission prompts: off; Codex runs with full access and never asks (full_bypass); declared policy: builtin:yolo",
+      "selection": "Permission prompts: off; Claude bypasses permissions (full_bypass); declared policy: builtin:yolo",
       "basis": "explicit",
       "permissionPrompts": "off",
       "nonInterruptive": "available",
+      "firstRunWarnings": {
+        "claudeBypass": "harness_asks_once"
+      },
       "nativeEffect": "unknown",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.qa"
+          "field": "pods.dev.members.qa"
         }
       ]
     }
@@ -411,6 +421,19 @@
       "delivery": "send_text"
     },
     {
+      "seat": "orch.lead",
+      "kind": "startup",
+      "pathOrRef": "startup/lead-first-move.md",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "rig.yaml",
+          "field": "pods.orch.members.lead.startup"
+        }
+      ],
+      "delivery": "send_text"
+    },
+    {
       "seat": "dev.build",
       "kind": "startup",
       "pathOrRef": "agents/workshop/guidance/builder.md",
@@ -678,7 +701,7 @@
       "delivery": "send_text"
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "startup",
       "pathOrRef": "agents/workshop/guidance/code-reviewer.md",
       "resolution": "archive",
@@ -691,7 +714,7 @@
       "delivery": "send_text"
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/agent-operated-software",
       "resolution": "archive",
@@ -703,7 +726,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/agent-operated-workflows",
       "resolution": "archive",
@@ -715,7 +738,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/applying-a-permission-policy",
       "resolution": "archive",
@@ -727,7 +750,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/claude-compaction-restore",
       "resolution": "archive",
@@ -739,7 +762,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/delegating-work",
       "resolution": "archive",
@@ -751,7 +774,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/forming-an-openrig-mental-model",
       "resolution": "archive",
@@ -763,7 +786,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/loading-addressable-markdown",
       "resolution": "archive",
@@ -775,7 +798,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/messaging-the-human",
       "resolution": "archive",
@@ -787,7 +810,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/mission-slice-sop",
       "resolution": "archive",
@@ -799,7 +822,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/openrig-operating-model",
       "resolution": "archive",
@@ -811,7 +834,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/openrig-user",
       "resolution": "archive",
@@ -823,7 +846,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/orienting-to-an-inherited-seat",
       "resolution": "archive",
@@ -835,7 +858,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/bundle-skills/ponytail",
       "resolution": "archive",
@@ -847,7 +870,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/queue-handoff",
       "resolution": "archive",
@@ -859,7 +882,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/refocusing",
       "resolution": "archive",
@@ -871,7 +894,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/retiring-and-inheriting-a-seat",
       "resolution": "archive",
@@ -883,7 +906,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/seat-continuity-and-handover",
       "resolution": "archive",
@@ -895,7 +918,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/session-compaction-and-restore",
       "resolution": "archive",
@@ -907,7 +930,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "pathOrRef": "agents/workshop/bundle-skills/using-the-tui-together",
       "resolution": "archive",
@@ -919,7 +942,7 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "culture",
       "pathOrRef": "CULTURE.md",
       "resolution": "archive",
@@ -932,7 +955,7 @@
       "delivery": "guidance_merge"
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "startup",
       "pathOrRef": "startup/context.md",
       "resolution": "archive",
@@ -945,7 +968,7 @@
       "delivery": "send_text"
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "startup",
       "pathOrRef": "agents/workshop/guidance/qa.md",
       "resolution": "archive",
@@ -958,7 +981,7 @@
       "delivery": "send_text"
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/agent-operated-software",
       "resolution": "archive",
@@ -970,7 +993,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/agent-operated-workflows",
       "resolution": "archive",
@@ -982,7 +1005,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/applying-a-permission-policy",
       "resolution": "archive",
@@ -994,7 +1017,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/claude-compaction-restore",
       "resolution": "archive",
@@ -1006,7 +1029,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/delegating-work",
       "resolution": "archive",
@@ -1018,7 +1041,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/forming-an-openrig-mental-model",
       "resolution": "archive",
@@ -1030,7 +1053,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/loading-addressable-markdown",
       "resolution": "archive",
@@ -1042,7 +1065,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/messaging-the-human",
       "resolution": "archive",
@@ -1054,7 +1077,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/mission-slice-sop",
       "resolution": "archive",
@@ -1066,7 +1089,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/openrig-operating-model",
       "resolution": "archive",
@@ -1078,7 +1101,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/openrig-user",
       "resolution": "archive",
@@ -1090,7 +1113,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/orienting-to-an-inherited-seat",
       "resolution": "archive",
@@ -1102,7 +1125,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/bundle-skills/ponytail",
       "resolution": "archive",
@@ -1114,7 +1137,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/queue-handoff",
       "resolution": "archive",
@@ -1126,7 +1149,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/refocusing",
       "resolution": "archive",
@@ -1138,7 +1161,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/retiring-and-inheriting-a-seat",
       "resolution": "archive",
@@ -1150,7 +1173,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/seat-continuity-and-handover",
       "resolution": "archive",
@@ -1162,7 +1185,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/skills/session-compaction-and-restore",
       "resolution": "archive",
@@ -1174,7 +1197,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "pathOrRef": "agents/workshop/bundle-skills/using-the-tui-together",
       "resolution": "archive",
@@ -1186,7 +1209,7 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "culture",
       "pathOrRef": "CULTURE.md",
       "resolution": "archive",
@@ -1199,7 +1222,7 @@
       "delivery": "guidance_merge"
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "startup",
       "pathOrRef": "startup/context.md",
       "resolution": "archive",
@@ -1215,6 +1238,19 @@
   "alsoRuns": [
     {
       "seat": "orch.lead",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/workshop/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "orch.lead",
       "kind": "startup_startup_proof",
       "pathOrRef": "authenticated",
       "resolution": "archive",
@@ -1225,6 +1261,19 @@
           "field": "startup"
         }
       ]
+    },
+    {
+      "seat": "dev.build",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/workshop/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
     },
     {
       "seat": "dev.build",
@@ -1240,7 +1289,20 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/workshop/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "dev.review",
       "kind": "startup_startup_proof",
       "pathOrRef": "authenticated",
       "resolution": "archive",
@@ -1253,7 +1315,20 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
+      "kind": "runtimeResources",
+      "pathOrRef": "agents/workshop/runtime/claude-activity-hooks.json",
+      "resolution": "archive",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ],
+      "trigger": "if selected runtime supports and loads this resource"
+    },
+    {
+      "seat": "dev.qa",
       "kind": "startup_startup_proof",
       "pathOrRef": "authenticated",
       "resolution": "archive",
@@ -1271,7 +1346,7 @@
       "seat": "orch.lead",
       "kind": "managed_guidance",
       "destinationBase": "seat_cwd",
-      "path": "AGENTS.md",
+      "path": "CLAUDE.local.md",
       "operation": "merge managed blocks",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1286,7 +1361,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-software",
+      "path": ".claude/skills/agent-operated-software",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1301,7 +1376,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-workflows",
+      "path": ".claude/skills/agent-operated-workflows",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1316,7 +1391,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/applying-a-permission-policy",
+      "path": ".claude/skills/applying-a-permission-policy",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1331,7 +1406,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/claude-compaction-restore",
+      "path": ".claude/skills/claude-compaction-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1346,7 +1421,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/delegating-work",
+      "path": ".claude/skills/delegating-work",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1361,7 +1436,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/forming-an-openrig-mental-model",
+      "path": ".claude/skills/forming-an-openrig-mental-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1376,7 +1451,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/loading-addressable-markdown",
+      "path": ".claude/skills/loading-addressable-markdown",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1391,7 +1466,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/messaging-the-human",
+      "path": ".claude/skills/messaging-the-human",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1406,7 +1481,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/mission-slice-sop",
+      "path": ".claude/skills/mission-slice-sop",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1421,7 +1496,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-operating-model",
+      "path": ".claude/skills/openrig-operating-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1436,7 +1511,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-user",
+      "path": ".claude/skills/openrig-user",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1451,7 +1526,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/orienting-to-an-inherited-seat",
+      "path": ".claude/skills/orienting-to-an-inherited-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1466,7 +1541,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/ponytail",
+      "path": ".claude/skills/ponytail",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1481,7 +1556,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/queue-handoff",
+      "path": ".claude/skills/queue-handoff",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1496,7 +1571,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/refocusing",
+      "path": ".claude/skills/refocusing",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1511,7 +1586,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/retiring-and-inheriting-a-seat",
+      "path": ".claude/skills/retiring-and-inheriting-a-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1526,7 +1601,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/seat-continuity-and-handover",
+      "path": ".claude/skills/seat-continuity-and-handover",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1541,7 +1616,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/session-compaction-and-restore",
+      "path": ".claude/skills/session-compaction-and-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1556,7 +1631,7 @@
       "seat": "orch.lead",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/using-the-tui-together",
+      "path": ".claude/skills/using-the-tui-together",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1568,10 +1643,25 @@
       ]
     },
     {
+      "seat": "orch.lead",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
       "seat": "dev.build",
       "kind": "managed_guidance",
       "destinationBase": "seat_cwd",
-      "path": "AGENTS.md",
+      "path": "CLAUDE.local.md",
       "operation": "merge managed blocks",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1586,7 +1676,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-software",
+      "path": ".claude/skills/agent-operated-software",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1601,7 +1691,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-workflows",
+      "path": ".claude/skills/agent-operated-workflows",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1616,7 +1706,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/applying-a-permission-policy",
+      "path": ".claude/skills/applying-a-permission-policy",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1631,7 +1721,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/claude-compaction-restore",
+      "path": ".claude/skills/claude-compaction-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1646,7 +1736,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/delegating-work",
+      "path": ".claude/skills/delegating-work",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1661,7 +1751,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/forming-an-openrig-mental-model",
+      "path": ".claude/skills/forming-an-openrig-mental-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1676,7 +1766,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/loading-addressable-markdown",
+      "path": ".claude/skills/loading-addressable-markdown",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1691,7 +1781,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/messaging-the-human",
+      "path": ".claude/skills/messaging-the-human",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1706,7 +1796,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/mission-slice-sop",
+      "path": ".claude/skills/mission-slice-sop",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1721,7 +1811,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-operating-model",
+      "path": ".claude/skills/openrig-operating-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1736,7 +1826,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-user",
+      "path": ".claude/skills/openrig-user",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1751,7 +1841,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/orienting-to-an-inherited-seat",
+      "path": ".claude/skills/orienting-to-an-inherited-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1766,7 +1856,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/ponytail",
+      "path": ".claude/skills/ponytail",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1781,7 +1871,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/queue-handoff",
+      "path": ".claude/skills/queue-handoff",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1796,7 +1886,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/refocusing",
+      "path": ".claude/skills/refocusing",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1811,7 +1901,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/retiring-and-inheriting-a-seat",
+      "path": ".claude/skills/retiring-and-inheriting-a-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1826,7 +1916,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/seat-continuity-and-handover",
+      "path": ".claude/skills/seat-continuity-and-handover",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1841,7 +1931,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/session-compaction-and-restore",
+      "path": ".claude/skills/session-compaction-and-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1856,7 +1946,7 @@
       "seat": "dev.build",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/using-the-tui-together",
+      "path": ".claude/skills/using-the-tui-together",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1868,25 +1958,40 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.build",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
+      "seat": "dev.review",
       "kind": "managed_guidance",
       "destinationBase": "seat_cwd",
-      "path": "AGENTS.md",
+      "path": "CLAUDE.local.md",
       "operation": "merge managed blocks",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.code"
+          "field": "pods.dev.members.review"
         }
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-software",
+      "path": ".claude/skills/agent-operated-software",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1898,10 +2003,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-workflows",
+      "path": ".claude/skills/agent-operated-workflows",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1913,10 +2018,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/applying-a-permission-policy",
+      "path": ".claude/skills/applying-a-permission-policy",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1928,10 +2033,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/claude-compaction-restore",
+      "path": ".claude/skills/claude-compaction-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1943,10 +2048,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/delegating-work",
+      "path": ".claude/skills/delegating-work",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1958,10 +2063,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/forming-an-openrig-mental-model",
+      "path": ".claude/skills/forming-an-openrig-mental-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1973,10 +2078,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/loading-addressable-markdown",
+      "path": ".claude/skills/loading-addressable-markdown",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -1988,10 +2093,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/messaging-the-human",
+      "path": ".claude/skills/messaging-the-human",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2003,10 +2108,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/mission-slice-sop",
+      "path": ".claude/skills/mission-slice-sop",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2018,10 +2123,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-operating-model",
+      "path": ".claude/skills/openrig-operating-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2033,10 +2138,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-user",
+      "path": ".claude/skills/openrig-user",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2048,10 +2153,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/orienting-to-an-inherited-seat",
+      "path": ".claude/skills/orienting-to-an-inherited-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2063,10 +2168,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/ponytail",
+      "path": ".claude/skills/ponytail",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2078,10 +2183,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/queue-handoff",
+      "path": ".claude/skills/queue-handoff",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2093,10 +2198,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/refocusing",
+      "path": ".claude/skills/refocusing",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2108,10 +2213,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/retiring-and-inheriting-a-seat",
+      "path": ".claude/skills/retiring-and-inheriting-a-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2123,10 +2228,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/seat-continuity-and-handover",
+      "path": ".claude/skills/seat-continuity-and-handover",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2138,10 +2243,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/session-compaction-and-restore",
+      "path": ".claude/skills/session-compaction-and-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2153,10 +2258,10 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/using-the-tui-together",
+      "path": ".claude/skills/using-the-tui-together",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2168,25 +2273,40 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.review",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
+        }
+      ]
+    },
+    {
+      "seat": "dev.qa",
       "kind": "managed_guidance",
       "destinationBase": "seat_cwd",
-      "path": "AGENTS.md",
+      "path": "CLAUDE.local.md",
       "operation": "merge managed blocks",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.qa"
+          "field": "pods.dev.members.qa"
         }
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-software",
+      "path": ".claude/skills/agent-operated-software",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2198,10 +2318,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/agent-operated-workflows",
+      "path": ".claude/skills/agent-operated-workflows",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2213,10 +2333,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/applying-a-permission-policy",
+      "path": ".claude/skills/applying-a-permission-policy",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2228,10 +2348,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/claude-compaction-restore",
+      "path": ".claude/skills/claude-compaction-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2243,10 +2363,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/delegating-work",
+      "path": ".claude/skills/delegating-work",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2258,10 +2378,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/forming-an-openrig-mental-model",
+      "path": ".claude/skills/forming-an-openrig-mental-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2273,10 +2393,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/loading-addressable-markdown",
+      "path": ".claude/skills/loading-addressable-markdown",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2288,10 +2408,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/messaging-the-human",
+      "path": ".claude/skills/messaging-the-human",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2303,10 +2423,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/mission-slice-sop",
+      "path": ".claude/skills/mission-slice-sop",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2318,10 +2438,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-operating-model",
+      "path": ".claude/skills/openrig-operating-model",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2333,10 +2453,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/openrig-user",
+      "path": ".claude/skills/openrig-user",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2348,10 +2468,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/orienting-to-an-inherited-seat",
+      "path": ".claude/skills/orienting-to-an-inherited-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2363,10 +2483,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/ponytail",
+      "path": ".claude/skills/ponytail",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2378,10 +2498,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/queue-handoff",
+      "path": ".claude/skills/queue-handoff",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2393,10 +2513,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/refocusing",
+      "path": ".claude/skills/refocusing",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2408,10 +2528,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/retiring-and-inheriting-a-seat",
+      "path": ".claude/skills/retiring-and-inheriting-a-seat",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2423,10 +2543,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/seat-continuity-and-handover",
+      "path": ".claude/skills/seat-continuity-and-handover",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2438,10 +2558,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/session-compaction-and-restore",
+      "path": ".claude/skills/session-compaction-and-restore",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2453,10 +2573,10 @@
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "skills",
       "destinationBase": "seat_cwd",
-      "path": ".agents/skills/using-the-tui-together",
+      "path": ".claude/skills/using-the-tui-together",
       "operation": "project",
       "phase": "before_launch",
       "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
@@ -2464,6 +2584,21 @@
         {
           "path": "agents/workshop/agent.yaml",
           "field": "resources.skills.using-the-tui-together"
+        }
+      ]
+    },
+    {
+      "seat": "dev.qa",
+      "kind": "runtimeResources",
+      "destinationBase": "seat_cwd",
+      "path": ".claude/settings.local.json",
+      "operation": "merge settings or managed hooks",
+      "phase": "before_launch",
+      "condition": "Subject to configured destinations, runtime support and existing-file conflicts at installation or launch.",
+      "sourceRefs": [
+        {
+          "path": "agents/workshop/agent.yaml",
+          "field": "resources.runtimeResources.claude-activity-hooks"
         }
       ]
     },
@@ -2541,7 +2676,7 @@
     {
       "seat": "orch.lead",
       "kind": "runtime",
-      "name": "codex",
+      "name": "claude-code",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -2553,7 +2688,7 @@
     {
       "seat": "orch.lead",
       "kind": "login",
-      "name": "codex: the user's own runtime account or provider configuration",
+      "name": "claude-code: the user's own runtime account or provider configuration",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -2565,7 +2700,7 @@
     {
       "seat": "dev.build",
       "kind": "runtime",
-      "name": "codex",
+      "name": "claude-code",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -2577,7 +2712,7 @@
     {
       "seat": "dev.build",
       "kind": "login",
-      "name": "codex: the user's own runtime account or provider configuration",
+      "name": "claude-code: the user's own runtime account or provider configuration",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -2587,50 +2722,50 @@
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "runtime",
-      "name": "codex",
+      "name": "claude-code",
       "status": "not_checked",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.code"
+          "field": "pods.dev.members.review"
         }
       ]
     },
     {
-      "seat": "review.code",
+      "seat": "dev.review",
       "kind": "login",
-      "name": "codex: the user's own runtime account or provider configuration",
+      "name": "claude-code: the user's own runtime account or provider configuration",
       "status": "not_checked",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.code"
+          "field": "pods.dev.members.review"
         }
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "runtime",
-      "name": "codex",
+      "name": "claude-code",
       "status": "not_checked",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.qa"
+          "field": "pods.dev.members.qa"
         }
       ]
     },
     {
-      "seat": "review.qa",
+      "seat": "dev.qa",
       "kind": "login",
-      "name": "codex: the user's own runtime account or provider configuration",
+      "name": "claude-code: the user's own runtime account or provider configuration",
       "status": "not_checked",
       "sourceRefs": [
         {
           "path": "rig.yaml",
-          "field": "pods.review.members.qa"
+          "field": "pods.dev.members.qa"
         }
       ]
     },
@@ -2683,7 +2818,7 @@
     },
     {
       "kind": "precondition",
-      "name": "Before your first install on a machine, run claude --dangerously-skip-permissions once in your clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping.",
+      "name": "When a selected seat uses Claude Code, before your first install on a machine run claude --dangerously-skip-permissions once in your clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping.",
       "status": "not_checked",
       "sourceRefs": [
         {

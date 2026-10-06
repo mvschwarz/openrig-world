@@ -12,6 +12,10 @@ Format: `registry-entry.v1` in the OpenRig repository's `docs/reference/bundle-f
 The site shows only `listed` entries, at their recorded commit. A later push to the bundle's branch changes nothing
 here until an update is reviewed and merged. A withdrawn entry leaves the lists.
 
+The [secrets-manager source reference](../rigs/launch/secrets-manager/README.md) is not listed as installable.
+Teams with a built-in service can't install from a bundle yet. GitHub folder links use the same bundle installer,
+so they have the same limitation; no installable entry or archive is offered for secrets-manager.
+
 Every listing carries the line: "Reviewed for listing on <date> at commit <short>. Review is not a security audit."
 
 The registry check (`tools/registry-check.mjs`) runs on every pull request. It rejects entries that don't match the

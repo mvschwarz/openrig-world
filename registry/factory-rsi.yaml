@@ -1,0 +1,19 @@
+schema: openrig.registry-entry/v1
+slug: factory-rsi
+name: factory-rsi reference
+summary: "Retained reference: a seven-seat recursive improvement factory with a separate dogfood loop and human publication gate. No new native launch result is claimed."
+source:
+  repository: https://github.com/mvschwarz/openrig-world
+  folder: rigs/launch/factory-rsi
+  resolvedCommit: a322fe46a64171d4bcf72dc5a1ccd42219716c1f
+  requestedRef: a322fe46a64171d4bcf72dc5a1ccd42219716c1f
+configurations:
+  - id: build.implementer=claude-code,check.qa=codex,dogfood.tester=codex,orch.lead=claude-code,plan.planner=claude-code,release.manager=claude-code,review.reviewer=codex
+    recommended: true
+    packageDigest: { algorithm: sha256, value: 206dfc1795d2ddfcdb77cc743d48084083adb6d6dfa1e4016cad2d5b9b76e68b, coverage: openrig.package-digest/v1 }
+    assembler: { openrigVersion: 0.6.6 }
+    behaviour: views/factory-rsi/build.implementer-claude-code_check.qa-codex_dogfood.tester-codex_orch.lead-claude-code_plan.planner-claude-code_release.manager-claude-code_review.reviewer-codex.0.6.6.json
+review:
+  date: 2026-10-06
+  note: Reviewed for listing. Validation and plan checks are not native runtime proof or a security audit.
+status: listed
