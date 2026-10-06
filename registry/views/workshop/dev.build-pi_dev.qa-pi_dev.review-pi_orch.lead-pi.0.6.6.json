@@ -5,14 +5,14 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/workshop",
-      "requestedRef": "f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560",
-      "resolvedCommit": "f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560/rigs/workshop"
+      "requestedRef": "40453963fdb092e87946483481d642ff24e2142d",
+      "resolvedCommit": "40453963fdb092e87946483481d642ff24e2142d",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/40453963fdb092e87946483481d642ff24e2142d/rigs/workshop"
     },
     "configurationId": "dev.build=pi,dev.qa=pi,dev.review=pi,orch.lead=pi",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "c029811608839f02baedb39cbb33e6c49d6b98bbdfd15e425aaf2ae5d2a639c9",
+      "value": "e0223fba53f7187e254a86ec662731f862bbbde41ad7681cd2a41c5810b58eff",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
@@ -22,17 +22,18 @@
       "openrigVersion": "0.6.6"
     },
     "compatibility": {
+      "minDaemonVersion": "0.6.6",
       "minCliVersion": "0.6.6"
     },
     "statedProvenance": {
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/workshop",
-        "requestedRef": "f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560",
-        "resolvedCommit": "f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560/rigs/workshop"
+        "requestedRef": "40453963fdb092e87946483481d642ff24e2142d",
+        "resolvedCommit": "40453963fdb092e87946483481d642ff24e2142d",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/40453963fdb092e87946483481d642ff24e2142d/rigs/workshop"
       },
-      "created_at": "2026-10-06T09:07:30.332Z",
+      "created_at": "2026-10-06T22:20:22.679Z",
       "daemon_version": "0.6.6"
     },
     "integrity": {
@@ -1586,12 +1587,24 @@
     },
     {
       "kind": "precondition",
-      "name": "When a selected seat uses Claude Code, before your first install on a machine run claude --dangerously-skip-permissions once in your clone, accept its prompts (including Claude Code's bypass warning), then type /exit. Claude Code remembers it, so the seats start without stopping.",
+      "name": "This team declares broad access and non-interruptive launches: Claude bypasses permissions, Codex runs unsandboxed and never asks, and Pi gets full resource trust. OpenRig accepts supported Claude/Codex warning screens with launch flags; sign-in and unsupported harness notices still require you.",
       "status": "not_checked",
       "sourceRefs": [
         {
           "path": "bundle.yaml",
           "field": "preconditions[4]"
+        }
+      ]
+    },
+    {
+      "kind": "version",
+      "name": "OpenRig daemon",
+      "versionConstraint": ">=0.6.6",
+      "status": "not_checked",
+      "sourceRefs": [
+        {
+          "path": "bundle.yaml",
+          "field": "compatibility.min_daemon_version"
         }
       ]
     },
