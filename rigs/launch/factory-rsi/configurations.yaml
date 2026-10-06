@@ -1,0 +1,20 @@
+# The recommended configuration preserves the seven-seat factory as authored.
+schema: openrig.bundle-configurations/v1
+recommended: recommended
+seats:
+  plan.planner: { runtimes: { claude-code: default } }
+  build.implementer: { runtimes: { claude-code: default } }
+  check.qa: { runtimes: { codex: default } }
+  review.reviewer: { runtimes: { codex: default } }
+  dogfood.tester: { runtimes: { codex: default } }
+  release.manager: { runtimes: { claude-code: default } }
+  orch.lead: { runtimes: { claude-code: default } }
+presets:
+  recommended:
+    plan.planner: claude-code
+    build.implementer: claude-code
+    check.qa: codex
+    review.reviewer: codex
+    dogfood.tester: codex
+    release.manager: claude-code
+    orch.lead: claude-code
