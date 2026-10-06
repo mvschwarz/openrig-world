@@ -1,6 +1,6 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "e64c3aa66716e7906ec9dc3157c932fb49967e2f",
+  "productCommit": "fcef78aba543791bb9175b4a2ac6e33130ec3e50",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
   "pluginVersion": "0.1.4",
   "pluginManifestSha256": "5bd9904c982023f0b6a994dba348bb2df3f21663327017d007a2568069a681b5",
@@ -100,7 +100,7 @@
       "path": "skills/developing-openrig/SKILL.md",
       "source": ".agents/skills/developing-openrig/SKILL.md",
       "mode": "100644",
-      "sha256": "8737d6cabe73ed319f3618b979027c3128cd11f0e01bd26299c8383f146e6349"
+      "sha256": "fba6335a4e091adb195d90774247bf1ee0e882464bb2ebc3a5d7e77b2d354e00"
     },
     {
       "path": "skills/forming-an-openrig-mental-model/SKILL.md",
@@ -202,7 +202,7 @@
       "path": "skills/openrig-skills/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-skills/SKILL.md",
       "mode": "100644",
-      "sha256": "e5f47e24a4c3cb1afceb1a3a93647313e9c30830aff58faabb5fa57838d1206c"
+      "sha256": "59601122bd3c4b8eb82cc6e31b710528c97a5fde3b09e01076f742fd6e39e73e"
     },
     {
       "path": "skills/openrig-user/SKILL.md",
