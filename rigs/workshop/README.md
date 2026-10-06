@@ -29,10 +29,11 @@ repository's own `developing-openrig` skill.
   open pull requests, with push credentials configured on this machine.
 
 Keep OpenRig's files out of your commits. OpenRig writes instruction files,
-settings and helper scripts into your clone. From the root of your clone:
+settings and helper scripts into your clone, and in an OpenRig clone the QA
+seat's `npm run gate` writes `gate-lane-verdict.json`. From the root of your clone:
 
 ```sh
-printf '%s\n' CLAUDE.local.md AGENTS.md /.openrig/ .claude/settings.local.json >> .git/info/exclude
+printf '%s\n' CLAUDE.local.md AGENTS.md /.openrig/ .claude/settings.local.json gate-lane-verdict.json >> .git/info/exclude
 ```
 
 This file is local to your clone and is never committed. It applies to the
@@ -49,12 +50,16 @@ Optional: add OpenRig's public context pack, so the seats load it at start:
 rig context add --git https://github.com/mvschwarz/openrig-world
 ```
 
-**If you ask Claude Code to do this setup for you,** plan to run two steps
-yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto
-mode declined them: adding a permission rule for itself (`[Self-Modification]`;
-add any rule yourself with `/permissions` or in `.claude/settings.local.json`),
-and `rig context add --git` (`[Untrusted Code Integration]`), even with an allow
-rule for that command.
+**If you ask Claude Code to do this setup for you,** plan to run some steps
+yourself. In OpenRig's tests with Claude Code 2.1.289 and 2.1.290, its default
+auto mode declined:
+
+- adding a permission rule for itself (`[Self-Modification]`; add any rule
+  yourself with `/permissions` or in `.claude/settings.local.json`);
+- `rig context add --git` (`[Untrusted Code Integration]`), even with an allow
+  rule for that command;
+- `rig up` (`[Create Unsafe Agents]`), because it starts new agents. You may need
+  to run it yourself, from the root of your clone, or approve it.
 
 ## Run it
 
