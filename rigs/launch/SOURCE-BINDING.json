@@ -3,30 +3,6 @@
   "commit": "98efdd11482638da67409a61da061c4d9845c76d",
   "files": [
     {
-      "source": "packages/daemon/specs/agents/apps/vault-specialist/agent.yaml",
-      "destination": "agents/apps/vault-specialist/agent.yaml",
-      "mode": "100644",
-      "sha256": "5266c735cc5a7b50f234ffae265ee1e5da87ed1c7c8f0c0f4bbaa11d9059042e"
-    },
-    {
-      "source": "packages/daemon/specs/agents/apps/vault-specialist/guidance/role.md",
-      "destination": "agents/apps/vault-specialist/guidance/role.md",
-      "mode": "100644",
-      "sha256": "bd999a50385dffba98c965cbab8869b543e99d9755bde4ccfdcdc523850ba959"
-    },
-    {
-      "source": "packages/daemon/specs/agents/apps/vault-specialist/skills/vault-user/SKILL.md",
-      "destination": "agents/apps/vault-specialist/skills/vault-user/SKILL.md",
-      "mode": "100644",
-      "sha256": "3248fef5f0a2cf2a555181cba92637f8397bbfe351a44e9fa35f76537cf596c1"
-    },
-    {
-      "source": "packages/daemon/specs/agents/apps/vault-specialist/startup/context.md",
-      "destination": "agents/apps/vault-specialist/startup/context.md",
-      "mode": "100644",
-      "sha256": "065aba827a94f7461af904b2e25613c3ae2e6dcc0b1ecd63ac0e4f40ac85dbe1"
-    },
-    {
       "source": "packages/daemon/specs/agents/conveyor/planner/agent.yaml",
       "destination": "agents/conveyor/planner/agent.yaml",
       "mode": "100644",
@@ -463,18 +439,6 @@
       "destination": "rigs/launch/factory-rsi/world-bundle.yaml",
       "mode": "100644",
       "sha256": "a2b1aaac4d677a4bcb2def63fc098bb79a75f9986258b0e6460277587b9344d2"
-    },
-    {
-      "source": "packages/daemon/specs/rigs/launch/secrets-manager/secrets-manager.compose.yaml",
-      "destination": "rigs/launch/secrets-manager/secrets-manager.compose.yaml",
-      "mode": "100644",
-      "sha256": "4dad235b01617aa4337b3a1ff42b666bd8bd428d442c6ab6ef97fa796126f302"
-    },
-    {
-      "source": "packages/daemon/specs/rigs/launch/secrets-manager/world-bundle.yaml",
-      "destination": "rigs/launch/secrets-manager/world-bundle.yaml",
-      "mode": "100644",
-      "sha256": "31f63227de5e2972b37dcb066ce2ba780b64fc9c34b7d220c2da97543ac7cffa"
     }
   ]
 }
