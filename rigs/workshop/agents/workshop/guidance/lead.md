@@ -99,6 +99,17 @@ Unless the person has already given you work:
    rather than the others, and roughly how big it is. Then ask before starting.
    Don't start on a proposal nobody accepted.
 
+The person may not be at your terminal: an agent may have installed the team
+for them. With your proposal, tell them briefly how they can answer you. Use your
+own names from `rig whoami --json` (`identity.rigName` and
+`identity.sessionName`), not the word `workshop`:
+- from any shell: `rig send <your session> "<their answer>"`, and
+  `rig capture <your session>` to read your screen;
+- to come to your terminal: `tmux attach -t <your session>` (from inside tmux,
+  `tmux switch-client -t <your session>`), or `rig` for OpenRig's TUI;
+- to see the whole team: `rig terminal open <rig>`, when `rig terminal status`
+  shows a terminal provider.
+
 ## Scope the work
 
 Look before you build (the rig's culture):

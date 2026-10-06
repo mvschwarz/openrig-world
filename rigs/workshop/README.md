@@ -29,10 +29,11 @@ repository's own `developing-openrig` skill.
   open pull requests, with push credentials configured on this machine.
 
 Keep OpenRig's files out of your commits. OpenRig writes instruction files,
-settings and helper scripts into your clone. From the root of your clone:
+settings and helper scripts into your clone, and in an OpenRig clone the QA
+seat's `npm run gate` writes `gate-lane-verdict.json`. From the root of your clone:
 
 ```sh
-printf '%s\n' CLAUDE.local.md AGENTS.md /.openrig/ .claude/settings.local.json >> .git/info/exclude
+printf '%s\n' CLAUDE.local.md AGENTS.md /.openrig/ .claude/settings.local.json gate-lane-verdict.json >> .git/info/exclude
 ```
 
 This file is local to your clone and is never committed. It applies to the
@@ -49,12 +50,15 @@ Optional: add OpenRig's public context pack, so the seats load it at start:
 rig context add --git https://github.com/mvschwarz/openrig-world
 ```
 
-**If you ask Claude Code to do this setup for you,** plan to run two steps
-yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto
-mode declined them: adding a permission rule for itself (`[Self-Modification]`;
-add any rule yourself with `/permissions` or in `.claude/settings.local.json`),
-and `rig context add --git` (`[Untrusted Code Integration]`), even with an allow
-rule for that command.
+**If you ask Claude Code to do this setup for you,** plan to run some steps
+yourself. In OpenRig's tests on macOS, Claude Code's default auto mode declined
+the `rig up` line (`[Create Unsafe Agents]`, because it starts new agents) on
+2.1.289 and 2.1.290, and in an earlier 2.1.289 run also declined adding a
+permission rule for itself (`[Self-Modification]`; add any rule yourself with
+`/permissions` or in `.claude/settings.local.json`) and `rig context add --git`
+(`[Untrusted Code Integration]`), even with an allow rule for that command. Run
+`rig context add --git` and `rig up` yourself in a terminal, from the root of
+your clone.
 
 ## Run it
 
@@ -72,10 +76,25 @@ wrong place.
 
 Once the seats are up, the lead reads the repository's `ROADMAP.md` if it has
 one and looks for candidate work (open issues, TODOs, failing checks). It
-proposes one item, says why, and asks before starting. Answer it in the lead's
-terminal (`rig` opens the TUI), or give it work of your own from any shell. A
-message from your own terminal arrives marked as from an unsigned sender; start
-it with your name if you want the lead to know who sent it:
+proposes one item, says why, and asks before starting.
+
+**Reaching the team.** The rig is named `workshop` unless it was launched under
+another name (`rig ps` lists your rigs), and the lead's session is
+`orch-lead@<rig>`. Use whichever suits you; an agent that installed the team
+for you can do the first one itself:
+
+- From any shell, read the lead's screen with `rig capture orch-lead@workshop`
+  and answer with `rig send` (below).
+- Put a terminal on the lead with `tmux attach -t orch-lead@workshop`. From
+  inside tmux, use `tmux switch-client -t orch-lead@workshop`. Press Ctrl-b,
+  then d, to leave it running. `rig ps --nodes --rig workshop --json --fields canonicalSessionName,tmuxAttachCommand`
+  prints this command for every seat.
+- Run `rig` for OpenRig's TUI.
+- Open every seat as a tile with `rig terminal open workshop`, if
+  `rig terminal status` shows a terminal provider (herdr by default, or cmux).
+
+A message from your own terminal arrives marked as from an unsigned sender;
+start it with your name if you want the lead to know who sent it:
 
 ```sh
 rig send orch-lead@workshop "Please take issue #<number>: <one line on what you want>"
