@@ -1,35 +1,54 @@
 schema: openrig.registry-entry/v1
 slug: workshop
 name: Workshop
-summary: "One four-seat software team: a Codex lead and reviewer, Claude Code builder and QA by default. The installing agent selects available runtimes while keeping the workshop name and one install directory."
+summary: "One four-seat software team: a Codex lead and reviewer, Claude Code
+  builder and QA by default. The installing agent selects available runtimes
+  while keeping the workshop name and one install directory."
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/workshop
-  resolvedCommit: f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560
-  requestedRef: f1d1d8fa4beb3f4f4a2fd13b1cb1b3cbda21b560
+  resolvedCommit: 40453963fdb092e87946483481d642ff24e2142d
+  requestedRef: 40453963fdb092e87946483481d642ff24e2142d
 configurations:
   - id: dev.build=claude-code,dev.qa=claude-code,dev.review=codex,orch.lead=codex
     alias: recommended
     recommended: true
-    packageDigest: { algorithm: sha256, value: e1ba806342acea5e4d1209cd07f86030d94eaba52e27c9f9b6b111c7daa689d9, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.6 }
+    packageDigest:
+      algorithm: sha256
+      value: 66b598fa8b55ed933deee0bf2b6a55df0593110d877546506f11feffb1d9636e
+      coverage: openrig.package-digest/v1
+    assembler:
+      openrigVersion: 0.6.6
     behaviour: views/workshop/dev.build-claude-code_dev.qa-claude-code_dev.review-codex_orch.lead-codex.0.6.6.json
   - id: dev.build=claude-code,dev.qa=claude-code,dev.review=claude-code,orch.lead=claude-code
     alias: all-claude
-    packageDigest: { algorithm: sha256, value: 8a3dc50e81e9709798ee77b621f7ed1503585d41ef8580754c8a894a7e61af6e, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.6 }
+    packageDigest:
+      algorithm: sha256
+      value: 0bbc944d03b549f36973e6ae0ecc1253ea1b22f9c3f0cadb3bb009fc08a4593a
+      coverage: openrig.package-digest/v1
+    assembler:
+      openrigVersion: 0.6.6
     behaviour: views/workshop/dev.build-claude-code_dev.qa-claude-code_dev.review-claude-code_orch.lead-claude-code.0.6.6.json
   - id: dev.build=codex,dev.qa=codex,dev.review=codex,orch.lead=codex
     alias: all-codex
-    packageDigest: { algorithm: sha256, value: 843e05a44d233caa06543dcd1ff189a5dddc1708eb0c3a94e9580ab4eb03e324, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.6 }
+    packageDigest:
+      algorithm: sha256
+      value: 5fcca9544bba873a7370fa085fefdb66fac4c3ad1543c8275435b71ffba27c2c
+      coverage: openrig.package-digest/v1
+    assembler:
+      openrigVersion: 0.6.6
     behaviour: views/workshop/dev.build-codex_dev.qa-codex_dev.review-codex_orch.lead-codex.0.6.6.json
   - id: dev.build=pi,dev.qa=pi,dev.review=pi,orch.lead=pi
     alias: all-pi
-    packageDigest: { algorithm: sha256, value: c029811608839f02baedb39cbb33e6c49d6b98bbdfd15e425aaf2ae5d2a639c9, coverage: openrig.package-digest/v1 }
-    assembler: { openrigVersion: 0.6.6 }
+    packageDigest:
+      algorithm: sha256
+      value: e0223fba53f7187e254a86ec662731f862bbbde41ad7681cd2a41c5810b58eff
+      coverage: openrig.package-digest/v1
+    assembler:
+      openrigVersion: 0.6.6
     behaviour: views/workshop/dev.build-pi_dev.qa-pi_dev.review-pi_orch.lead-pi.0.6.6.json
 review:
   date: 2026-10-06
-  note: Reviewed for listing. Validation and plan checks are not native runtime proof or a security audit.
+  note: Reviewed for listing. Validation and plan checks are not native runtime
+    proof or a security audit.
 status: listed
