@@ -51,18 +51,14 @@ rig context add --git https://github.com/mvschwarz/openrig-world
 ```
 
 **If you ask Claude Code to do this setup for you,** plan to run some steps
-yourself. In OpenRig's tests on macOS with Claude Code 2.1.289 and 2.1.290, its
-default auto mode declined:
-
-- adding a permission rule for itself (`[Self-Modification]`; add any rule
-  yourself with `/permissions` or in `.claude/settings.local.json`);
-- `rig context add --git` (`[Untrusted Code Integration]`), even with an allow
-  rule for that command;
-- the `rig up` line itself (`[Create Unsafe Agents]`), because it starts new
-  agents.
-
-Run `rig context add --git` and `rig up` yourself in a terminal, from the root of
-your clone, or approve them when asked.
+yourself. In OpenRig's tests on macOS, Claude Code's default auto mode declined
+the `rig up` line (`[Create Unsafe Agents]`, because it starts new agents) on
+2.1.289 and 2.1.290, and in an earlier 2.1.289 run also declined adding a
+permission rule for itself (`[Self-Modification]`; add any rule yourself with
+`/permissions` or in `.claude/settings.local.json`) and `rig context add --git`
+(`[Untrusted Code Integration]`), even with an allow rule for that command. Run
+`rig context add --git` and `rig up` yourself in a terminal, from the root of
+your clone.
 
 ## Run it
 
