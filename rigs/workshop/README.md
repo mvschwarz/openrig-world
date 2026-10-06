@@ -136,32 +136,24 @@ Every seat starts with permission prompts off. `rig.yaml` sets
 - **A seat on Pi,** if a configuration puts one there, with Pi's full resource
   trust (`--approve`).
 
-**When using Claude Code, accept its bypass warning before the first install.** In
-your clone, run `claude --dangerously-skip-permissions`, accept its prompts
-(including "Yes, I accept" on the bypass warning), then type `/exit`. Claude
-Code remembers your answer on this machine, so the seats start without
-stopping. If a Claude seat does stop at the warning (`rig ps --nodes` shows it
-needs attention), accept it in that seat's terminal (`rig` opens the TUI), then
-run `rig seat continue <seat>`, for example `rig seat continue dev-build@workshop`,
-or press `c` on it in the TUI. Its start steps arrive in the same conversation,
-with no relaunch.
+The bundle also declares `non_interruptive: true`. You do not need a separate
+flag or an advance warning-acceptance step: for full-bypass seats, OpenRig
+accepts Claude Code's bypass-permissions warning with a launch flag and hides
+Codex's supported full-access and GPT-5.1 migration notices. It writes no
+warning-acceptance settings to your Claude or Codex configuration. The choice
+is saved on this rig for later launches and restores.
 
-**Or let OpenRig accept the warnings for you.** Add
-`--non-interruptive` to your `rig up` or `rig bundle install` command, for
-example:
+The before-install view shows the broad access and the declared non-interruptive
+default. Sign-in remains yours; unsupported or new harness notices can still
+stop a seat (Codex's GPT-5.1-Codex-Max notice is one today). Pi keeps full
+resource trust and has no added warning flag. OpenRig's
+`docs/reference/non-interruptive-mode.md` lists the supported notices.
 
-```sh
-rig up <path-to>/openrig-world/rigs/workshop/rig.yaml --cwd . --non-interruptive
-```
-
-OpenRig then accepts Claude Code's bypass-permissions warning with a launch flag
-and hides Codex's full-access and GPT-5.1 migration notices, so the seats start
-without stopping. It writes nothing to your Claude or Codex settings. The choice
-is saved on the rig, so later launches keep it; to turn it off, stop the rig with
-`rig down workshop`, then run `rig up workshop --existing --no-non-interruptive`.
-Sign-in stays yours, and a notice that a newer harness version adds can still
-stop a seat (Codex's GPT-5.1-Codex-Max notice is one today). OpenRig's
-`docs/reference/non-interruptive-mode.md` has the details.
+To keep the harness warning prompts, add `--no-non-interruptive` when installing.
+For an existing rig, run `rig down workshop`, then
+`rig up workshop --existing --no-non-interruptive`. This overrides the bundle's
+choice without changing its permission policy or erasing earlier native
+warning acceptance.
 
 **Install and run the rig as your normal user, not root.** Claude Code refuses
 to bypass permissions when it runs as root or under `sudo`.
@@ -181,8 +173,8 @@ shows ORIENTED `verified` once it has.
 
 ### Going back to OpenRig's default posture
 
-Remove the `permission_policy: builtin:yolo` line from `rig.yaml` before you
-launch. It applies to the next launch from the spec. A seat that is already
+Remove the `permission_policy: builtin:yolo` and `non_interruptive: true` lines
+from `rig.yaml` before you launch. It applies to the next launch from the spec. A seat that is already
 running keeps its permissions, and so does a stopped rig when OpenRig restores
 it (see "Already running" in OpenRig's `docs/reference/getting-started.md`).
 

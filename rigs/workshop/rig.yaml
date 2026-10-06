@@ -36,6 +36,8 @@ managed_blocks:
 # Pi gets Pi's full resource trust. The README's "Permissions" section says
 # what that means and how to go back to OpenRig's default posture.
 permission_policy: builtin:yolo
+# Accept supported harness warning screens for this rig without a CLI flag.
+non_interruptive: true
 
 pods:
   - id: orch
