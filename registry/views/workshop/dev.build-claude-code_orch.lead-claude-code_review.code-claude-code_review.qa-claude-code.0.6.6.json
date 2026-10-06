@@ -5,14 +5,14 @@
     "source": {
       "repository": "https://github.com/mvschwarz/openrig-world",
       "folder": "rigs/workshop",
-      "requestedRef": "cb53040c1edf6a37810bf343a367357b54f26084",
-      "resolvedCommit": "cb53040c1edf6a37810bf343a367357b54f26084",
-      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/cb53040c1edf6a37810bf343a367357b54f26084/rigs/workshop"
+      "requestedRef": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
+      "resolvedCommit": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
+      "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/888ec4653e0dbd3d1c9787081cd28def554d29a2/rigs/workshop"
     },
     "configurationId": "dev.build=claude-code,orch.lead=claude-code,review.code=claude-code,review.qa=claude-code",
     "packageDigest": {
       "algorithm": "sha256",
-      "value": "fca9ba637a4353bd7f716529ce5f1ecef6d34e0a0c9dbce6c1974c453ea05b4e",
+      "value": "ecb465acf465c0d169624f8b96360c6f6b08421d5b19364ce995df9895e96b44",
       "coverage": "openrig.package-digest/v1"
     },
     "assembler": {
@@ -28,12 +28,12 @@
       "source": {
         "repository": "https://github.com/mvschwarz/openrig-world",
         "folder": "rigs/workshop",
-        "requestedRef": "cb53040c1edf6a37810bf343a367357b54f26084",
-        "resolvedCommit": "cb53040c1edf6a37810bf343a367357b54f26084",
-        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/cb53040c1edf6a37810bf343a367357b54f26084/rigs/workshop"
+        "requestedRef": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
+        "resolvedCommit": "888ec4653e0dbd3d1c9787081cd28def554d29a2",
+        "canonicalUrl": "https://github.com/mvschwarz/openrig-world/tree/888ec4653e0dbd3d1c9787081cd28def554d29a2/rigs/workshop"
       },
-      "created_at": "2026-10-05T20:30:33.052Z",
-      "source_host": "73605412b838",
+      "created_at": "2026-10-06T03:32:08.968Z",
+      "source_host": "ef2bff1246a5",
       "daemon_version": "0.6.6",
       "cli_version": "0.6.6"
     },
@@ -2785,7 +2785,7 @@
     },
     {
       "kind": "precondition",
-      "name": "Keep OpenRig's files out of your commits: from the root of your clone, add CLAUDE.local.md, AGENTS.md, /.openrig/ and .claude/settings.local.json to .git/info/exclude (the README has the command). The lead adds any that are missing when it starts.",
+      "name": "Keep OpenRig's files out of your commits: from the root of your clone, add CLAUDE.local.md, AGENTS.md, /.openrig/, .claude/settings.local.json and gate-lane-verdict.json to .git/info/exclude (the README has the command). The lead adds any that are missing when it starts.",
       "status": "not_checked",
       "sourceRefs": [
         {
@@ -2796,7 +2796,7 @@
     },
     {
       "kind": "precondition",
-      "name": "If you ask Claude Code to do this setup for you, plan to run two steps yourself. In OpenRig's test on macOS with Claude Code 2.1.289, its default auto mode declined adding a permission rule for itself ([Self-Modification]), so add any rule yourself with /permissions or in .claude/settings.local.json; and rig context add --git ([Untrusted Code Integration]), even with an allow rule for that command, so run it yourself.",
+      "name": "If you ask Claude Code to do this setup for you, plan to run some steps yourself. In OpenRig's tests on macOS, Claude Code's default auto mode declined the rig up line ([Create Unsafe Agents], because it starts new agents) on 2.1.289 and 2.1.290, and in an earlier 2.1.289 run also declined adding a permission rule for itself ([Self-Modification]; add any rule yourself with /permissions or in .claude/settings.local.json) and rig context add --git ([Untrusted Code Integration]), even with an allow rule for that command. Run rig context add --git and rig up yourself in a terminal, from the root of your clone.",
       "status": "not_checked",
       "sourceRefs": [
         {
