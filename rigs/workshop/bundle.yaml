@@ -1,10 +1,11 @@
 # Read by OpenRig when it builds this rig into a bundle.
 #
-# compatibility: the oldest OpenRig CLI that a build from the GitHub link works
-# with (GitHub links need 0.6.6). A build from a local folder takes its minimum
-# from --min-cli-version instead.
+# GitHub-link builds carry both minimums: authored non-interruptive defaults
+# require OpenRig 0.6.6. Local-folder builds must pass --min-cli-version 0.6.6
+# and --min-daemon-version 0.6.6 to carry these minimums into the archive.
 compatibility:
   min_cli_version: "0.6.6"
+  min_daemon_version: "0.6.6"
 
 # preconditions: what to know and do before installing, shown before install.
 # Run the commands in order in one shell, then run the install command in that
