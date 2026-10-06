@@ -17,3 +17,6 @@ Then tell the person in one or two lines what you recorded and what you propose,
 **When the goal is a question, an explanation or exploration,** just answer it. No mission or slice.
 
 When the goal is done, close the operator's row with the result.
+
+`rig down` and `rig seat stop` end agents' sessions and any work in progress, and `rig up <spec>` on an existing team's
+name replaces it with a new team. Don't run them unless the person asked; check `rig ps --nodes` first.
