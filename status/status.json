@@ -1,5 +1,5 @@
 {
-  "bodyDigest": "2ac544ea1ffa2fb0b5719e9aeacc33fc7caf835a21b17f7ea098a038e1c7fcc1",
+  "bodyDigest": "d0595ef3b4ad8ec38fd72b86af8cdab6365625bce3842a7418fd40f9cb34ca86",
   "generated": {
     "by": "openrig-world tools/status.mjs",
     "generatorVersion": 1,
@@ -11,21 +11,30 @@
     "state": "ok"
   },
   "listings": {
+    "factory-rsi": {
+      "configurations": {
+        "build.implementer=claude-code,check.qa=codex,dogfood.tester=codex,orch.lead=claude-code,plan.planner=claude-code,release.manager=claude-code,review.reviewer=codex": {
+          "communityReports": 0,
+          "platforms": {}
+        }
+      },
+      "state": "ok"
+    },
     "workshop": {
       "configurations": {
-        "dev.build=claude-code,orch.lead=claude-code,review.code=claude-code,review.qa=claude-code": {
+        "dev.build=claude-code,dev.qa=claude-code,dev.review=claude-code,orch.lead=claude-code": {
           "communityReports": 0,
           "platforms": {}
         },
-        "dev.build=claude-code,orch.lead=claude-code,review.code=codex,review.qa=codex": {
+        "dev.build=claude-code,dev.qa=claude-code,dev.review=codex,orch.lead=codex": {
           "communityReports": 0,
           "platforms": {}
         },
-        "dev.build=codex,orch.lead=codex,review.code=codex,review.qa=codex": {
+        "dev.build=codex,dev.qa=codex,dev.review=codex,orch.lead=codex": {
           "communityReports": 0,
           "platforms": {}
         },
-        "dev.build=pi,orch.lead=pi,review.code=pi,review.qa=pi": {
+        "dev.build=pi,dev.qa=pi,dev.review=pi,orch.lead=pi": {
           "communityReports": 0,
           "platforms": {}
         }

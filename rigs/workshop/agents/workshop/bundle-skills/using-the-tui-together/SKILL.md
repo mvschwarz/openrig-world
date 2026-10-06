@@ -16,7 +16,7 @@ how most people learn it.
 
 Offer once, in one line, saying what you noticed:
 
-> I'm noticing review-code has been waiting on a permission prompt for ten minutes. Want me to show you in the TUI?
+> I'm noticing dev-review has been waiting on a permission prompt for ten minutes. Want me to show you in the TUI?
 
 Good moments to offer:
 - a seat is waiting on the person: a prompt, a menu or a decision;
@@ -60,7 +60,7 @@ It takes one command per line and answers with one JSON line. Both go through th
 
 ## Show, then hand back
 
-- **Point at the thing:** "This row is the prompt. It's in review-code."
+- **Point at the thing:** "This row is the prompt. It's in dev-review."
 - **Pair it with the command that acts on it,** and let the person run it or ask you to. For a seat waiting on the
   person, `rig ps --nodes --rig <rig>` marks it `att` and gives the reason and the exact `rig seat continue <seat>`.
 - **Look, don't change.** The TUI is built for looking and navigating. Don't change anything from it unless the

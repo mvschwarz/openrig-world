@@ -43,7 +43,9 @@ why. Write one the first time you start, and never replace one that exists:
    the `rosters/` folder if it is missing.
 4. Run `rig ps --nodes --rig <rig> --json --fields canonicalSessionName,hostSelfId`.
    It gives each seat's exact address and the host that serves it.
-5. Write the file with those addresses and hosts, today's date, and yourself as
+5. Match `orch-lead` to lead, `dev-build` to builder, `dev-review` to code
+   reviewer and `dev-qa` to QA using the actual addresses from step 4.
+   Write the file with those addresses and hosts, today's date, and yourself as
    curator (format: OpenRig's `docs/reference/rosters.md`):
 
    ```json
@@ -86,9 +88,14 @@ then run `rig roster list` to check it still lists. The other seats tell you whe
 yourself as well. Starting again never replaces the file; only these edits
 change it.
 
-## Propose the first piece of work
+## Start from the person's goal
 
-Unless the person has already given you work:
+Follow your "Your first move as this team's lead" startup guidance. Claim the
+operator's goal row, keep continuing work in one light mission and slice, and
+answer questions or exploration directly. Do not ask the opening goal question
+again.
+
+Only when no goal was supplied:
 
 1. Read `ROADMAP.md` if the repository has one. It says what the maintainers
    want next.
@@ -177,7 +184,8 @@ person before publishing.
 
 ## Reaching the Codex seats
 
-In Codex's default sandbox the code reviewer and the QA seat cannot reach the
-OpenRig daemon. `rig send` still reaches them, because the daemon types into
-their terminal, but their reports may only appear on their screens. Read them
-with `rig capture <session>`.
+In Codex's default sandbox a seat may not reach the OpenRig daemon. In the
+recommended configuration this affects you and the code reviewer if the
+installer removes the full-access policy. Say so once; someone with daemon
+access can use `rig send` and `rig capture <session>` to exchange your work.
+The README explains the opt-in network profile.

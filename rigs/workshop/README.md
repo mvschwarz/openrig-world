@@ -1,18 +1,25 @@
 # workshop
 
 A four-seat OpenRig team that works in any repository, OpenRig's own included.
-You launch it from your clone. The lead reads the repository, proposes one
-piece of work and asks before starting; the team turns it into one pull request
-with an honest description. You decide when it is pushed. Every seat runs with
+You install it once as `workshop` in `~/rigs/workshop` and launch it in your
+project. The lead starts from your goal, scopes the work and routes it to the
+builder, QA and reviewer. Continuing work gets a light mission and first
+slice; questions and exploration get an answer. You decide when work is pushed. Every seat runs with
 permission prompts off; "Permissions" below says what that means and how to
 turn them back on.
 
 | Seat | Runtime | Does |
 |---|---|---|
-| `orch-lead@workshop` | Claude Code | Proposes work, scopes it into one pull-request-sized outcome, hands it on, owns the PR description. Talk to this seat. |
+| `orch-lead@workshop` | Codex | Starts from your goal, scopes it, hands it on and owns the PR description. Talk to this seat. |
 | `dev-build@workshop` | Claude Code | Makes the change on its own branch and worktree, and runs the repository's build and tests. |
-| `review-code@workshop` | Codex | Reviews the handed-off commit against the repository's maps and the code, and runs the tests that bear on it. |
-| `review-qa@workshop` | Codex | Runs the checks the change calls for and reports what each one proved. |
+| `dev-review@workshop` | Codex | Reviews the handed-off commit against the repository's maps and the code, and runs the tests that bear on it. |
+| `dev-qa@workshop` | Claude Code | Runs the checks the change calls for and reports what each one proved. |
+
+These are the recommended runtimes. `configurations.yaml` also offers
+`all-claude`, `all-codex` and `all-pi`, or a supported runtime per seat. The
+installing agent reads it and matches the choice to your machine's logins.
+Every choice keeps the same four seat names, rig name and install directory;
+configuration IDs identify the packaged runtime choice, not another install.
 
 `CULTURE.md` holds the team's values. Each seat's role is in
 `agents/workshop/guidance/`. In a clone of OpenRig, the seats also load that
@@ -21,10 +28,11 @@ repository's own `developing-openrig` skill.
 ## Before you start
 
 - OpenRig 0.6.6 or later (`rig --version`), Node 22 or 24, and tmux.
-- Claude Code and Codex installed and logged in.
+- The providers selected for your seats installed and logged in. The recommended
+  mix needs Claude Code and Codex; a single-provider configuration needs only
+  that provider. Pi limitations are in `agents/workshop/PI-SKILLS.md`.
 - A clone of the repository you want to work on, set up the way its README or
   CONTRIBUTING says.
-- A clone of this repository (openrig-world), anywhere on disk.
 - To publish the pull request: a GitHub account that can fork repositories and
   open pull requests, with push credentials configured on this machine.
 
@@ -62,21 +70,29 @@ your clone.
 
 ## Run it
 
-From the root of your clone, preview, then launch:
+The installing agent reads `configurations.yaml`, chooses runtimes supported by
+your logged-in providers, and installs this bundle to `~/rigs/workshop`. For
+example, from your project's clone with both Claude Code and Codex available:
 
 ```sh
-rig up <path-to>/openrig-world/rigs/workshop/rig.yaml --cwd . --plan
-rig up <path-to>/openrig-world/rigs/workshop/rig.yaml --cwd .
+rig bundle install https://github.com/mvschwarz/openrig-world/tree/main/rigs/workshop --preset recommended --target ~/rigs/workshop --cwd . --plan
+rig bundle install https://github.com/mvschwarz/openrig-world/tree/main/rigs/workshop --preset recommended --target ~/rigs/workshop --cwd .
 ```
 
-`--cwd .` matters. Member working directories in a rig spec resolve against the
-spec's own folder, so without it the seats would start in openrig-world instead
-of your clone. Each seat checks for this at start and stops if it is in the
-wrong place.
+The first command previews the install; the second installs and launches it.
+For one provider, select `all-claude`, `all-codex` or `all-pi` instead. Each uses
+the **same** `--target ~/rigs/workshop`, never a per-option folder or rig name.
+For a reviewed version, use the registry's exact commit link instead of `main`.
 
-Once the seats are up, the lead reads the repository's `ROADMAP.md` if it has
-one and looks for candidate work (open issues, TODOs, failing checks). It
-proposes one item, says why, and asks before starting.
+When working from a clone of this repository, preview the authored spec with
+`rig up <path-to>/openrig-world/rigs/workshop/rig.yaml --cwd . --plan`.
+`--cwd .` selects your project: without it, member working directories resolve
+against the spec's folder. Each seat checks this at start.
+
+The lead claims the goal row supplied by the kernel operator. It asks only a
+question that changes what it would do, then records continuing work lightly
+and offers to plan and build. If you supplied no goal, it may propose one
+repository task and ask before starting.
 
 **Reaching the team.** The rig is named `workshop` unless it was launched under
 another name (`rig ps` lists your rigs), and the lead's session is
@@ -120,13 +136,13 @@ Every seat starts with permission prompts off. `rig.yaml` sets
 - **A seat on Pi,** if a configuration puts one there, with Pi's full resource
   trust (`--approve`).
 
-**Before your first install, accept Claude Code's bypass warning once.** In
+**When using Claude Code, accept its bypass warning before the first install.** In
 your clone, run `claude --dangerously-skip-permissions`, accept its prompts
 (including "Yes, I accept" on the bypass warning), then type `/exit`. Claude
 Code remembers your answer on this machine, so the seats start without
 stopping. If a Claude seat does stop at the warning (`rig ps --nodes` shows it
 needs attention), accept it in that seat's terminal (`rig` opens the TUI), then
-run `rig seat continue <seat>`, for example `rig seat continue orch-lead@workshop`,
+run `rig seat continue <seat>`, for example `rig seat continue dev-build@workshop`,
 or press `c` on it in the TUI. Its start steps arrive in the same conversation,
 with no relaunch.
 
@@ -210,13 +226,13 @@ exactly them, see "Have your agent configure permissions" in OpenRig's
 #### Codex seats and the sandbox
 
 `-s workspace-write` blocks network access, including localhost and so the
-local OpenRig daemon. The code reviewer and the QA seat then cannot run `rig`
+local OpenRig daemon. The lead and code reviewer in the recommended mix then cannot run `rig`
 commands, install dependencies, run `git fetch` or `gh`, or run tests that need
 the network or a local server. Those commands fail, or wait for your approval in
 that seat's terminal, depending on your Codex approval setting. ORIENTED reads
 `missing` for them ([openrig #275](https://github.com/mvschwarz/openrig/issues/275)).
 The seats can still read the code and the builder's commits and run checks that
-need no network, and they say which failures come from the sandbox. The lead
+need no network, and they say which failures come from the sandbox. A person or agent with daemon access
 reaches them with `rig send` and reads their reports with `rig capture`.
 
 To give the two Codex seats network access while keeping approvals, opt in
@@ -234,8 +250,8 @@ before launch:
    network_access = true
    ```
 
-2. In `rig.yaml`, uncomment `codex_config_profile: workshop-net` on the `code`
-   and `qa` members.
+2. In `rig.yaml`, uncomment `codex_config_profile: workshop-net` on `orch.lead`
+   and `dev.review` (or the seats assigned Codex in your configuration).
 3. Launch, then check `/status` in each Codex seat before giving it work.
 
 This grants those seats network access in general, not only to the daemon.
