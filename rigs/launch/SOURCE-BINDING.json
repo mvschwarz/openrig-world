@@ -1,0 +1,480 @@
+{
+  "repository": "https://github.com/mvschwarz/openrig",
+  "commit": "98efdd11482638da67409a61da061c4d9845c76d",
+  "files": [
+    {
+      "source": "packages/daemon/specs/agents/apps/vault-specialist/agent.yaml",
+      "destination": "agents/apps/vault-specialist/agent.yaml",
+      "mode": "100644",
+      "sha256": "5266c735cc5a7b50f234ffae265ee1e5da87ed1c7c8f0c0f4bbaa11d9059042e"
+    },
+    {
+      "source": "packages/daemon/specs/agents/apps/vault-specialist/guidance/role.md",
+      "destination": "agents/apps/vault-specialist/guidance/role.md",
+      "mode": "100644",
+      "sha256": "bd999a50385dffba98c965cbab8869b543e99d9755bde4ccfdcdc523850ba959"
+    },
+    {
+      "source": "packages/daemon/specs/agents/apps/vault-specialist/skills/vault-user/SKILL.md",
+      "destination": "agents/apps/vault-specialist/skills/vault-user/SKILL.md",
+      "mode": "100644",
+      "sha256": "3248fef5f0a2cf2a555181cba92637f8397bbfe351a44e9fa35f76537cf596c1"
+    },
+    {
+      "source": "packages/daemon/specs/agents/apps/vault-specialist/startup/context.md",
+      "destination": "agents/apps/vault-specialist/startup/context.md",
+      "mode": "100644",
+      "sha256": "065aba827a94f7461af904b2e25613c3ae2e6dcc0b1ecd63ac0e4f40ac85dbe1"
+    },
+    {
+      "source": "packages/daemon/specs/agents/conveyor/planner/agent.yaml",
+      "destination": "agents/conveyor/planner/agent.yaml",
+      "mode": "100644",
+      "sha256": "1284dc42e297e91fb9b3aeeb4e3905285501ec74493ecc129e2fe1bc9f83280c"
+    },
+    {
+      "source": "packages/daemon/specs/agents/conveyor/planner/guidance/role.md",
+      "destination": "agents/conveyor/planner/guidance/role.md",
+      "mode": "100644",
+      "sha256": "d93901133793a83c6b53507b3b1b91d05e57d280eee895768f1c360ca27e4cd1"
+    },
+    {
+      "source": "packages/daemon/specs/agents/conveyor/planner/startup/context.md",
+      "destination": "agents/conveyor/planner/startup/context.md",
+      "mode": "100644",
+      "sha256": "d86d7aa84e4cc2cbbb72a441c3423c404dae5af09b0905a5150a6aa062d701cc"
+    },
+    {
+      "source": "packages/daemon/specs/agents/development/implementer/agent.yaml",
+      "destination": "agents/development/implementer/agent.yaml",
+      "mode": "100644",
+      "sha256": "5f676d0d12c7bcbe0f61ff9aa565d94f08763b59addf4c52d842b62c92faf5c5"
+    },
+    {
+      "source": "packages/daemon/specs/agents/development/implementer/guidance/role.md",
+      "destination": "agents/development/implementer/guidance/role.md",
+      "mode": "100644",
+      "sha256": "dd6eae4903d032d841ceb244d4aee3a927d31bcd9c778705489155bc5cc0eccb"
+    },
+    {
+      "source": "packages/daemon/specs/agents/development/qa/agent.yaml",
+      "destination": "agents/development/qa/agent.yaml",
+      "mode": "100644",
+      "sha256": "071774f8b93f956c80f327db3af5950af8efa1e89e423c1ef79af4f420c5be73"
+    },
+    {
+      "source": "packages/daemon/specs/agents/development/qa/guidance/role.md",
+      "destination": "agents/development/qa/guidance/role.md",
+      "mode": "100644",
+      "sha256": "f81fde1ebd3bf5c84ee6b183ac7f1e79c546dfbed15a9eaedd9728aac1520ca2"
+    },
+    {
+      "source": "packages/daemon/specs/agents/factory-rsi/dogfood/agent.yaml",
+      "destination": "agents/factory-rsi/dogfood/agent.yaml",
+      "mode": "100644",
+      "sha256": "09fd078acdbd23dd1ff744b5a60f5a407269aed8fea88547407b333e78e76b04"
+    },
+    {
+      "source": "packages/daemon/specs/agents/factory-rsi/dogfood/guidance/role.md",
+      "destination": "agents/factory-rsi/dogfood/guidance/role.md",
+      "mode": "100644",
+      "sha256": "9868d31c891f64795584627ae8305de36e0945e56905323dbd487905b554b698"
+    },
+    {
+      "source": "packages/daemon/specs/agents/factory-rsi/release-manager/agent.yaml",
+      "destination": "agents/factory-rsi/release-manager/agent.yaml",
+      "mode": "100644",
+      "sha256": "aa0de648af5e3ff83a5ada78551cd1eaa96519fcba52136044644488c54669fe"
+    },
+    {
+      "source": "packages/daemon/specs/agents/factory-rsi/release-manager/guidance/role.md",
+      "destination": "agents/factory-rsi/release-manager/guidance/role.md",
+      "mode": "100644",
+      "sha256": "b2a1b04915b032a9aefe0a68f902b930dea3ca6a9cb989059de6f304e8d9d083"
+    },
+    {
+      "source": "packages/daemon/specs/agents/orchestration/orchestrator/agent.yaml",
+      "destination": "agents/orchestration/orchestrator/agent.yaml",
+      "mode": "100644",
+      "sha256": "a47aa0b2cf40d3a61cfb7b0671b5c85338ce6b3ab1e2d05d06cfe9955fd07b55"
+    },
+    {
+      "source": "packages/daemon/specs/agents/orchestration/orchestrator/guidance/role.md",
+      "destination": "agents/orchestration/orchestrator/guidance/role.md",
+      "mode": "100644",
+      "sha256": "7b0526a63e9f4dec4925dd39608f58fcca3b8136d1a3bb16c0ea6b84e232d7bb"
+    },
+    {
+      "source": "packages/daemon/specs/agents/review/independent-reviewer/agent.yaml",
+      "destination": "agents/review/independent-reviewer/agent.yaml",
+      "mode": "100644",
+      "sha256": "9aacb3be6c6181b3e52e1b01d38ccd6d1d0b80c8d1997de6290e7cbde50e2665"
+    },
+    {
+      "source": "packages/daemon/specs/agents/review/independent-reviewer/guidance/role.md",
+      "destination": "agents/review/independent-reviewer/guidance/role.md",
+      "mode": "100644",
+      "sha256": "9a52c964248caba5ad25933ee7d340a105c2aa21eac023250ee1bea8d3c4e64d"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/agent.yaml",
+      "destination": "agents/shared/agent.yaml",
+      "mode": "100644",
+      "sha256": "6d682fc6ffdec0214dfb72c2b03886d47876adea820464481021ad6181d5e8e7"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/runtime/claude-activity-hooks.json",
+      "destination": "agents/shared/runtime/claude-activity-hooks.json",
+      "mode": "100644",
+      "sha256": "1555916b0c13a02eeca2767f3d90822320572704db189d8c97e2d1b62ca57428"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/runtime/claude-mcp.fragment.json",
+      "destination": "agents/shared/runtime/claude-mcp.fragment.json",
+      "mode": "100644",
+      "sha256": "ff1f9ed2cf9b13172f1efa6f5153b389c1518f54efe520bc4a4396b3fc048677"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/runtime/claude-settings.fragment.json",
+      "destination": "agents/shared/runtime/claude-settings.fragment.json",
+      "mode": "100644",
+      "sha256": "e3c43ee60d53bf5f680e9417eea16b0a4e61994992dac4194fd4541f6e71dcda"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/runtime/codex-config.fragment.toml",
+      "destination": "agents/shared/runtime/codex-config.fragment.toml",
+      "mode": "100644",
+      "sha256": "9e28e9bd20de05c291a3ca91109421665fcf96ca702b69b1a971a06075c3a493"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/agent-starters/SKILL.md",
+      "destination": "agents/shared/skills/core/agent-starters/SKILL.md",
+      "mode": "100644",
+      "sha256": "8e8961f44fccb812f39e01174a331dab24f153ceaba91925f1e42371836cdec0"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/agent-startup-and-context-ingestion/SKILL.md",
+      "destination": "agents/shared/skills/core/agent-startup-and-context-ingestion/SKILL.md",
+      "mode": "100644",
+      "sha256": "347f28a9567b4b8d8669aff6946229f53144e0c139aca2cbe77e0eb93a87f1b1"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/cross-host-rig-commands/SKILL.md",
+      "destination": "agents/shared/skills/core/cross-host-rig-commands/SKILL.md",
+      "mode": "100644",
+      "sha256": "844a578d0f51cf8f02f8bfd7ffb3bbd6a37d511f721266c0d758c49157c1447a"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/human-in-the-loop/SKILL.md",
+      "destination": "agents/shared/skills/core/human-in-the-loop/SKILL.md",
+      "mode": "100644",
+      "sha256": "14cf0c4a0dc89179121465d4b8d81d40406427351adcdc34f875097d1e6e9ab2"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/messaging-the-human/SKILL.md",
+      "destination": "agents/shared/skills/core/messaging-the-human/SKILL.md",
+      "mode": "100644",
+      "sha256": "581372434f27b1994d516e144be1324c7c5981cacf64fef6f09d1a57017faa08"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-architect/SKILL.md",
+      "destination": "agents/shared/skills/core/openrig-architect/SKILL.md",
+      "mode": "100644",
+      "sha256": "c95f5f2bf1132402ded14d85e5c31d48e9b1e847aaf6c5218ce51dad175bdb5d"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-cmux/SKILL.md",
+      "destination": "agents/shared/skills/core/openrig-cmux/SKILL.md",
+      "mode": "100644",
+      "sha256": "73a86eac45d68b16a38fc0a4438713c634d86061073dac96a4d9e656ea5d34dc"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-herdr/SKILL.md",
+      "destination": "agents/shared/skills/core/openrig-herdr/SKILL.md",
+      "mode": "100644",
+      "sha256": "37508a02f50bb69ee97c22c37ccf70aa8e37dc0784061eb2a5ad813571eebd1a"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-skills/SKILL.md",
+      "destination": "agents/shared/skills/core/openrig-skills/SKILL.md",
+      "mode": "100644",
+      "sha256": "8a9da375ac4bac67433c2864d922052fe14c87d57d60d9b7d8f9d2ab9255defc"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-software-factory/SKILL.md",
+      "destination": "agents/shared/skills/core/openrig-software-factory/SKILL.md",
+      "mode": "100644",
+      "sha256": "33930e72341661eaaa9d3c5ac945297926f430d643b6f279fcb7f693ac30b7f7"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-software-factory/references/worked-example.md",
+      "destination": "agents/shared/skills/core/openrig-software-factory/references/worked-example.md",
+      "mode": "100644",
+      "sha256": "ff5485a0e84de43188cf791cc96258abe038d035d439997f21865e33a1916bc5"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-upgrade/SKILL.md",
+      "destination": "agents/shared/skills/core/openrig-upgrade/SKILL.md",
+      "mode": "100644",
+      "sha256": "c3555c66abe0426e2990aec024849f644cf43320a65b8f1211e96d3b234f6e83"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-upgrade/scripts/backup-sqlite.mjs",
+      "destination": "agents/shared/skills/core/openrig-upgrade/scripts/backup-sqlite.mjs",
+      "mode": "100644",
+      "sha256": "52fe3015a0399986b586b6603e0664f61136d2210611b1638110a7b6b06e38b4"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-upgrade/scripts/inspect-upgrade.mjs",
+      "destination": "agents/shared/skills/core/openrig-upgrade/scripts/inspect-upgrade.mjs",
+      "mode": "100644",
+      "sha256": "0f9239f3f8ad75885e985433576ffba9cf155dd8616801dd73d60bf3e9990a2a"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-upgrade/scripts/migrate-telemetry-state-0.5.9.mjs",
+      "destination": "agents/shared/skills/core/openrig-upgrade/scripts/migrate-telemetry-state-0.5.9.mjs",
+      "mode": "100755",
+      "sha256": "3d7bdb43ce0618cf1d939e08c3f91531d866ac5b6fec5c4c3e4308d61e2bfc9f"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/openrig-upgrade/scripts/refresh-managed-plugin.mjs",
+      "destination": "agents/shared/skills/core/openrig-upgrade/scripts/refresh-managed-plugin.mjs",
+      "mode": "100644",
+      "sha256": "cd117e3e891d6ad632f88a0ad10f5fc8a68ea724ce2715c89f45b6000307cf81"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/rig-bundles-and-shareable-artifacts/SKILL.md",
+      "destination": "agents/shared/skills/core/rig-bundles-and-shareable-artifacts/SKILL.md",
+      "mode": "100644",
+      "sha256": "8c5fe560daaaa926808070e1b2cf3633cc655e6552562cdfbf7c1623b0548c9d"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/rig-lifecycle/SKILL.md",
+      "destination": "agents/shared/skills/core/rig-lifecycle/SKILL.md",
+      "mode": "100644",
+      "sha256": "8346e01d532795b24c3dba63413ca662c7b44cc5eed39ee2e85568580f40adca"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/session-source-fork/SKILL.md",
+      "destination": "agents/shared/skills/core/session-source-fork/SKILL.md",
+      "mode": "100644",
+      "sha256": "c5381d130e0a58c2dd6669770a391314b0db0797df07641cf2d3f9804fac21a2"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/specification-system/SKILL.md",
+      "destination": "agents/shared/skills/core/specification-system/SKILL.md",
+      "mode": "100644",
+      "sha256": "5226d6e8b1362df89ba3d5afd82e4b4add355870132ca4b140d7f9f4324ffdc1"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/topology-mutation-and-seat-management/SKILL.md",
+      "destination": "agents/shared/skills/core/topology-mutation-and-seat-management/SKILL.md",
+      "mode": "100644",
+      "sha256": "38a7a6a4dc9f7b8c01d57ff74e72c5a07ac85a455ea580d617894ccb4364d15c"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/core/watchdog/SKILL.md",
+      "destination": "agents/shared/skills/core/watchdog/SKILL.md",
+      "mode": "100644",
+      "sha256": "24b2e756e3e9d067fa93a4b5fa5f48a5cce511e8b1a5b360b1c39bc09bc95d82"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pm/backlog-capture/SKILL.md",
+      "destination": "agents/shared/skills/pm/backlog-capture/SKILL.md",
+      "mode": "100644",
+      "sha256": "345c2b47fc85e48c15c0d42bbb48fb27dd3b0ceec36bf59dc6ed20daaea47a84"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pm/context-builder/SKILL.md",
+      "destination": "agents/shared/skills/pm/context-builder/SKILL.md",
+      "mode": "100644",
+      "sha256": "0134c9b0a9f196565109f7f51b6ec78d5c3e4b5982a0d7105a93b29952625b3c"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pm/exec-summary/SKILL.md",
+      "destination": "agents/shared/skills/pm/exec-summary/SKILL.md",
+      "mode": "100644",
+      "sha256": "ada0f42337920e7acdd94e24cad4f5c269b057e750f4a7fc627ea9efbc02fcb6"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pm/office-hours/SKILL.md",
+      "destination": "agents/shared/skills/pm/office-hours/SKILL.md",
+      "mode": "100644",
+      "sha256": "c09b92957e709e43b28186883aca9e73218b412a69355051b76700efac88b4cf"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pm/plan-review/SKILL.md",
+      "destination": "agents/shared/skills/pm/plan-review/SKILL.md",
+      "mode": "100644",
+      "sha256": "42f1b746d9ceae32587fc754fcc96462af44ba7f0078407f505d7a30b88a1469"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pm/requirements-writer/SKILL.md",
+      "destination": "agents/shared/skills/pm/requirements-writer/SKILL.md",
+      "mode": "100644",
+      "sha256": "04cfb8853553f1538fd202e9804e14e6b259f3a4c12b5f255c30169cf66ed0af"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pm/ui-mockup/SKILL.md",
+      "destination": "agents/shared/skills/pm/ui-mockup/SKILL.md",
+      "mode": "100644",
+      "sha256": "a597fad7dcdebf43e74e01a607e12eabf848c831c96be3da2f1aeeb12f82ef08"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pods/development-team/SKILL.md",
+      "destination": "agents/shared/skills/pods/development-team/SKILL.md",
+      "mode": "100644",
+      "sha256": "3d712a94a1725b543371ffc502d3f5641e3b77d9d566aa0f99a2977682241f9b"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pods/orchestration-team/SKILL.md",
+      "destination": "agents/shared/skills/pods/orchestration-team/SKILL.md",
+      "mode": "100644",
+      "sha256": "d13e08782a64b92b4db3f51d083f11fd6753f06e68052dbf2da174ab5618fa90"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pods/oversight-team/SKILL.md",
+      "destination": "agents/shared/skills/pods/oversight-team/SKILL.md",
+      "mode": "100644",
+      "sha256": "a48de41350453a09b231e01a89cc1dd3d4a64e082df090a7b0e04034227d2bb4"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/pods/review-team/SKILL.md",
+      "destination": "agents/shared/skills/pods/review-team/SKILL.md",
+      "mode": "100644",
+      "sha256": "e669a893d5bd1d01fdd5e357a0f0f56425fc2fb845705bddc629016e04c8a6da"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/agent-browser/LOCAL-INSIGHTS.md",
+      "destination": "agents/shared/skills/process/agent-browser/LOCAL-INSIGHTS.md",
+      "mode": "100644",
+      "sha256": "3e37c298514506099c8212e32c58e78cd77781637a368a5db1acf1982d93a0f4"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/agent-browser/OPENRIG.md",
+      "destination": "agents/shared/skills/process/agent-browser/OPENRIG.md",
+      "mode": "100644",
+      "sha256": "8012ade1a332a484e5a7d047285aac59ce95a87f7199f82d4864d63cc9a221fc"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/agent-browser/SKILL.md",
+      "destination": "agents/shared/skills/process/agent-browser/SKILL.md",
+      "mode": "100644",
+      "sha256": "f2709bae71a8c60f6a4b80a6873560cdea9632000ed4b28d082dfae58801199b"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/context-engineering/SKILL.md",
+      "destination": "agents/shared/skills/process/context-engineering/SKILL.md",
+      "mode": "100644",
+      "sha256": "ef052238060410f8f49d94baaede14e569f3c943a7dba79ed98d4fc0a117af64"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/dogfood/SKILL.md",
+      "destination": "agents/shared/skills/process/dogfood/SKILL.md",
+      "mode": "100644",
+      "sha256": "8addc5d22813193649e8286b354ae2282975d75f1dda6d5d4b33d6ace47f438b"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/dogfood/references/issue-taxonomy.md",
+      "destination": "agents/shared/skills/process/dogfood/references/issue-taxonomy.md",
+      "mode": "100644",
+      "sha256": "dee7e925f7fe001903de6cc14f9656bcda90d069bbf65a2273f22202efebba09"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/dogfood/templates/dogfood-report-template.md",
+      "destination": "agents/shared/skills/process/dogfood/templates/dogfood-report-template.md",
+      "mode": "100644",
+      "sha256": "55eef9286e32e595dcfca30db76352e9f1d149a78b60b54644eb701072364f35"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/frontend-design/LICENSE.txt",
+      "destination": "agents/shared/skills/process/frontend-design/LICENSE.txt",
+      "mode": "100644",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/frontend-design/SKILL.md",
+      "destination": "agents/shared/skills/process/frontend-design/SKILL.md",
+      "mode": "100644",
+      "sha256": "3897488693335f3b350292abe067e9f4a39a64af5ac6b1feb82074a36930273d"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/systematic-debugging/SKILL.md",
+      "destination": "agents/shared/skills/process/systematic-debugging/SKILL.md",
+      "mode": "100644",
+      "sha256": "3040b4a5f1727f14101d07f4127fc3dcb2176a2575c15d759a9d765dacf308a0"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/systematic-debugging/condition-based-waiting-example.ts",
+      "destination": "agents/shared/skills/process/systematic-debugging/condition-based-waiting-example.ts",
+      "mode": "100644",
+      "sha256": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/systematic-debugging/condition-based-waiting.md",
+      "destination": "agents/shared/skills/process/systematic-debugging/condition-based-waiting.md",
+      "mode": "100644",
+      "sha256": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/systematic-debugging/defense-in-depth.md",
+      "destination": "agents/shared/skills/process/systematic-debugging/defense-in-depth.md",
+      "mode": "100644",
+      "sha256": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/systematic-debugging/find-polluter.sh",
+      "destination": "agents/shared/skills/process/systematic-debugging/find-polluter.sh",
+      "mode": "100755",
+      "sha256": "a9b088099dde5a07e303de5ecf07604f2b9b608770125b481c8db52b85227c51"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/systematic-debugging/root-cause-tracing.md",
+      "destination": "agents/shared/skills/process/systematic-debugging/root-cause-tracing.md",
+      "mode": "100644",
+      "sha256": "a81bee9448794d261b4aca8487c595d11ff4bd4e10a5f96bca1117dd32527050"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/test-driven-development/SKILL.md",
+      "destination": "agents/shared/skills/process/test-driven-development/SKILL.md",
+      "mode": "100644",
+      "sha256": "51f65d2bc71dd6fc84640bf113acf287f4e003ef325ed91cb112fce59149a298"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/test-driven-development/testing-anti-patterns.md",
+      "destination": "agents/shared/skills/process/test-driven-development/testing-anti-patterns.md",
+      "mode": "100644",
+      "sha256": "bde453bc258f06543987477c837939afaa774ea2acbd9f308d702fc452bc4283"
+    },
+    {
+      "source": "packages/daemon/specs/agents/shared/skills/process/verification-before-completion/SKILL.md",
+      "destination": "agents/shared/skills/process/verification-before-completion/SKILL.md",
+      "mode": "100644",
+      "sha256": "0b8cea0bb82a8ab0f015afaf84c87796e2c94eee3a83d4fa3d4461d0917950bd"
+    },
+    {
+      "source": "packages/daemon/specs/rigs/launch/factory-rsi/CULTURE.md",
+      "destination": "rigs/launch/factory-rsi/CULTURE.md",
+      "mode": "100644",
+      "sha256": "4c0bb71d23ab26c52b65fa355c08edb284d98c817b1a6050ff1c75a226e63ed4"
+    },
+    {
+      "source": "packages/daemon/specs/rigs/launch/factory-rsi/world-bundle.yaml",
+      "destination": "rigs/launch/factory-rsi/world-bundle.yaml",
+      "mode": "100644",
+      "sha256": "a2b1aaac4d677a4bcb2def63fc098bb79a75f9986258b0e6460277587b9344d2"
+    },
+    {
+      "source": "packages/daemon/specs/rigs/launch/secrets-manager/secrets-manager.compose.yaml",
+      "destination": "rigs/launch/secrets-manager/secrets-manager.compose.yaml",
+      "mode": "100644",
+      "sha256": "4dad235b01617aa4337b3a1ff42b666bd8bd428d442c6ab6ef97fa796126f302"
+    },
+    {
+      "source": "packages/daemon/specs/rigs/launch/secrets-manager/world-bundle.yaml",
+      "destination": "rigs/launch/secrets-manager/world-bundle.yaml",
+      "mode": "100644",
+      "sha256": "31f63227de5e2972b37dcb066ce2ba780b64fc9c34b7d220c2da97543ac7cffa"
+    }
+  ]
+}

@@ -2,9 +2,9 @@ version: "0.2"
 name: workshop
 summary: >
   A small team that works in any repository, OpenRig's own included, launched
-  from your clone with --cwd: a lead who proposes work and turns it into one
-  pull request with a true description, a builder, a code reviewer and a QA
-  seat. Claude Code and Codex are both on the team.
+  from your clone with --cwd: a lead who takes your goal and scopes the work,
+  a builder, a QA seat and a code reviewer. The installing agent selects
+  each runtime from your available logins; the team stays named workshop.
 
 culture_file: CULTURE.md
 
@@ -40,31 +40,32 @@ permission_policy: builtin:yolo
 pods:
   - id: orch
     label: Orchestration
-    summary: Proposes the work, scopes it and keeps the pull request description true.
+    summary: Starts from your goal, scopes the work and keeps the pull request description true.
     members:
       - id: lead
         agent_ref: "local:agents/workshop"
         profile: lead
-        runtime: claude-code
+        runtime: codex
         cwd: "."
+        # Default posture only: see "Codex seats and the sandbox" in README.md.
+        # codex_config_profile: workshop-net
+        startup:
+          files:
+            - path: startup/lead-first-move.md
+              delivery_hint: send_text
+              required: true
     edges: []
 
   - id: dev
     label: Development
-    summary: Makes the change.
+    summary: Builds, tests and independently reviews the change.
     members:
       - id: build
         agent_ref: "local:agents/workshop"
         profile: builder
         runtime: claude-code
         cwd: "."
-    edges: []
-
-  - id: review
-    label: Review
-    summary: Reviews and tests the exact commit the builder hands off.
-    members:
-      - id: code
+      - id: review
         agent_ref: "local:agents/workshop"
         profile: code-reviewer
         runtime: codex
@@ -75,24 +76,23 @@ pods:
       - id: qa
         agent_ref: "local:agents/workshop"
         profile: qa
-        runtime: codex
+        runtime: claude-code
         cwd: "."
-        # codex_config_profile: workshop-net
-    edges: []
+    edges:
+      - kind: delegates_to
+        from: build
+        to: review
+      - kind: delegates_to
+        from: build
+        to: qa
 
 edges:
   - kind: delegates_to
     from: orch.lead
     to: dev.build
-  - kind: delegates_to
-    from: dev.build
-    to: review.code
-  - kind: delegates_to
-    from: dev.build
-    to: review.qa
   - kind: can_observe
     from: orch.lead
-    to: review.code
+    to: dev.review
   - kind: can_observe
     from: orch.lead
-    to: review.qa
+    to: dev.qa

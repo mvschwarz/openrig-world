@@ -33,10 +33,10 @@ the "OpenRig startup orientation challenge" in your startup text, exactly as
 given. It tells OpenRig and the lead that you read your start steps. If your
 `rig` commands fail in the sandbox, say so instead.
 
-Then the lead looks for the first piece of work: the repository's `ROADMAP.md`
-if it has one, and candidate work such as open issues, TODOs and failing tests.
-It proposes one item to the person, says why that one, and asks before
-starting. Everyone else waits for work. The lead brings it, and an idle seat is
-fine.
+Then the lead starts from the person's goal, usually delivered in the kernel
+operator's queue row, and follows its "Your first move" startup guidance. It
+does not ask for that goal again. Only when no goal was supplied does it
+propose work from the repository. Everyone else waits for work. The lead
+brings it, and an idle seat is fine.
 
 Need expertise your team lacks? `rig roster find <topic>` lists who to ask and why.

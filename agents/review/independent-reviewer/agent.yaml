@@ -1,0 +1,30 @@
+name: independent-reviewer
+version: "1.0"
+description: Independent code reviewer — analyzes code and writes findings
+
+defaults:
+  runtime: claude-code
+
+imports:
+  - ref: local:../../shared
+
+profiles:
+  default:
+    uses:
+      skills: [review-team, systematic-debugging, verification-before-completion]
+      guidance: []
+      subagents: []
+      plugins: [shared:openrig-core]
+      runtime_resources: [shared:claude-default-settings, shared:claude-default-mcp, shared:codex-default-config, shared:claude-activity-hooks]
+
+resources:
+  guidance:
+    - id: role
+      path: guidance/role.md
+
+startup:
+  files:
+    - path: guidance/role.md
+      delivery_hint: send_text
+      required: true
+  actions: []

@@ -1,0 +1,30 @@
+name: qa
+version: "1.0"
+description: QA agent — verifies assigned user outcomes by effect
+
+defaults:
+  runtime: codex
+
+imports:
+  - ref: local:../../shared
+
+profiles:
+  default:
+    uses:
+      skills: [development-team, systematic-debugging, verification-before-completion, agent-browser, dogfood]
+      guidance: []
+      subagents: []
+      plugins: [shared:openrig-core]
+      runtime_resources: [shared:claude-default-settings, shared:claude-default-mcp, shared:codex-default-config, shared:claude-activity-hooks]
+
+resources:
+  guidance:
+    - id: role
+      path: guidance/role.md
+
+startup:
+  files:
+    - path: guidance/role.md
+      delivery_hint: send_text
+      required: true
+  actions: []

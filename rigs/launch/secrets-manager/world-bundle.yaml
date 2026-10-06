@@ -1,0 +1,37 @@
+version: "0.2"
+name: secrets-manager
+summary: >
+  HashiCorp Vault in dev mode with a dedicated Vault specialist agent.
+  Vault boots before the specialist launches, health is gated, and the
+  env receipt is captured. The specialist can read, write, list, and
+  delete secrets via the Vault HTTP API.
+
+services:
+  kind: compose
+  compose_file: secrets-manager.compose.yaml
+  project_name: openrig-secrets
+  down_policy: down
+  wait_for:
+    - url: http://127.0.0.1:8200/v1/sys/health
+  surfaces:
+    urls:
+      - name: Vault UI
+        url: http://127.0.0.1:8200/ui
+      - name: Vault API
+        url: http://127.0.0.1:8200/v1
+    commands:
+      - name: Vault status
+        command: "vault status -address=http://127.0.0.1:8200"
+
+pods:
+  - id: vault
+    label: Vault
+    members:
+      - id: specialist
+        agent_ref: "local:../../../agents/apps/vault-specialist"
+        runtime: claude-code
+        profile: default
+        cwd: "."
+    edges: []
+
+edges: []

@@ -1,0 +1,30 @@
+name: orchestrator
+version: "1.0"
+description: Orchestrator lead — coordinates agents, monitors progress, bridges communication
+
+defaults:
+  runtime: claude-code
+
+imports:
+  - ref: local:../../shared
+
+profiles:
+  default:
+    uses:
+      skills: [orchestration-team, systematic-debugging, verification-before-completion]
+      guidance: []
+      subagents: []
+      plugins: [shared:openrig-core]
+      runtime_resources: [shared:claude-default-settings, shared:claude-default-mcp, shared:codex-default-config, shared:claude-activity-hooks]
+
+resources:
+  guidance:
+    - id: role
+      path: guidance/role.md
+
+startup:
+  files:
+    - path: guidance/role.md
+      delivery_hint: send_text
+      required: true
+  actions: []
