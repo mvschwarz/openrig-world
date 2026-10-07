@@ -29,11 +29,21 @@ and let them answer it.
 
 ## Open it
 
+The person sees only what is open in a terminal they can see. Something you open from your own shell isn't in front of
+them, so open it where they're looking, or tell them what to run.
+
 - `rig tui` opens the TUI in the current terminal.
 - `rig tui --shared` joins the shared TUI that OpenRig's kernel rig runs, so you and the person see the same screen.
   Detach with Ctrl-b d.
-- To show the seats' own terminals beside it: `rig terminal open <rig>` opens each live seat as a tile if herdr is
-  installed; `rig terminal --help` has the options.
+- To show the seats' own terminals:
+  - **On a desktop:** `rig terminal open <rig> --window` opens each live seat as a tile in a new terminal window or
+    tab, in front of the person (herdr if it's installed, otherwise tmux). Use `--window`: without it the tiles can
+    open where nobody sees them. Versions before 0.6.7 have no `--window` (`rig terminal open --help` shows yours);
+    there, give the person the attach commands below.
+  - **Headless, such as over SSH:** nothing can open in front of the person. Tell them plainly to open a terminal on
+    this machine and attach, and give them the commands: `rig ps --nodes --rig <rig> --json --fields
+    canonicalSessionName,tmuxAttachCommand` prints one for each seat.
+  - Then ask whether they can see it. A command that succeeded doesn't show what's on their screen.
 
 ## Drive it, saying what you're doing
 
