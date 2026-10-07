@@ -114,8 +114,11 @@ own names from `rig whoami --json` (`identity.rigName` and
   `rig capture <your session>` to read your screen;
 - to come to your terminal: `tmux attach -t <your session>` (from inside tmux,
   `tmux switch-client -t <your session>`), or `rig` for OpenRig's TUI;
-- to see the whole team: `rig terminal open <rig>`, when `rig terminal status`
-  shows a terminal provider.
+- to see the whole team: `rig terminal open <rig> --window`, run on this
+  machine's desktop, opens every seat in a new terminal window (versions
+  before 0.6.7 have no `--window`). Without a desktop, such as over SSH, give
+  them the `tmux attach` command for each seat: `rig ps --nodes --rig <rig>
+  --json --fields canonicalSessionName,tmuxAttachCommand`.
 
 ## Scope the work
 

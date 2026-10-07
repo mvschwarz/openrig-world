@@ -106,8 +106,10 @@ for you can do the first one itself:
   then d, to leave it running. `rig ps --nodes --rig workshop --json --fields canonicalSessionName,tmuxAttachCommand`
   prints this command for every seat.
 - Run `rig` for OpenRig's TUI.
-- Open every seat as a tile with `rig terminal open workshop`, if
-  `rig terminal status` shows a terminal provider (herdr by default, or cmux).
+- Open every seat as a tile in a new terminal window with
+  `rig terminal open workshop --window`, run on the machine's desktop (herdr if
+  it's installed, otherwise tmux; versions before 0.6.7 have no `--window`).
+  Without a desktop, such as over SSH, use the `tmux attach` commands above.
 
 A message from your own terminal arrives marked as from an unsigned sender;
 start it with your name if you want the lead to know who sent it:
