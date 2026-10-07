@@ -3,17 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Registry check and status generator for openrig-world. Reads local files only.",
+  "description": "Install verification for the OpenRig-authored bundles in this repository.",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs",
-    "check": "node registry-check.mjs"
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "ajv": "8.18.0",
-    "ajv-formats": "3.0.1",
     "yaml": "2.8.3"
   }
 }

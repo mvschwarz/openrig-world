@@ -82,6 +82,17 @@ to read.
 | `craft/tells-of-a-wrong-claim.md` | Moments when you are about to be wrong, and the cheapest check for each |
 | `manifest.yaml` | The pack manifest: files, atoms, and the `reviewer` profile |
 
+## Rig catalog
+
+Reviewed listings, submissions, team diagrams and public status live in
+[openrig-registry](https://github.com/mvschwarz/openrig-registry). The workshop and factory-rsi
+bundle sources remain here under `rigs/`; their installation links do not change.
+
+`registry/workshop.yaml` is the only catalog file retained here, for OpenRig 0.6.6 operators.
+The copy in openrig-registry is canonical. Update this compatibility mirror with the exact same
+bytes in a paired, reviewed pull request when that pin changes, and merge both before announcing
+the new pin. See the [registry's compatibility instructions](https://github.com/mvschwarz/openrig-registry#workshop-compatibility-with-openrig-066).
+
 ## Contributing to this pack
 
 Pull requests are welcome, especially when you find something here that is stale or wrong. Keep
