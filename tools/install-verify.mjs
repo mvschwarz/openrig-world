@@ -12,7 +12,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { readYaml } from "./lib/load.mjs";
+import { parseDocument } from "yaml";
+
+function readYaml(file) {
+  const doc = parseDocument(fs.readFileSync(file, "utf8"), { uniqueKeys: true });
+  if (doc.errors.length) throw new Error(doc.errors[0].message.split("\n")[0]);
+  return doc.toJS();
+}
 
 // Locations follow OpenRig's runtime adapters (packages/daemon/src/adapters/claude-code-adapter.ts and
 // codex-runtime-adapter.ts) and the skill folders each harness reads.

@@ -1,6 +1,5 @@
-# Checks registry entries, behaviour views, journeys and the generated status file. It parses files in this
-# repository only: nothing a submission contains is fetched, installed or run, and the job holds a read-only token.
-name: Registry check
+# Checks the local install-reporting tool; does not launch a rig.
+name: Bundle tools check
 
 on:
   pull_request:
@@ -26,4 +25,3 @@ jobs:
           node-version: 22
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: node --test test/*.test.mjs
-      - run: node registry-check.mjs
