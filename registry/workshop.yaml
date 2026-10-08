@@ -48,7 +48,7 @@ configurations:
       openrigVersion: 0.6.6
     behaviour: views/workshop/dev.build-pi_dev.qa-pi_dev.review-pi_orch.lead-pi.0.6.6.json
 review:
-  date: 2026-10-06
+  date: 2026-10-07
   note: Reviewed for listing. Validation and plan checks are not native runtime
     proof or a security audit.
 status: listed
