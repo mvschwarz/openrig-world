@@ -7,15 +7,15 @@ summary: "One four-seat software team: a Codex lead and reviewer, Claude Code
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/workshop
-  resolvedCommit: 8b22d918340504ec2e01889a00b07c71195c459f
-  requestedRef: 8b22d918340504ec2e01889a00b07c71195c459f
+  resolvedCommit: 52ca6128486219676dbe749f360e1d3539e6ab20
+  requestedRef: 52ca6128486219676dbe749f360e1d3539e6ab20
 configurations:
   - id: dev.build=claude-code,dev.qa=claude-code,dev.review=codex,orch.lead=codex
     alias: recommended
     recommended: true
     packageDigest:
       algorithm: sha256
-      value: e2ea21e9867cb353fb06c08596c336ca08a9281c3fc231f9439d3d09cc7cc13d
+      value: e46a8f92b367e4eb2b92f1025784d38de7e150b2f7873bbe602916a2c9c34574
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -24,7 +24,7 @@ configurations:
     alias: all-claude
     packageDigest:
       algorithm: sha256
-      value: 6bdb19e2e35e6da9808dc6c232b6fb10c28ba16b2a09dc2a5eb07c6cbfff5ad4
+      value: fb7da3346d4180d8374fb9080b3b05e651261587c78786574cdfab83831b2596
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -33,7 +33,7 @@ configurations:
     alias: all-codex
     packageDigest:
       algorithm: sha256
-      value: aed47f1207c528b5aa4f95532d7aad0a7564178aefc3bb0db7343cf07457a502
+      value: e3418c3d1b04831856c69b61f8bdf8732acd95afe8f7b0a9b6958d84a3e8c070
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -42,13 +42,13 @@ configurations:
     alias: all-pi
     packageDigest:
       algorithm: sha256
-      value: a8658fd3e06b3df76730b42ed84ddaf28677829815da1f370c76b1c885dc44e5
+      value: ea373805e34544a2495f985a6320b1c1ccad129299ddfe99c18fd3f81a25a029
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
     behaviour: views/workshop/dev.build-pi_dev.qa-pi_dev.review-pi_orch.lead-pi.0.6.6.json
 review:
-  date: 2026-10-06
+  date: 2026-10-07
   note: Reviewed for listing. Validation and plan checks are not native runtime
     proof or a security audit.
 status: listed
