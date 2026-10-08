@@ -1,0 +1,164 @@
+name: workshop
+version: "1.0"
+description: >
+  A seat on the workshop rig, which works in a clone of any repository,
+  OpenRig's own included. The rig member's profile picks the role: lead,
+  builder, code-reviewer or qa. (An OpenRig profile selects resources and startup files;
+  it is not a Codex permission profile.)
+
+# Claude Code and Codex seats get the skills their profile lists below, projected into the
+# working directory's .claude/skills and .agents/skills. Two are left out of those lists:
+# developing-openrig, because an OpenRig clone tracks its own copy at those paths (and it
+# doesn't apply elsewhere), and openrig-skills, which the daemon seeds into the home folder.
+# claude-compaction-restore is for Claude Code seats; skills can't be scoped to one runtime,
+# so a Codex seat on the same profile carries it too, unused.
+# Pi selects generated snapshots explicitly, plus the bundle-skills/ below (the generator
+# appends them); see PI-SKILLS.md and pi-skills.lock.json.
+
+resources:
+  skills:
+    # BEGIN GENERATED PI RESOURCES
+    - { id: agent-operated-software, path: skills/agent-operated-software }
+    - { id: agent-operated-workflows, path: skills/agent-operated-workflows }
+    - { id: applying-a-permission-policy, path: skills/applying-a-permission-policy }
+    - { id: claude-compaction-restore, path: skills/claude-compaction-restore }
+    - { id: delegating-work, path: skills/delegating-work }
+    - { id: developing-openrig, path: skills/developing-openrig }
+    - { id: forming-an-openrig-mental-model, path: skills/forming-an-openrig-mental-model }
+    - { id: loading-addressable-markdown, path: skills/loading-addressable-markdown }
+    - { id: messaging-the-human, path: skills/messaging-the-human }
+    - { id: mission-slice-sop, path: skills/mission-slice-sop }
+    - { id: openrig-operating-model, path: skills/openrig-operating-model }
+    - { id: openrig-skills, path: skills/openrig-skills }
+    - { id: openrig-user, path: skills/openrig-user }
+    - { id: orienting-to-an-inherited-seat, path: skills/orienting-to-an-inherited-seat }
+    - { id: queue-handoff, path: skills/queue-handoff }
+    - { id: refocusing, path: skills/refocusing }
+    - { id: retiring-and-inheriting-a-seat, path: skills/retiring-and-inheriting-a-seat }
+    - { id: seat-continuity-and-handover, path: skills/seat-continuity-and-handover }
+    - { id: session-compaction-and-restore, path: skills/session-compaction-and-restore }
+    - { id: software-for-agents, path: skills/software-for-agents }
+    # END GENERATED PI RESOURCES
+    # bundle-skills/ holds the skills this rig adds itself; skills/ belongs to tools/generate-pi-skills.py.
+    # ponytail is vendored unmodified from github.com/DietrichGebert/ponytail (MIT), skills/ponytail/SKILL.md
+    # at 0e3fd0cfeeea6ed0081e5ee0e169d8521dd3750e, with its LICENSE beside it.
+    - { id: ponytail, path: bundle-skills/ponytail }
+    - { id: using-the-tui-together, path: bundle-skills/using-the-tui-together }
+  runtime_resources:
+    # Turns on activity reporting for Claude Code seats. Codex seats skip it.
+    - id: claude-activity-hooks
+      path: runtime/claude-activity-hooks.json
+      runtime: claude-code
+      type: claude_activity_hooks
+
+profiles:
+  lead:
+    summary: Turns the person's goal into scoped work and keeps the PR description true.
+    preferences:
+      runtime: codex
+    uses:
+      # The Claude Code and Codex roles share this list (see the note at the top).
+      skills: &seat-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, claude-compaction-restore, delegating-work, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-user, orienting-to-an-inherited-seat, ponytail, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, using-the-tui-together]
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/lead.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  builder:
+    summary: Makes the change on its own branch and worktree and proves it by effect.
+    preferences:
+      runtime: claude-code
+    uses:
+      skills: *seat-skills
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/builder.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  code-reviewer:
+    summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
+    preferences:
+      runtime: codex
+    uses:
+      skills: *seat-skills
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/code-reviewer.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  qa:
+    summary: Runs the test layers the change calls for, including stub-agent scenarios, and reports what each one proved.
+    preferences:
+      runtime: claude-code
+    uses:
+      skills: *seat-skills
+      runtime_resources: [claude-activity-hooks]
+    startup:
+      files:
+        - path: guidance/qa.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  lead-pi:
+    summary: Turns one issue into one pull-request-sized outcome and keeps the PR description true.
+    preferences:
+      runtime: pi
+    uses:
+      # BEGIN GENERATED PI SELECTION
+      skills: &pi-skills [agent-operated-software, agent-operated-workflows, applying-a-permission-policy, delegating-work, developing-openrig, forming-an-openrig-mental-model, loading-addressable-markdown, messaging-the-human, mission-slice-sop, openrig-operating-model, openrig-skills, openrig-user, orienting-to-an-inherited-seat, ponytail, queue-handoff, refocusing, retiring-and-inheriting-a-seat, seat-continuity-and-handover, session-compaction-and-restore, software-for-agents, using-the-tui-together]
+      # END GENERATED PI SELECTION
+    startup:
+      files:
+        - path: guidance/lead.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  builder-pi:
+    summary: Makes the change on its own branch and worktree and proves it by effect.
+    preferences:
+      runtime: pi
+    uses:
+      skills: *pi-skills
+    startup:
+      files:
+        - path: guidance/builder.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  code-reviewer-pi:
+    summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
+    preferences:
+      runtime: pi
+    uses:
+      skills: *pi-skills
+    startup:
+      files:
+        - path: guidance/code-reviewer.md
+          delivery_hint: send_text
+          required: true
+      actions: []
+
+  qa-pi:
+    summary: Runs the test layers the change calls for, including stub-agent scenarios, and reports what each one proved.
+    preferences:
+      runtime: pi
+    uses:
+      skills: *pi-skills
+    startup:
+      files:
+        - path: guidance/qa.md
+          delivery_hint: send_text
+          required: true
+      actions: []

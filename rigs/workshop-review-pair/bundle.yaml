@@ -1,0 +1,20 @@
+# Read by OpenRig when it builds this rig into a bundle.
+#
+# GitHub-link builds carry both minimums: authored non-interruptive defaults
+# require OpenRig 0.6.6. Local-folder builds must pass --min-cli-version 0.6.6
+# and --min-daemon-version 0.6.6 to carry these minimums into the archive.
+compatibility:
+  min_cli_version: "0.6.6"
+  min_daemon_version: "0.6.6"
+
+# preconditions: what to know and do before installing, shown before install.
+# Run the commands in order in one shell, then run the install command in that
+# same shell. OpenRig shows them; it doesn't run or check them.
+preconditions:
+  - name: "Install and run the rig as your normal user, not root: Claude Code refuses to bypass permissions as root or under sudo."
+  - name: Open a shell at the root of your clone of the repository you want to work on, set up the way its README says. Optionally add OpenRig's public context pack, then run the install from that same shell.
+    commands:
+      - rig context add --git https://github.com/mvschwarz/openrig-world
+  - name: "Keep OpenRig's files out of your commits: from the root of your clone, add CLAUDE.local.md, AGENTS.md, /.openrig/, .claude/settings.local.json and gate-lane-verdict.json to .git/info/exclude (the README has the command). The lead adds any that are missing when it starts."
+  - name: "If you ask Claude Code to do this setup for you, plan to run some steps yourself. In OpenRig's tests on macOS, Claude Code's default auto mode declined the rig up line ([Create Unsafe Agents], because it starts new agents) on 2.1.289 and 2.1.290, and in an earlier 2.1.289 run also declined adding a permission rule for itself ([Self-Modification]; add any rule yourself with /permissions or in .claude/settings.local.json) and rig context add --git ([Untrusted Code Integration]), even with an allow rule for that command. Run rig context add --git and rig up yourself in a terminal, from the root of your clone."
+  - name: "This team declares broad access and non-interruptive launches: Claude bypasses permissions, Codex runs unsandboxed and never asks, and Pi gets full resource trust. OpenRig accepts supported Claude/Codex warning screens with launch flags; sign-in and unsupported harness notices still require you."
