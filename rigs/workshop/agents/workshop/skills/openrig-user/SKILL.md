@@ -301,7 +301,13 @@ OpenRig v0.3.0 adds `rig agent-image`, `rig context-pack`, `rig workspace`, and
 `rig config init-workspace`. *(0.5.0: the `rig context-pack` alias is retired — the store + compose library is the single `rig context` noun; see "Context packs and paced delivery (0.5.0)".)* It also shifts fresh-user starter guidance toward
 `product-team` for human-directed work and `conveyor` for workflow-oriented
 work. Treat `demo` as legacy/test content unless a task specifically asks for
-the old demo spec.
+the old demo spec. *(Current teams: `starter` and `factory` are built in;
+`workshop` is a bundle. The former `product-team`, `conveyor` and `demo` starters
+were removed. `first-project` is Starter's compatibility name.)*
+
+For new specs, use the [topology naming reference](https://github.com/mvschwarz/openrig/blob/95412717f319c6557c970d870cc22fa976565837/docs/reference/topology-naming.md):
+rig = purpose, pod = domain, member = role. Existing addresses and provider choices
+stay intact until deliberately changed.
 
 OpenRig v0.3.1 adds public package/source surfaces for Plugin Primitive v0,
 Claude Auto-Compaction Policy, migration `040_workflow_specs_diagnostic`,
@@ -358,7 +364,7 @@ rig start --json             # JSON output for agents
 
 Framing: `rig start` is the RECOVERY entry point, not the getting-started
 hero. The fresh-user boot hero remains `rig up <starter>` (typically
-`rig up product-team`). Reach for `rig start` after a host reboot, daemon
+`rig up starter`). Reach for `rig start` after a host reboot, daemon
 restart, or any "bring my rigs back" moment.
 
 ### `rig reconcile-session` — no-launch adopt of a hand-resumed session

@@ -93,6 +93,18 @@ The copy in openrig-registry is canonical. Update this compatibility mirror with
 bytes in a paired, reviewed pull request when that pin changes, and merge both before announcing
 the new pin. See the [registry's compatibility instructions](https://github.com/mvschwarz/openrig-registry#workshop-compatibility-with-openrig-066).
 
+## Naming a team
+
+Use the [topology naming reference](https://github.com/mvschwarz/openrig/blob/95412717f319c6557c970d870cc22fa976565837/docs/reference/topology-naming.md) when authoring
+rigs: a rig names the purpose, a pod names a domain, and a seat names its role.
+Starter grows from `dev.build` and `dev.review` to Workshop's lead and development
+pod, then Factory's independent review pair. Runtime presets keep those identities.
+
+The `factory-rsi` bundle remains an original workflow reference with its original
+addresses. It is distinct from the current built-in Factory and is not the naming
+template for a new team. Its bundle, workflow targets and pinned registry view
+remain together; old fixtures and run records keep the identities they describe.
+
 ## Contributing to this pack
 
 Pull requests are welcome, especially when you find something here that is stale or wrong. Keep
