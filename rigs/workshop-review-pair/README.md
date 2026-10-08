@@ -1,5 +1,8 @@
 # workshop with a review pair
 
+[Workshop](../workshop/) (`rigs/workshop`, four seats) is the recommended team; choose
+this variant when you want a second, independent reviewer on another runtime.
+
 A five-seat variant of [Workshop](../workshop/): the same OpenRig team, but with two
 independent code reviewers, one Claude Code and one Codex, instead of one. It works
 in any repository, OpenRig's own included.
