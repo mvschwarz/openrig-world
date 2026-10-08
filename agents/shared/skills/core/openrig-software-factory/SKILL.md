@@ -40,12 +40,16 @@ A roadmap, YAML file or wake does not execute work or authorize a new outcome.
 ## Choose the first project's providers
 
 Ask which working account(s) the user wants: Claude Code, Codex, or both. Reuse
-an explicit choice and recommend the account they already have working. Use
-`first-project-claude` (two Claude), `first-project` (two Codex), or
-`first-project-mixed` (Claude owner, Codex checker). All share the same task and
-owner/checker culture. Check only selected CLIs/logins; request `claude auth login`
-or `codex login` once when that selected login is missing. No credential copying,
-unused provider prerequisite or silent model/provider fallback.
+an explicit choice and recommend the account they already have working. The
+built-in `starter` has `dev.build` on Claude Code and `dev.review` on Codex.
+For one provider, ask the operator to adapt a copy to the available logins;
+there are no per-provider starter variants. `first-project` remains a compatibility
+name for Starter, with existing-name safeguards. Check only selected CLIs/logins;
+request the selected provider's login when it is missing, without credential copying
+or silent provider fallback. Keep role names when changing a runtime.
+
+Read the [topology naming reference](https://github.com/mvschwarz/openrig/blob/95412717f319c6557c970d870cc22fa976565837/docs/reference/topology-naming.md) for the
+Starter → Workshop → Factory progression and names for specialized teams.
 
 Read the compatible getting-started guide's **Choose your providers** and
 **Kernel startup stays automatic** sections before launch. The choice selects
