@@ -1,0 +1,138 @@
+version: "0.2"
+name: workshop
+summary: >
+  Workshop with a review pair: the same team as rigs/workshop, launched from
+  your clone with --cwd, but with two independent code reviewers, one Claude
+  Code and one Codex, instead of one. A lead who takes your goal and scopes the
+  work, a builder, a QA seat and the two reviewers. The team stays named
+  workshop and installs in the same place, so choose one of the two folders.
+
+culture_file: CULTURE.md
+
+docs:
+  - path: README.md
+
+# Start steps shared by every seat; each seat's role file comes from its profile.
+startup:
+  files:
+    - path: startup/context.md
+      delivery_hint: send_text
+      required: true
+  # Each seat proves it received its start steps and can reach OpenRig.
+  # `rig ps --nodes` shows ORIENTED: verified, or missing until it does.
+  actions:
+    - type: startup_proof
+      value: authenticated
+      idempotent: true
+
+# OpenRig writes its instruction blocks into each seat's working directory.
+# Claude Code seats get them in CLAUDE.local.md, so they stay out of a
+# project's own CLAUDE.md. Codex seats always use AGENTS.md. The README says
+# how to keep both files out of your pull requests.
+managed_blocks:
+  claude-code: CLAUDE.local.md
+
+# Every seat launches with permission prompts off: Claude Code skips its
+# permission checks, Codex runs with full access and never asks, and a seat on
+# Pi gets Pi's full resource trust. The README's "Permissions" section says
+# what that means and how to go back to OpenRig's default posture.
+permission_policy: builtin:yolo
+# Accept supported harness warning screens for this rig without a CLI flag.
+non_interruptive: true
+
+pods:
+  - id: orch
+    label: Orchestration
+    summary: Starts from your goal, scopes the work and keeps the pull request description true.
+    members:
+      - id: lead
+        agent_ref: "local:agents/workshop"
+        profile: lead
+        runtime: codex
+        cwd: "."
+        # Default posture only: see "Codex seats and the sandbox" in README.md.
+        # codex_config_profile: workshop-net
+        startup:
+          files:
+            - path: startup/lead-first-move.md
+              delivery_hint: send_text
+              required: true
+            - path: startup/review-pair-lead.md
+              delivery_hint: send_text
+              required: true
+    edges: []
+
+  - id: dev
+    label: Development
+    summary: Builds and tests the change.
+    members:
+      - id: build
+        agent_ref: "local:agents/workshop"
+        profile: builder
+        runtime: claude-code
+        cwd: "."
+        startup:
+          files:
+            - path: startup/review-pair-builder.md
+              delivery_hint: send_text
+              required: true
+      - id: qa
+        agent_ref: "local:agents/workshop"
+        profile: qa
+        runtime: claude-code
+        cwd: "."
+    edges:
+      - kind: delegates_to
+        from: build
+        to: qa
+
+  # Two independent reviewers of the same commit, one per runtime, named as in
+  # OpenRig's built-in Factory team.
+  - id: review
+    label: Review
+    summary: Two reviewers check the same commit independently; the lead compares their findings.
+    members:
+      - id: r1
+        agent_ref: "local:agents/workshop"
+        profile: code-reviewer
+        runtime: claude-code
+        cwd: "."
+        startup:
+          files:
+            - path: startup/review-pair-reviewer.md
+              delivery_hint: send_text
+              required: true
+      - id: r2
+        agent_ref: "local:agents/workshop"
+        profile: code-reviewer
+        runtime: codex
+        cwd: "."
+        # Default posture only: opt-in network for this seat; see the README,
+        # "Codex seats and the sandbox".
+        # codex_config_profile: workshop-net
+        startup:
+          files:
+            - path: startup/review-pair-reviewer.md
+              delivery_hint: send_text
+              required: true
+    edges: []
+
+edges:
+  - kind: delegates_to
+    from: orch.lead
+    to: dev.build
+  - kind: delegates_to
+    from: dev.build
+    to: review.r1
+  - kind: delegates_to
+    from: dev.build
+    to: review.r2
+  - kind: can_observe
+    from: orch.lead
+    to: review.r1
+  - kind: can_observe
+    from: orch.lead
+    to: review.r2
+  - kind: can_observe
+    from: orch.lead
+    to: dev.qa

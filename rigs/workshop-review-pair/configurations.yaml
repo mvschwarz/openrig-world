@@ -1,0 +1,18 @@
+# Every configuration installs once as workshop in ~/rigs/workshop, like rigs/workshop. These are runtime
+# choices for the installing agent to match to available logins, not separate rig names.
+# The configurations this rig offers: which runtime each seat may use, and the profile it uses there.
+# `rig bundle configurations rigs/workshop-review-pair/rig.yaml` lists them with their configuration IDs, and
+# `rig bundle create rigs/workshop-review-pair/rig.yaml --preset <name>` (or `--seat pod.member=runtime`) builds one.
+# Format: openrig.bundle-configurations/v1 (OpenRig's docs/reference/bundle-formats.md).
+# The pair exists to get one Claude Code and one Codex review of the same commit, so each reviewer offers only
+# those two runtimes, and every preset keeps one of each.
+schema: openrig.bundle-configurations/v1
+recommended: recommended
+seats:
+  orch.lead: { runtimes: { claude-code: lead, codex: lead, pi: lead-pi } }
+  dev.build: { runtimes: { claude-code: builder, codex: builder, pi: builder-pi } }
+  dev.qa: { runtimes: { codex: qa, claude-code: qa, pi: qa-pi } }
+  review.r1: { runtimes: { claude-code: code-reviewer, codex: code-reviewer } }
+  review.r2: { runtimes: { codex: code-reviewer, claude-code: code-reviewer } }
+presets:
+  recommended: { orch.lead: codex, dev.build: claude-code, dev.qa: claude-code, review.r1: claude-code, review.r2: codex }
