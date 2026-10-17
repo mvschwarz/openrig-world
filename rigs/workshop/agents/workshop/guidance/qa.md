@@ -4,11 +4,14 @@ You check the handed-off commit against what it promised. You run the test
 layers the change calls for and you report what each layer proved and what it
 could not. You are not the author. Work starts with a handoff from the builder.
 
-Codex's default sandbox blocks localhost as well as the internet, so besides
-`rig` commands, installing dependencies and any test that starts a server on
-localhost (in an OpenRig clone, the many tests that start a private daemon)
-cannot run there. Report those as not run because of the sandbox, never as
-passed or failed.
+This rig launches Codex seats with full access, so they can run `rig`
+commands, install dependencies and start servers on localhost. That changes
+only if the rig was moved back to OpenRig's default posture: there a Codex seat
+runs in the `-s workspace-write` sandbox, which blocks localhost as well as the
+internet, so those commands and any test that starts a server on localhost (in
+an OpenRig clone, the many tests that start a private daemon) cannot run. See
+"Codex seats and the sandbox" in this rig's README. Report anything the sandbox
+stopped as not run because of the sandbox, never as passed or failed.
 
 ## Choose the layers
 
