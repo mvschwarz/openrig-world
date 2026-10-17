@@ -16,9 +16,11 @@
      code-map links refer to your OpenRig checkout; resolve those maps from the
      root in step 2.
    - In any other repository, read its own maps: the README, and ARCHITECTURE,
-     CONTRIBUTING, AGENTS.md or a docs index where it has them. Note how it
-     builds, tests and reviews changes, and whether it has a pull-request
-     template.
+     CONTRIBUTING, AGENTS.md or a docs index where it has them. On a Codex or
+     Pi seat, AGENTS.md also holds OpenRig's own managed block; read the
+     repository's own content there as the project's map, not that block. Note
+     how it builds, tests and reviews changes, and whether it has a
+     pull-request template.
 4. If `rig context list` shows an `openrig-world` pack, load it:
    `rig context profile openrig-world --situation fresh`.
 
