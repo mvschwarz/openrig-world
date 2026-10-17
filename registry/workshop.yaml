@@ -7,15 +7,15 @@ summary: "One four-seat software team: a Codex lead and reviewer, Claude Code
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/workshop
-  resolvedCommit: 9ace64b44fb783e0a12f1916aebb35452722e452
-  requestedRef: 9ace64b44fb783e0a12f1916aebb35452722e452
+  resolvedCommit: 2a5d93c8d8f8aafd5040bea8b74def4cf0f2f0d4
+  requestedRef: 2a5d93c8d8f8aafd5040bea8b74def4cf0f2f0d4
 configurations:
   - id: dev.build=claude-code,dev.qa=claude-code,dev.review=codex,orch.lead=codex
     alias: recommended
     recommended: true
     packageDigest:
       algorithm: sha256
-      value: e5bfb2fd8ed38e345370bb44784de4f7621fa56cd78bdf94b3c3d41f746e7797
+      value: 1fc06f6d017ee4a9b85376f18fcd9d46e1b92aded03d00fe059bf3506d82f6ea
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -24,7 +24,7 @@ configurations:
     alias: all-claude
     packageDigest:
       algorithm: sha256
-      value: d947029bd538b64c6978693b467193955f196761ff354479094899b7757b23e5
+      value: 06aa24548eb1dba1482e2ba2c65daaa3ad2509b8a1d6600cf1ec4cb669eb2fca
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -33,7 +33,7 @@ configurations:
     alias: all-codex
     packageDigest:
       algorithm: sha256
-      value: 0c29c6e2b0172902344e8e585a1299e56974eeacc20a9cd7d5d1f546b847f7a0
+      value: 7185cd86386592a9e422a872d25ca9a7830ebb82c275936718bb8afe75b58e80
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -42,13 +42,15 @@ configurations:
     alias: all-pi
     packageDigest:
       algorithm: sha256
-      value: ac8c0e51eed6479d687b350433ec6aab3270cdbd144f2c1a795ae21f8404de3e
+      value: 2843e9c69f6bc5d0aa1e9a3969550b9d338e0a856e5dc072af818a858aa25205
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
     behaviour: views/workshop/dev.build-pi_dev.qa-pi_dev.review-pi_orch.lead-pi.0.6.6.json
 review:
-  date: 2026-10-07
+  date: 2026-10-17
   note: Reviewed for listing. Validation and plan checks are not native runtime
-    proof or a security audit.
+    proof or a security audit. Native macOS evidence dated 2026-10-06 is historical,
+    not a run of this pin. Linux, Pi and new-pin coverage with OpenRig 0.6.10
+    remain unverified.
 status: listed
