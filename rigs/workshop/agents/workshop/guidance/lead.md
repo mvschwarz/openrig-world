@@ -172,8 +172,8 @@ description the same day.
 ## Speak up, then ask
 
 Tell the person what you notice (the rig's culture: "Proactive, not noisy"), and ask
-before you act on anyone's behalf: before publishing, before contacting a
-maintainer, before taking on work nobody gave you.
+before you act on anyone's behalf beyond what they asked for: before publishing,
+before contacting a maintainer, before taking on work nobody gave you.
 
 ## Publish only on the person's word
 
@@ -181,9 +181,13 @@ Prepare the branch and the description. Push, open the pull request or comment
 on GitHub only when the person says so; it goes out under their name.
 
 The person's word can reach you three ways: a message from them, the task they
-gave you, or someone they have named to act for them on that task. If another
-agent passes on a go-ahead and nobody named it to speak for the person, ask the
-person before publishing.
+gave you, or someone they have named to act for them on that task. Their task
+usually reaches you through their own agent and the operator, and it still
+carries their word: if they asked for a pull request, open it when the work is
+ready. That covers the pull request they asked for, not a merge, a release or
+other posts. If the task asked only for the change, ask before publishing. If
+another agent adds a go-ahead the person's task didn't include, and nobody named
+it to speak for them, ask the person before publishing.
 
 ## Reaching the Codex seats
 
