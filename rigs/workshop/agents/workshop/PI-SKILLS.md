@@ -4,6 +4,10 @@
 roles and explicitly select skills. They do not select the Claude activity
 hooks, which the Claude Code and Codex profiles keep.
 
+The Claude Code and Codex profiles don't use `skills/`: they select OpenRig's
+`openrig-core` plugin from the daemon's OpenRig home, so their OpenRig skills always
+match the person's installed OpenRig. `skills/` is for the Pi profiles only.
+
 `skills/` is generated, not an independently maintained skill library. Its
 canonical sources are the public OpenRig product's bundled `openrig-core`
 skills and `.agents/skills/developing-openrig/SKILL.md`. The lock records the
@@ -34,8 +38,10 @@ From this repository's root, with a local clone of the public product:
 python3 tools/generate-pi-skills.py --source /path/to/openrig --check
 ```
 
-To update, first make the change in the public product. Then regenerate from
-its full commit SHA and review the generated diff:
+Regenerate at each OpenRig release, pinned to that release's commit, so Pi seats
+carry the same skill text as the newest published OpenRig. To update, first make
+the change in the public product. Then regenerate from its full commit SHA and
+review the generated diff:
 
 ```sh
 python3 tools/generate-pi-skills.py --source /path/to/openrig --revision <full-commit-sha>
