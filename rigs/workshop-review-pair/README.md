@@ -60,6 +60,15 @@ repository already tracks: if yours tracks `AGENTS.md` or `CLAUDE.local.md`,
 OpenRig's block shows up as a change to it, and the seats keep that file out of
 their commits.
 
+**If this project ran Workshop before,** its `.claude/skills/` and `.agents/skills/`
+may still hold the copies of OpenRig's skills that earlier versions of Workshop put
+there. The seats now get those skills from OpenRig's plugin, but OpenRig won't replace a
+folder it didn't record as its own: it keeps the old copy and warns `plugin_skill_kept` at
+launch. Before the first launch, or when that warning names one of OpenRig's skills, move
+the named `.claude/skills/<name>` and `.agents/skills/<name>` folders out of the project
+if nobody edited them; the next launch puts the current copies there. Keep a folder
+someone changed, and compare it with OpenRig's copy first.
+
 Optional: add OpenRig's public context pack, so the seats load it at start:
 
 ```sh

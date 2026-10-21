@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "fcef78aba543791bb9175b4a2ac6e33130ec3e50",
+  "productCommit": "df1c1517f03a403fb468523be1c563d489209a1d",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.4",
-  "pluginManifestSha256": "5bd9904c982023f0b6a994dba348bb2df3f21663327017d007a2568069a681b5",
+  "pluginVersion": "0.1.15",
+  "pluginManifestSha256": "f630b87ff9197e621f56c5f68ff2482d35fa2ef395bc92cfe60e4a78e4e489d1",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -52,13 +52,13 @@
       "path": "skills/applying-a-permission-policy/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/applying-a-permission-policy/SKILL.md",
       "mode": "100644",
-      "sha256": "e8dbd8eec75847bfd382fb06de408c63807171d584237d1b1d7e1104c7ed4acc"
+      "sha256": "f7bba8d50b10fc8715f40a57bf82677ca9388c6718c8a162833d9c6daf2afdca"
     },
     {
       "path": "skills/claude-compaction-restore/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/SKILL.md",
       "mode": "100644",
-      "sha256": "e86560d6ce8fa5678ed569abfe9bfd2d2a2251eaf5ae453b8e13c5bc4a0da1e1"
+      "sha256": "a9d309e42c9579dfcc0d719e42950db2ed45cd7e4e68ab00727630a090751394"
     },
     {
       "path": "skills/claude-compaction-restore/reference/SKILL-v1.md",
@@ -70,7 +70,7 @@
       "path": "skills/claude-compaction-restore/scripts/precompact-hook.mjs",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/scripts/precompact-hook.mjs",
       "mode": "100755",
-      "sha256": "8eb4cccdaec654fca9eacba3676b0418d2bac383649ce31544434c73af8b8772"
+      "sha256": "478599ce28f4bdcd1f1e091c687726b598271d834288dcfd80bb2f9adfa2e37a"
     },
     {
       "path": "skills/claude-compaction-restore/scripts/restore-from-jsonl.mjs",
@@ -94,7 +94,7 @@
       "path": "skills/delegating-work/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/delegating-work/SKILL.md",
       "mode": "100644",
-      "sha256": "54c061d1b28435266952d431765b40f4170581279decfffd3b10839848cd65e4"
+      "sha256": "f40346ec08f0ba22d8dccab0dca8442a8d3783173275d36a4e913185e0e29fbd"
     },
     {
       "path": "skills/developing-openrig/SKILL.md",
@@ -106,7 +106,7 @@
       "path": "skills/forming-an-openrig-mental-model/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/forming-an-openrig-mental-model/SKILL.md",
       "mode": "100644",
-      "sha256": "3765c0c918988cc13d90e8a6bc91c7f5019fb5532f8c7030bd6d56172f5853ff"
+      "sha256": "a1c14e7e61bbb2b56739ff56ff8d6dd8e9e9d37969db9f1e7b278cf0f650b43f"
     },
     {
       "path": "skills/loading-addressable-markdown/SKILL.md",
@@ -124,13 +124,13 @@
       "path": "skills/messaging-the-human/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/messaging-the-human/SKILL.md",
       "mode": "100644",
-      "sha256": "581372434f27b1994d516e144be1324c7c5981cacf64fef6f09d1a57017faa08"
+      "sha256": "4804d32fe66db050722caf2b43f8b868ca65b3dfcf2f2830f8f4859726f6f1b0"
     },
     {
       "path": "skills/mission-slice-sop/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/mission-slice-sop/SKILL.md",
       "mode": "100644",
-      "sha256": "2cdc12b398f6d0fc05361791ec36066c44f1abd0137afd1f4f11a88b37bcc767"
+      "sha256": "a01e72a526c975a86f0754af206505efbafcbbc3583bea1394c50759dc5a584f"
     },
     {
       "path": "skills/openrig-operating-model/SKILL.md",
@@ -202,13 +202,13 @@
       "path": "skills/openrig-skills/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-skills/SKILL.md",
       "mode": "100644",
-      "sha256": "59601122bd3c4b8eb82cc6e31b710528c97a5fde3b09e01076f742fd6e39e73e"
+      "sha256": "c30ca27054b4253db09dc45b7d3e029d8d81f9019f2a1b487d6ca0ca2b99bbf5"
     },
     {
       "path": "skills/openrig-user/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-user/SKILL.md",
       "mode": "100644",
-      "sha256": "b866b2f7fbff98089aeeac33868566b9c8a49f0de0a1d414a8cc73222085a6fd"
+      "sha256": "8091a8ddda9c53a49bf7ebe0b7d78dda797efc43aa3cf4bfad09b58e92e27d7d"
     },
     {
       "path": "skills/orienting-to-an-inherited-seat/CHANGELOG.md",
@@ -220,19 +220,19 @@
       "path": "skills/orienting-to-an-inherited-seat/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/orienting-to-an-inherited-seat/SKILL.md",
       "mode": "100644",
-      "sha256": "65300ce0e299cce0148a8bacd51b0475ac1b59cd77a51a9bb2db9d43bda6e208"
+      "sha256": "252fed402f19027056bbba241df3305be88de3175b67dc8fe051143bb0d4412b"
     },
     {
       "path": "skills/queue-handoff/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/queue-handoff/SKILL.md",
       "mode": "100644",
-      "sha256": "d4d7e3e8772886b3771daffd60523b5f79040309b892c8be1afd47d1f7287f7b"
+      "sha256": "5ff22b30a632b9832dcefa6a107866ef06fc3991f8d7d9f367394eb88261be1c"
     },
     {
       "path": "skills/refocusing/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/SKILL.md",
       "mode": "100644",
-      "sha256": "9f5b903b26430f60334b6dcaf66009df195c67ecf825437d1883d2a06a90d790"
+      "sha256": "b9d1837095dceaaed7cac492cfd4fda0396dafae98e3a7f53d5314e2076540f7"
     },
     {
       "path": "skills/refocusing/references/refocus.md",
@@ -244,7 +244,7 @@
       "path": "skills/refocusing/scripts/trace-to-root.py",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/scripts/trace-to-root.py",
       "mode": "100755",
-      "sha256": "c07f70c58e95cdcf3e80f64ee692174303256b1911fdb60cafa2eed67c3599e6"
+      "sha256": "877f80f1c84e2b9a922ea7729b77378b25129b3cd44ce999ab7356b91f62747c"
     },
     {
       "path": "skills/retiring-and-inheriting-a-seat/CHANGELOG.md",
@@ -256,13 +256,13 @@
       "path": "skills/retiring-and-inheriting-a-seat/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/retiring-and-inheriting-a-seat/SKILL.md",
       "mode": "100644",
-      "sha256": "ebe58e4db60ed963fd721a1685c4c2afe1e45d93beddd211518dfb5f0b48bdcc"
+      "sha256": "c03449dd9e9ba225cd06810e9008dfc086b6d433a28d80066d0edc0d9207d733"
     },
     {
       "path": "skills/seat-continuity-and-handover/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/seat-continuity-and-handover/SKILL.md",
       "mode": "100644",
-      "sha256": "c08aa84aa1888b8a5d63d5e3a6d2ec8b700b8b13177fba48661ba7c7508f44ff"
+      "sha256": "3628e712cf21510d7820832d8aed68ab8536cbea1367e0a0551b59445ead9c93"
     },
     {
       "path": "skills/seat-continuity-and-handover/references/apprentice-evidence-toolkit.md",
@@ -286,7 +286,7 @@
       "path": "skills/session-compaction-and-restore/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/session-compaction-and-restore/SKILL.md",
       "mode": "100644",
-      "sha256": "6218ebe601901fc19c3b40a6c29d57c304c82984825595f74b19120754839b63"
+      "sha256": "1abdf9810903e805d81946cd0fe0af70fc96a6103cdf8c1ba094b9c989cb3d0d"
     },
     {
       "path": "skills/software-for-agents/SKILL.md",
