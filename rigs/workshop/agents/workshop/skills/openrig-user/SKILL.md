@@ -90,6 +90,23 @@ rig queue handoff <qitem-id> \
   --body-file /tmp/import-report-handoff.md
 ```
 
+### After a queue write — use the response; read back only when it doesn't show what you need
+
+A queue write (`create`, `claim`, `update`, `handoff`, `handoff-and-complete`) answers with the row it wrote; a
+handoff answers with the closed row and its successor. When that answer shows what you need to establish, use it.
+Read back (`rig queue show <id> --full --json`, or `rig queue transitions <id>`) when it doesn't, for example:
+
+- the outcome was INDETERMINATE (a transport failure, or a 502 `remote_queue_write_failed`), or the write warned
+  `qitem_body_not_saved` (an existing row came back). Reconcile by the original ID before any retry;
+- the output was compact or truncated and the field you need isn't in it (the compact receipt shows `bodyBytes`, not
+  the body, and its footer names what it left out);
+- you need a transition note, a closure or blocker detail, or a successor that the output you saw omits;
+- you need evidence from downstream of the write: the recipient's wake (`create --verify` waits for it), or its
+  pickup or claim (a later read);
+- your team's custody rule asks for a separate read-back.
+
+Don't read back only to see again a field the response already showed you.
+
 ### §1b doctrine — turn ends by passing the ball
 
 **A turn ends by passing the ball, never by going idle holding the slice waiting
@@ -956,12 +973,7 @@ rig auth seats … --runtime codex         # seat -> profile registry (metadata 
 
 ### Manage subscriptions across a fleet (when the person asks you to)
 
-**This applies only when both hold:**
-- the daemon's `provider.subscription_moves` setting is on. It's off by default; the person turns it on with
-  `rig config set provider.subscription_moves true`;
-- the person has asked you to manage their subscriptions.
-
-Otherwise, don't take this job on. Installing or upgrading OpenRig appoints no agent, launches no bundle and starts no
+**This applies only when the person has asked you to manage their subscriptions.** Otherwise, don't take this job on. Installing or upgrading OpenRig appoints no agent, launches no bundle and starts no
 rotation.
 
 When a person runs several Claude and Codex subscriptions across machines, the fleet studio bundle's one agent is meant
@@ -969,19 +981,19 @@ to keep work running, through the Fleet app. Until that bundle is available, the
 subscriptions can use this section. If that's you, you decide which subscription or home moves, and when. You decide
 from:
 - the usage and assignment readings, and their freshness;
-- the move record;
+- your earlier move reports;
 - the person's standing preferences.
 
 You say why, and you see the outcome through. OpenRig gives you the facts and the tools; it never decides for you,
 and there's no threshold to obey.
 
 **Who decides:**
-- **The person's operator agent** can ask you for a move, or look at the record. It doesn't make competing moves of
+- **The person's operator agent** can ask you for a move, or ask what you've moved. It doesn't make competing moves of
   its own.
 - **One agent manages subscriptions:** the one the person asked, or the fleet studio's agent once that bundle is
   available. There's no other fleet-manager role and no automatic manager. Use the commands below directly; no extra
   hand-off is needed.
-- **The Observatory is optional:** it can show your moves and readings, but you don't need it to rotate.
+- **The Observatory is optional:** it can show readings, but you don't need it to rotate.
 
 **The unit is a Codex home, with every seat on it.** Moving some seats on a shared home to a different account, and
 moving Claude seats, aren't supported moves yet: say so instead of improvising.
@@ -1013,8 +1025,7 @@ moving Claude seats, aren't supported moves yet: say so instead of improvising.
      --expect-account <the target's Account line>`. `--verify` only checks; it never restarts. Only that check
      reports `moved`, and anything less is unconfirmed.
    - **A slow reply isn't a failure:** never restart a seat a second time. Follow up at your next look.
-5. **Record every move, partial or unconfirmed included,** with `rig provider moves record --file <move.json>`
-   (`--help` shows the shape):
+5. **Report every move, partial or unconfirmed included,** to whoever asked for it (a queue item to their seat):
    - the home and machine;
    - from and to, as labels;
    - your reason;
@@ -1022,10 +1033,8 @@ moving Claude seats, aren't supported moves yet: say so instead of improvising.
    - each seat's result (`moved`, `unconfirmed` or `unknown`) with its evidence or what's missing;
    - the peers, for example "not restarted; account unverified".
 
-   A seat marked `moved` needs its `evidence`, and an `unconfirmed` or `unknown` one needs what's `missing`. A home
-   switched with every seat left as a peer is still a move to record, with `seats: []`. A follow-up that confirms an
-   earlier unconfirmed seat records a new move with `supersedes`. Asked "why did this
-   seat move?", answer from `rig provider moves --seat <seat>`. Never put credentials in a record.
+   A home switched with every seat left as a peer is still a move to report. A follow-up that confirms an earlier
+   unconfirmed seat says which report it follows. Never put credentials in a report.
 6. **When a sign-in is needed:**
    - Ask the person once, durably: a queue item to their seat, naming the machine and the subscription.
    - Move nothing onto that subscription until it's done.
@@ -1393,9 +1402,10 @@ or `rig add` (one member) when a seat needs an explicit model, a permission poli
 different agent spec or role profile, per-seat runtime or cwd, or startup files.
 
 Node-granular managed partial restore (v0.3.4+):
-- `rig launch <rig> <nodeRef>` relaunches a single seat by logical id or node id through orchestration. `<rig>` is the
-  rig's name or ID; a name shared by more than one active rig stops with the candidate IDs.
-- `rig launch <rig> --seats <a,b,c>` relaunches a comma-separated subset of seats.
+- `rig launch <rig> <nodeRef>` launches a single seat that isn't running, by logical id or node id, through orchestration.
+  `<rig>` is the rig's name or ID; a name shared by more than one active rig stops with the candidate IDs. A seat that's
+  already running is left as it is; for a fresh occupant there, use `rig seat launch <seat> --fresh --stop --reason <why>`.
+- `rig launch <rig> --seats <a,b,c>` launches a comma-separated subset of seats.
 - `--hold-reason <text>` records a reason for holding non-target seats during the partial launch.
 - This is a SUPPORTED managed path. The prior `pod_aware_launch_unsupported` dead-end is retired; pod-aware narrow launch now goes through this surface rather than ad-hoc rebuilds.
 
