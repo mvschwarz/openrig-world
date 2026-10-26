@@ -94,10 +94,23 @@ rig queue handoff <qitem-id> \
 
 A queue write (`create`, `claim`, `update`, `handoff`, `handoff-and-complete`) answers with the row it wrote; a
 handoff answers with the closed row and its successor. When that answer shows what you need to establish, use it.
-Read back (`rig queue show <id> --full --json`, or `rig queue transitions <id>`) when it doesn't, for example:
 
-- the outcome was INDETERMINATE (a transport failure, or a 502 `remote_queue_write_failed`), or the write warned
-  `qitem_body_not_saved` (an existing row came back). Reconcile by the original ID before any retry;
+`create` also prints `Queue create request ID: <id> (not proof of persistence)` on stderr *before* it sends the write,
+so an interrupted create can be reconciled. That ID names a request, not a row. The row is the `qitemId` on stdout
+when the command exits 0. A non-zero exit means no row was confirmed, even when stdout carries a `qitemId`: an
+indeterminate answer repeats the request ID so you can reconcile by it. Don't merge stderr into stdout and keep the
+first `qitem-…` you find there; a refused create prints its request ID first, too.
+
+Read back (`rig queue show <id> --full --json`, or `rig queue transitions <id>`) when the answer doesn't show what you
+need, for example:
+
+- the outcome was INDETERMINATE (a transport failure, or a 502 `remote_queue_write_failed` that may have reached the
+  other host), or the write warned `qitem_body_not_saved` (an existing row came back). Reconcile by the original ID
+  before any retry. A 502 whose `failureClass` is `unknown-host`, `unsupported-transport` or `registry` isn't
+  indeterminate: the daemon refused before contacting any host and wrote nothing (`create` says "No row was
+  created"). `unsupported-transport` means that host entry is SSH-declared. Use the http entry for the same machine
+  from `rig host list`; if there isn't one, add it with that machine's daemon URL (`rig host add --id <id>
+  --transport http --url <daemon-url>`), asking whoever runs that host for the URL;
 - the output was compact or truncated and the field you need isn't in it (the compact receipt shows `bodyBytes`, not
   the body, and its footer names what it left out);
 - you need a transition note, a closure or blocker detail, or a successor that the output you saw omits;
@@ -456,6 +469,16 @@ Startup and restore clears write their corresponding audit events; an identity-o
 clear updates the current binding and identity verdict without a clear event.
 Acknowledgment or responsiveness alone does not prove that the original
 conversation resumed.
+
+Two startup cases also end in `attention_required`, and the result says what to do:
+- **Assisted startup** (a community harness preset with `startup_assisted: true`): the startup text and Enter were
+  sent but submission isn't confirmed. Check the pane and submit any staged text, don't resend it, then run the
+  reported `rig seat clear-attention <session> --reason "..."` once the seat has responded.
+- **A refused startup turn** (Claude answered a startup turn with a refusal such as an expired login): nothing more is
+  typed into the seat, and the result names how many later startup inputs weren't sent. A fresh start that ran no
+  one-shot action stays continuable: `rig seat continue <seat>` delivers the whole startup again, the refused turn
+  included. A resumed or forked seat keeps its conversation and isn't offered continue; a fresh start that can't
+  continue names `rig seat launch <seat> --fresh --stop --reason "<why>"`.
 
 A 422 response names the uncleared class and its failed check. If the recorded
 native token needs correction and you know the actual token, use
@@ -818,12 +841,15 @@ rig send <session> "message" --host <id>
 rig send <session> "message" --json
 ```
 
-**The send-guard (v0.4.0) — the default is SAFE.** A default `rig send` is guarded: it will NOT submit into an interactive prompt / permission block on the target pane. Flags:
+**The send-guard (v0.4.0) — the default is SAFE.** A default `rig send` is guarded: it will NOT submit into an interactive prompt / permission block on the target pane. That includes Claude's MCP server approval menu (`N new MCP servers found in .mcp.json`, ending `Space to select · Enter to confirm · Esc to reject all`) while it is the current screen: the send is refused with reason `target_needs_input` and `Refused: '<session>' is at an interactive prompt (selection_prompt). A message must not select or approve it. … No text was sent.` Approving or rejecting those servers is the person's call; `--dangerously-interact` drives it only deliberately. Flags:
 - `--verify` — delivery evidence.
 - `--force` — **a back-compat no-op on the send DECISION**: it never bypasses the interactive-prompt/permission guard and never changes whether a message is delivered (a mid-task/busy pane already sends-with-advisory by default). *(It does NOT "bypass activity-risk checks" — that earlier teaching is retired.)* It is **not fully inert**, though — it is still parsed solely to be **rejected in combination with `--wait-for-idle`**: `rig send … --force --wait-for-idle <n>` prints `--wait-for-idle cannot be combined with --force`, exits 1, and sends nothing. So do not read "no-op" as "`--force --wait-for-idle` is harmless"; that pairing errors. *(Verified against current product main `d37a08ad`: the guard-bypass no-op is declared at `send.ts` and confirmed by runtime capture — a plain `--force` send delivers through the ordinary path; the `--wait-for-idle` rejection is enforced at `send.ts`, `routes/transport.ts`, and `session-transport.ts`, and confirmed by runtime capture — exit 1, nothing sent.)*
 - `--wait-for-idle <seconds>` — wait until the target is explicitly idle before sending. **Cannot be combined with `--force`** (that pairing is rejected: exit 1, nothing sent).
 - `--raw` — send exact text/keystrokes without the From/To messaging envelope (still guarded against interactive prompts).
 - `--dangerously-interact --reason "<why>"` — the ONLY override of the prompt/permission guard: deliberately drive an interactive prompt/permission block (implies `--raw`, requires `--reason`, audit-logged).
+  On a guard-attached managed seat, a non-menu override stops and shows existing typed/pasted input (author unknown) with `override_input_present`; unreadable input stops with `override_input_unknown`. Recognized dim suggestions are shown separately and count as empty; a collapsed paste shows only its label, not hidden contents.
+  Inspect the input, deliberately clear the native prompt with native/tmux controls, then retry. Manual clearing is outside OpenRig's lease and observation checks and is not recorded; human typing can still race a read and paste.
+  When you deliberately need to type without that composer check (for example an unsupported input you inspected yourself), add `--type-without-checking` with `--dangerously-interact --reason "<why>"`. It does not clear input and may join or submit existing text. Ordinary sends and wakes keep their current rules.
 - `--host <id>` — send on a remote host declared in `~/.openrig/hosts.yaml` (ssh hosts shell out; http hosts go CLI-direct to the remote daemon).
 - `--from <session>` — deprecated and ignored; it does not select the sender. Sender identity comes from the current seat and transport provenance; cross-host envelopes use the durable local origin, not the supplied flag or a relay identity.
 - `--context <ref>` **(0.5.0)** — attach a composed context pack/piece by ref (see "Context packs and paced delivery"). Small piece → `send --context`; a real pack → `rig walk`. The noun `rig context` composes the ref; the verb delivers it.
@@ -971,6 +997,68 @@ rig auth seats … --runtime codex         # seat -> profile registry (metadata 
 
 **Hard secret boundary:** no token value is ever printed, logged, queued, streamed, or committed; status/validate report presence/mode/login-state only; seat labels are metadata, not live-account proof. MVP is `--runtime codex`; other runtimes use the same surface with a different `--runtime`, never a parallel command.
 
+### Give a seat its own Claude or Codex account
+
+A runtime's login lives in its home: Claude Code's in its config dir (`CLAUDE_CONFIG_DIR`, default `~/.claude`), Codex's
+in `CODEX_HOME` (default `~/.codex`). A seat that names its own home in `env:` runs on that home's login.
+
+1. **Prepare the home once, natively,** in a terminal: `CLAUDE_CONFIG_DIR=/abs/path claude`, then `/login`; or
+   `CODEX_HOME=/abs/path codex login`. The person signs in; never copy credential files between homes.
+2. **Name it in the member's `env:`** in `rig.yaml`, not with `rig up --env`, which leaves these two out
+   (`CLAUDE_CONFIG_DIR: /abs/path` or `CODEX_HOME: /abs/path`), or in
+   the rig's `env:` for every seat of that runtime. The member's value wins. It must be an absolute path: any other
+   value is reported and ignored, and the seat keeps the daemon's home.
+3. **It takes effect at the seat's next launch** (a fresh launch, restore or handover); a running seat keeps the home
+   it started with. A conversation saved under the old home doesn't resume from the new one.
+4. **Check it:** `rig seat status <seat>` shows the home and where it came from, and `rig provider status` lists it as
+   the seat's configured account. Both say what's configured, not which login a running session holds.
+
+Seats may share a home. OpenRig writes its own settings (Codex hooks, managed `config.toml` and plugin; Claude's
+first-run trust settings) into the seat's home.
+
+### Move one Codex seat to another login
+
+For a Codex seat on Linux. The login must already be saved in the Codex home the seat runs on (`rig seat status <seat>`
+shows it). Other operating systems, and moving a seat to another home, aren't supported by this command yet: say so instead
+of improvising. A Claude seat moves differently; see the next section.
+
+1. **Save each login once, in that home:** `CODEX_HOME=<home> codex login` (the person signs in), then
+   `CODEX_HOME=<home> rig auth save <name>`. `rig auth list --codex-home <home>` lists them.
+2. **Check:** `rig provider precheck --seat <seat> --to-account <name>` shows the home, what the seat is doing, and every
+   peer on that home. A refusal says what's missing, and nothing changes.
+3. **Move:** `rig provider switch --seat <seat> --to-account <name>`. It saves the home's current login as
+   `before-switch-<time>`, activates the chosen one, and restarts the seat in place on the same conversation. If the
+   current login can't be saved first, nothing changes. Peers on the home aren't restarted. Each keeps its current login
+   only until its next token refresh, when Codex stops it with "signed in to another account". Run the printed
+   `rig seat restart <peer> --keep-conversation --reason "..."` for each to move it too. Don't sign in again in that home: that replaces
+   the login you just switched to.
+4. **Confirm:** after the seat completes a real tool-using turn, run the printed
+   `rig seat restart <seat> --keep-conversation --verify --expect-account <its Account line>`. Until then the move is
+   unconfirmed. An uncertain restart is reported; never restart it a second time.
+
+### Move one Claude seat to its own subscription token
+
+The seat keeps its config dir and gets its own `CLAUDE_CODE_OAUTH_TOKEN`, read from a file as Claude starts. OpenRig keeps only
+the file's path and your label, never the token.
+
+1. **Prepare the token once:** the person runs `claude setup-token`, which prints a one-year subscription token, and saves it to a
+   file only their user can read (`chmod 600`). Never paste the token into a message, a row or a command line.
+2. **Check:** `rig provider precheck --seat <seat> --to-account <label> --token-file <absolute path>`. It refuses, changing
+   nothing, if the file wouldn't apply, the seat isn't running, or something Claude Code ranks above the token is set (a cloud
+   provider, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_API_KEY`, an `apiKeyHelper`). It names each one and how to remove it for that
+   seat. When the token applies, the launch unsets those names for Claude's process, so the pane shell's own exports can't
+   outrank it. Managed settings can't be read; the seat's `/status` shows what it actually uses.
+3. **Move:** `rig provider switch --seat <seat> --to-account <label> --token-file <absolute path>`. It takes a snapshot that
+   resumes the seat's conversation, sets the reference, and relaunches the seat from that snapshot in its own pane: the pane
+   and its scrollback stay, but work in flight when Claude ended doesn't carry over. Seats sharing the config dir keep their
+   own login. `--stored-login` moves the seat back; if the seat still receives a `CLAUDE_CODE_OAUTH_TOKEN`, Claude uses that
+   instead of the stored login, and the report names it.
+4. **Confirm:** after the seat completes a real tool-using turn, its `/status` shows token auth, with no account email. The
+   label is yours, not an account Claude observed: say so. A token session can't use claude.ai connectors or Remote Control.
+   The token is in Claude's environment, so the tools, hooks and MCP servers it starts inherit it; don't have it print its
+   environment. A relaunch that didn't resume reads unknown, with its recovery command; never run the switch again for it.
+   `rig seat status <seat>` shows the reference, and says when its file won't apply at the next launch.
+
 ### Manage subscriptions across a fleet (when the person asks you to)
 
 **This applies only when the person has asked you to manage their subscriptions.** Otherwise, don't take this job on. Installing or upgrading OpenRig appoints no agent, launches no bundle and starts no
@@ -981,8 +1069,8 @@ to keep work running, through the Fleet app. Until that bundle is available, the
 subscriptions can use this section. If that's you, you decide which subscription or home moves, and when. You decide
 from:
 - the usage and assignment readings, and their freshness;
-- your earlier move reports;
-- the person's standing preferences.
+- your earlier move reports (`rig provider moves`);
+- the person's account policy, or their standing preferences when there's no policy.
 
 You say why, and you see the outcome through. OpenRig gives you the facts and the tools; it never decides for you,
 and there's no threshold to obey.
@@ -996,45 +1084,78 @@ and there's no threshold to obey.
 - **The Observatory is optional:** it can show readings, but you don't need it to rotate.
 
 **The unit is a Codex home, with every seat on it.** Moving some seats on a shared home to a different account, and
-moving Claude seats, aren't supported moves yet: say so instead of improvising.
+moving Claude seats, aren't supported moves yet: say so instead of improvising. A Codex seat with a home of its own
+moves alone, with `rig provider switch --seat` (above).
 
+0. **Load the person's account policy.**
+   - It's the context pack named `account-policy`: check `rig context list` for it, then read it with
+     `rig context get account-policy`. Its manifest's `version` is the version you follow and report.
+   - Follow it, and record the version in each report. A line the person approved ("move the build box's seats without
+     asking", "never move the reviewers") is standing authorization: act on it, don't ask again.
+   - A line grants only what the person actually gave. "Agents may do sign-ins" is usable only where a sign-in route
+     and access already exist; otherwise ask, and record that the preference couldn't be used.
+   - Something the policy doesn't cover: use your judgment or ask the way the policy says, record why, and propose a
+     one-line addition.
+   - **No policy** is never a reason to stop: work from this section, report the policy as `{ "none": true }`, and
+     offer once to write one with them (below).
 1. **Know the subscriptions.**
    - Each subscription is reached through a saved profile on a home (`rig auth list` and `rig auth save`) on each
      machine. Which seats use which profile is `rig auth seats`, and that's metadata: not proof of a live account.
    - Check you can read each subscription's usage, and name any you can't.
 2. **Read before deciding.**
    - Use `rig provider status --all-hosts --json` (add `--refresh` for fresh native readings). Each allowance has
-     its windows, reset times and when it was observed.
+     its windows, reset times and when it was observed, and when it was last observed exhausted.
    - **One allowance seen on two machines is one allowance:** never add its headroom twice.
    - **A stale reading** is usable only with its age recorded, or after a refresh.
-   - **An unknown or unavailable reading is never room.**
+   - **An unknown or unavailable reading is never observed room.**
+   - **After a known reset,** a window carries an `expectation` (expected full since that reset). You may plan on it,
+     but it isn't measured: report it as expected, and take a fresh reading when you can.
    - **Equal reset times don't mean the same account.**
    - **A seat's link to a subscription is observed, configured or unknown.** Only an observed link shows the seat
      actually uses it; a configured one (a profile, a registry row) is a claim.
+   - **A sign-in state of `unknown` isn't `needs_sign_in`.** An otherwise authorized move can go ahead, and its uptake
+     evidence settles it. A known `needs_sign_in` is step 6.
 3. **Decide, and leave seats alone for a reason.**
+   - **Balance, don't chase:** spread machines across the subscriptions with room rather than moving every machine onto
+     the one that just reset. `rig usage top` on each machine shows which work hardest: a high-use machine is worth a
+     subscription of its own, and lower-use machines can share one. Keep a backup where the policy says so.
    - `rig seat restart <seat> --keep-conversation --plan` shows what a restart keeps, and every peer on the same
      home. Moving the home moves them all.
    - Skip a seat that's mid-turn, running a service, or about to finish, and record why.
-   - The person's standing preferences ("never move the reviewers") are yours to follow and record.
 4. **Move the home.**
-   - On that machine, `CODEX_HOME=<that home> rig auth switch <profile> --runtime codex`. `rig auth` acts on
-     `CODEX_HOME`, or on the default home, and `rig auth status` prints which home it means: check it before
-     switching.
-   - Then restart each chosen seat: `rig seat restart <seat> --keep-conversation --reason "<why>"`.
+   - `rig auth switch <profile> --runtime codex --codex-home <that home>`, on that machine, or from here with
+     `--host <that machine's SSH entry>`. Without `--codex-home`, `rig auth` acts on `CODEX_HOME`, or on the default
+     home; `rig auth status --codex-home <home>` (with `--host` for another machine) prints which home it means:
+     check it before switching. A remote switch always names its home, and copies a profile already saved there.
+   - **Another machine** is reached through its SSH entry in `rig host list`. An entry registered only over HTTP
+     can't run these commands; use the machine's SSH entry, or run them on that machine.
+   - Then restart each chosen seat: `rig seat restart <seat> --keep-conversation --reason "<why>"`, with `--host <id>`
+     for a seat on another machine (the restart runs there, and its audit names you). If the connection drops, the
+     answer is `remote-outcome-unknown`: the switch or restart may have run there, so read what it names (for a
+     restart, `--plan`'s `lastRestart`) before anything else.
    - After it completes a real tool-using turn, check it: `rig seat restart <seat> --keep-conversation --verify
      --expect-account <the target's Account line>`. `--verify` only checks; it never restarts. Only that check
      reports `moved`, and anything less is unconfirmed.
    - **A slow reply isn't a failure:** never restart a seat a second time. Follow up at your next look.
-5. **Report every move, partial or unconfirmed included,** to whoever asked for it (a queue item to their seat):
-   - the home and machine;
-   - from and to, as labels;
-   - your reason;
-   - each reading you acted on, with its observation time;
-   - each seat's result (`moved`, `unconfirmed` or `unknown`) with its evidence or what's missing;
+5. **Report every move, partial or unconfirmed included,** with
+   `rig provider moves report --file <move.json> --to <whoever asked>` (`--help` shows the shape). It becomes a queue
+   item to them; the Fleet app reads these reports once its page is connected to them. It holds:
+   - the home and machine, and from and to, as labels;
+   - your reason, and the policy version you followed (or `{ "none": true }`);
+   - each reading you acted on, `observed` with its observation time, `expected` with the reset it rests on, or
+     `unavailable`;
+   - each seat's result: `moved` only with the verify check's matched account and observed tool turn, kept as separate
+     facts; otherwise `unconfirmed` or `unknown`, with what's missing;
    - the peers, for example "not restarted; account unverified".
 
    A home switched with every seat left as a peer is still a move to report. A follow-up that confirms an earlier
-   unconfirmed seat says which report it follows. Never put credentials in a report.
+   unconfirmed seat is a new report with `--follows <the earlier report's qitemId>`. A report to a person's seat names
+   its evidence with `--evidence-ref` (for example, the saved `--verify --json` output). Never put credentials in a
+   report: a value in a recognized credential format is refused. **A refused report changes nothing about the move:**
+   correct it and file it again; never repeat the switch or a restart because a report was refused. Asked "why did
+   these seats move?", even after your own restart, answer from `rig provider moves --seat <seat>`. It reads the newest
+   reports (50 by default, `--limit` up to 200) and then filters them, so it's a recent window, not a seat's whole
+   history: raise `--limit` when you need older ones.
 6. **When a sign-in is needed:**
    - Ask the person once, durably: a queue item to their seat, naming the machine and the subscription.
    - Move nothing onto that subscription until it's done.
@@ -1044,6 +1165,41 @@ moving Claude seats, aren't supported moves yet: say so instead of improvising.
 
 **What wakes you:** a watchdog, a usage-limit park on the queue, or the person asking. How often you look is your
 judgment within those.
+
+**If there's no policy yet.** Start from what you can see, and ask only what you can't; keep it to a few minutes, and
+never run it as a form. "Whatever you think" or "skip" is an answer: write down the default you'll use.
+1. **Look first:** `rig auth list` and `rig auth seats` on each machine you can reach, `rig provider status
+   --all-hosts --json`, and `rig usage top` on each machine. Draft what you can.
+2. **Confirm what you saw,** in one message ("three Codex subscriptions and one Claude one, on two machines; the build
+   box uses about four times the tokens of the laptop; any I can't see?").
+3. **Ask how they want them used,** offering the common shape: the busiest machine gets its own subscription, the
+   rest share, and one stays spare.
+4. **Ask what you may do on your own:** move a machine's Codex seats without asking; machines or seats to ask about
+   first or never move; sign-ins (may agents, and through which browser or profile, or always ask). Say what's
+   supported today: moves are by Codex home, Claude moves aren't supported yet, and a sign-in preference is used only
+   where a sign-in route and access exist.
+5. **Ask how to reach them** (their seat's queue, a chat channel, the Fleet app), for what, and what to do when they
+   don't answer. A channel they name is a preference: check the route with `messaging-the-human`, and use a queue
+   item to their seat if it isn't ready.
+6. **Ask what to do when things go wrong:** nothing has room, a sign-in is needed while they're away, a move didn't
+   confirm.
+7. **Show the draft in plain words,** let them correct it, and save it as a context pack named `account-policy` in
+   the context library where you run (`rig config get context.root`): a folder with `manifest.yaml` (`version: "1"`,
+   `name: account-policy`, `taxonomy: world`, a `purpose`, and `files: [{ path: POLICY.md, role: policy }]`) and
+   `POLICY.md`, installed with `rig context add <folder>` and read back with `rig context get account-policy`. To share
+   one policy across machines, use a Git repository: `rig context add <repo> --git`. Labels and references only:
+   never tokens, passwords, cookies or recovery codes.
+
+   `POLICY.md` has these parts, in their words: subscriptions (label, provider, plan, how each is reached); how they
+   want them used; what agents may do on their own; how to reach them; when things go wrong; and a dated **Changes**
+   list. Fill it from what you saw and what they said, never from another person's setup.
+
+**Changing the policy.** When they say what changed, copy `POLICY.md` aside as the before copy, edit it, add a dated
+line under **Changes**, and raise `version` in `manifest.yaml`. Keep one place where it's edited: edited where it's
+installed, run `rig context sync`; kept in a separate folder, replace it with `rig context rm account-policy` and
+`rig context add <folder>`; Git-backed, edit and commit in the checkout `rig context source inspect account-policy`
+reports, then `rig context source update account-policy` (it never pushes). Read it back with
+`rig context get account-policy`; your next decision follows the new version.
 
 ## Context packs and paced delivery (0.5.0)
 
@@ -1289,6 +1445,8 @@ Notes:
 - for tmux-backed self-attach, `rig whoami --json` is the right verification
 - for raw/external self-attach, `rig ps --nodes --json` is currently the more reliable verification surface
 - if the current shell is outside tmux, pass `--display-name <name>` when you want a stable human session label recorded
+- to read a seat's identity or state later, use `rig whoami` or `rig seat status`, not `rig attach --json` output or a file holding a
+  seat's environment. Don't print `OPENRIG_ACTIVITY_*` values: the activity token is a credential, and it doesn't identify the seat
 
 ### Adopt a topology and bind live sessions
 
@@ -1459,32 +1617,74 @@ rig specs rename <name-or-id> <new-name> [--json]
 ## MCP
 
 ```bash
-rig mcp serve [--port <port>]
+rig mcp serve [--port <daemon-port>]        # stdio: a local app starts the server itself
+rig mcp serve --http [--bind <host:port>]   # Streamable HTTP at /mcp (default 127.0.0.1:7437)
+rig mcp token add <name> --seat <session> [--rig <name>...] [--root <name>...] [--workspace] [--owner]
+rig mcp token list [--json]
+rig mcp token revoke <name>
 ```
 
-Current shipped MCP tools:
-- `rig_up`
-- `rig_down`
-- `rig_ps`
-- `rig_status`
-- `rig_snapshot_create`
-- `rig_snapshot_list`
-- `rig_restore`
-- `rig_discover`
-- `rig_bind`
-- `rig_bundle_inspect`
-- `rig_agent_validate`
-- `rig_rig_validate`
-- `rig_rig_nodes`
-- `rig_send`
-- `rig_capture`
-- `rig_chatroom_send`
-- `rig_chatroom_watch`
-- `rig_add`
-- `rig_queue_create`, `rig_queue_show`, `rig_queue_list`, `rig_queue_claim`, `rig_queue_update`
+The 36 shipped tools fall into three groups. Over stdio, and over HTTP with no grants, every tool is offered. An HTTP
+grant offers the work tools; the workspace tools with `--workspace` or `--owner`; and the owner tools only with
+`--owner`, which offers every tool.
+- **Work (19):** orientation, communication and the durable work loop.
+  - `rig_whoami`: the seat the server acts as (rig, pod, peers, edges) and the `caller`: authenticated (an HTTP
+    credential, with its principal) or declared (`OPENRIG_SESSION_NAME` where the server was configured, which nothing
+    verifies).
+  - `rig_status`, `rig_ps`, `rig_rig_nodes`, and `rig_team`: a rig's lead (its one `delegates_to` root, the seat to
+    delegate to) and each seat's role, delegation and activity.
+  - `rig_send`, `rig_capture`, `rig_chatroom_send`, `rig_chatroom_watch`.
+  - `rig_queue_create`, `rig_queue_show`, `rig_queue_list`, `rig_queue_claim`, `rig_queue_update`,
+    `rig_queue_handoff`, `rig_queue_unclaim`:
+    - `revises` on create asks for a linked revision of an earlier item;
+    - show names a handed-off item's successor;
+    - `handedOffFrom` on list follows a handoff;
+    - handoff passes an item this seat holds on to the next seat in one step, as `rig queue handoff` does: the new item
+      carries the work's lineage;
+    - unclaim puts back a claimed item this seat won't finish.
+  - `rig_artifact_read`: a finished item's artifact (its `evidenceRef`) or a named file, through the daemon's shared
+    roots (`OPENRIG_FILES_ALLOWLIST`), in windows (`offset`, `nextOffset`). Outside those roots it answers unavailable
+    rather than reading a local path.
+  - `rig_human_decision_room`, then `rig_queue_decide`: on your own pending ask to a person, read the decision room of
+    the mode they have on, and record a decision you made for them inside it. No tool writes a person's own answer.
+- **Workspace (4):** `rig_slices`, `rig_mission`, `rig_context_pack`, and `rig_context_get` (one context file or
+  section, as `rig context get` reads it).
+- **Owner (13):** `rig_up`, `rig_down`, `rig_snapshot_create`, `rig_snapshot_list`, `rig_discover`, `rig_bind`,
+  `rig_add`, `rig_bundle_inspect`, `rig_agent_validate`, `rig_rig_validate`, `rig_telemetry_events` (one bounded page
+  of event metadata), and:
+  - `rig_restore`, which starts a restore and returns its attempt;
+  - `rig_restore_status`, that attempt's receipt.
 
-The server acts as one seat: the `OPENRIG_SESSION_NAME` in its environment. Every request carries that identity, so
-no tool call names a sender. Without it, writes that need an actor are refused with `actor_required`.
+**Results:**
+- A structured result comes beside the text from the queue tools, `rig_whoami`, `rig_team`, the four workspace tools,
+  `rig_artifact_read`, `rig_human_decision_room` and `rig_restore_status`. The other tools answer in text.
+- Every failure carries the same structured shape: `ok: false`, a `code` and a `message`.
+
+**Identity:**
+- **Over stdio, and over HTTP with no grants:** the server acts as one seat, the `OPENRIG_SESSION_NAME` in its
+  environment. Every request carries that identity, so no tool call names a sender. Without it, writes that need an
+  actor are refused with `actor_required`.
+- **Over HTTP with grants:** each caller acts as its own grant's seat.
+
+### Over HTTP: an assistant that can't start a local process
+
+- **No grants (no token file):**
+  - the listener stays on loopback and acts as `OPENRIG_SESSION_NAME`, declared, like stdio;
+  - a request whose `Host` isn't loopback is refused.
+- **With grants:** every request needs `Authorization: Bearer <token>`, loopback included, because a tunnel or proxy
+  delivers remote traffic to loopback.
+  - **Identity:** each caller acts as its grant's seat.
+  - **What it reaches:** only its rigs' seats and work, and its roots' artifacts. Anything else answers `out_of_scope`.
+  - **Bad credentials:** a missing, invalid or revoked token gets a 401, never the environment's seat.
+  - **A broken token file:** the server reads the file on every request. While it is missing or can't be read, every
+    request is refused (`auth_config_unreadable`); restore a valid, readable file and requests are served again, with
+    no restart. The other way back is a restart with no token file, which returns the server to the no-grants mode
+    above (loopback only). A restart never skips a token file that is present: its grants still apply.
+- **Beyond loopback** (`--bind`), the server starts only with a grant. TLS comes from the tunnel or proxy, not from
+  this server.
+- **`rig mcp token add`** prints the token once and stores only its hash.
+- **`revoke`:** the caller's next request is refused, and work it already handed over stays with its owners.
+- **Grants, binds and tunnels are the person's decisions.** Give them the commands, and don't run them on their behalf.
 
 ### Join a team from an agent with no terminal of its own (desktop apps)
 
@@ -1496,13 +1696,15 @@ use the `rig` CLI instead, the same way.
    Note the `OPENRIG_SESSION_NAME` it prints.
 2. **Give the person the MCP entry to add.** Don't edit their app's settings yourself. The entry runs
    `rig mcp serve`, with `OPENRIG_SESSION_NAME=<that seat>` in its environment. Most MCP clients take it as a
-   command, arguments and an `env` map.
+   command, arguments and an `env` map. An app that can't start a local process connects to `rig mcp serve --http`
+   instead, with a grant for that seat (see "Over HTTP" above).
 3. **Hand off work** with `rig_queue_create`, and keep the `qitemId` it returns.
 4. **Read the answer** with `rig_queue_show <qitemId>`. The item's state, closure and transition notes are where the
-   assignee records it. A call that times out has an unknown outcome: check `rig_queue_show` with the same id
-   before you retry, and retry only with that id.
+   assignee records it, and `rig_artifact_read` reads an artifact it names. A call that times out has an unknown
+   outcome: check `rig_queue_show` with the same id before you retry, and retry only with that id.
 5. **Take work** with `rig_queue_list` (`owned: true`), `rig_queue_claim` and `rig_queue_update`. Close with the
-   answer in `note`.
+   answer in `note`. To pass it to the next seat, use `rig_queue_handoff`; to put back one you won't finish, use
+   `rig_queue_unclaim`.
 
 Limits today:
 - **OpenRig can't wake this agent itself.** `rig send` to an attached external node is refused, and a task's nudge to

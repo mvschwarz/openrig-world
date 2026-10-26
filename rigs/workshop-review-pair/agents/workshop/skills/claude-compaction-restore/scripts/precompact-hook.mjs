@@ -265,7 +265,7 @@ try {
 
   const customMessage = readClaudeCompactionMessage();
 
-  const result = spawnSync("node", args, { encoding: "utf8" });
+  const result = spawnSync(process.execPath, args, { encoding: "utf8" });
   if (result.status !== 0) {
     const baseFailure = `Claude compaction restore packet generation failed: ${(result.stderr || result.stdout || "unknown error").trim()}. After compaction, load the claude-compaction-restore skill and run restore-from-jsonl manually.`;
     emit({
