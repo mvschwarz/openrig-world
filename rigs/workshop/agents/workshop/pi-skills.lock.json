@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "8b180689e7004b5506fb9f76802e65572c6f6622",
+  "productCommit": "0ef6f839e44ae5ce49d7602b0e90a10705bc65c9",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.19",
-  "pluginManifestSha256": "e7b5b404934415ae9299c8e3f0e135f60f70eec03d4fb3469bb0513d612fc29c",
+  "pluginVersion": "0.1.20",
+  "pluginManifestSha256": "c9cf7056b418fecb03aa764edccf2088d95f787b48f43697a4cfece1e1fde934",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -58,7 +58,7 @@
       "path": "skills/claude-compaction-restore/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/SKILL.md",
       "mode": "100644",
-      "sha256": "623b00143111a1ad695c72c86bcf0792bbccd1b4a6d250a1cde27145513960ae"
+      "sha256": "7201d5cafb4a02f36031e82e4c07f4243852a89546f5913c275ee59e45fd42ce"
     },
     {
       "path": "skills/claude-compaction-restore/reference/SKILL-v1.md",
@@ -124,7 +124,7 @@
       "path": "skills/messaging-the-human/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/messaging-the-human/SKILL.md",
       "mode": "100644",
-      "sha256": "e94095e61cec0d32d96fb8c60df008d0c3ac3bd2fa789a5eb625f46f35945456"
+      "sha256": "680ca50b22b0aec280a6c7bb5e118cda1dca991742f42f9a5b74e138448753fe"
     },
     {
       "path": "skills/mission-slice-sop/SKILL.md",
