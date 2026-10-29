@@ -7,15 +7,15 @@ summary: "One four-seat software team: a Codex lead and reviewer, Claude Code
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/workshop
-  resolvedCommit: 068272069a5cb44d1e9c6d11934cbfb1edc7630d
-  requestedRef: 068272069a5cb44d1e9c6d11934cbfb1edc7630d
+  resolvedCommit: 582084a72d025103fd81d5fdc22ea6d9a8cb982e
+  requestedRef: 582084a72d025103fd81d5fdc22ea6d9a8cb982e
 configurations:
   - id: dev.build=claude-code,dev.qa=claude-code,dev.review=codex,orch.lead=codex
     alias: recommended
     recommended: true
     packageDigest:
       algorithm: sha256
-      value: 1021f69f115f693ac73b651f90361bfb8259aeba2af6782934ddc823de92b008
+      value: 5e68e01fff4b7d683c69d8189e9f2e05404048b8ad197f67a515509126858419
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -24,7 +24,7 @@ configurations:
     alias: all-claude
     packageDigest:
       algorithm: sha256
-      value: 53611787ca4bc0b65d5ae991611f24df1cf95b42b0819760d94ad73709d7be8d
+      value: 0d80e8281df451a160a7078753b434b60245616b8d23b6a3656074b50569b451
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -33,7 +33,7 @@ configurations:
     alias: all-codex
     packageDigest:
       algorithm: sha256
-      value: b4cc580e52bbd2605ce2240fa03474918b6180ee90dc9fd5150495ea160a0f20
+      value: f0821acf6f3a3f08a0eb7f826fbfdffe27a976bb6345e11c3dee7ff169ee8ead
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
@@ -42,7 +42,7 @@ configurations:
     alias: all-pi
     packageDigest:
       algorithm: sha256
-      value: 5fa786c9e5bdb6dda3a09aae3e2f09d5b5a34f0b567979152d8a9edb14f19d34
+      value: 62e7ac7b899f8991980fcf72f1c762850a61943141a6b1eb459827a7f0ec3d15
       coverage: openrig.package-digest/v1
     assembler:
       openrigVersion: 0.6.6
