@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "12df562ceb951f2d2ff5072bebe8181c31d1fb58",
+  "productCommit": "ddb9d25be74af930a1e29b2a5f02186be99ba0ee",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.24",
-  "pluginManifestSha256": "0a8526e0af6faa85a783ec334e775e1ea0ea63a0618f909f3d3eb3a4a0c6efc3",
+  "pluginVersion": "0.1.25",
+  "pluginManifestSha256": "e70129852e00f2fda84ed13728f06b46a435de9285a9aa73066cf62cd331457e",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -262,7 +262,7 @@
       "path": "skills/seat-continuity-and-handover/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/seat-continuity-and-handover/SKILL.md",
       "mode": "100644",
-      "sha256": "7419ddb966be5e3ca26376b3307a092dcf44db21acf65b1175519cc9a8c99fd8"
+      "sha256": "ba5a704b1999891bf694f7248c6a43a789408fc0b82b7d91da63c18f3b26c870"
     },
     {
       "path": "skills/seat-continuity-and-handover/references/apprentice-evidence-toolkit.md",
