@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "a226b1b6cbceb9ba30497db753b6d3df231e13c3",
+  "productCommit": "6c8a69638b0b5ce7b81b9b73e3034f051f7a019c",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.26",
-  "pluginManifestSha256": "456a5f9da25c3d40dd5439db1641ac3c80d53b46cd41b50cd1d0446489cfdd1a",
+  "pluginVersion": "0.1.27",
+  "pluginManifestSha256": "53774a27b198974589d8ef2c1f7ef9415e429c37264e3767e031651bdcea75f5",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -202,13 +202,13 @@
       "path": "skills/openrig-skills/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-skills/SKILL.md",
       "mode": "100644",
-      "sha256": "bdd6594ae1108455103239d39694c865cc40d3f7d9f24cd3566a18397df270da"
+      "sha256": "6d7bf933ac40531f11757a31a93d26dcbda617f1b85f48a21865b3a5c5e2ddaa"
     },
     {
       "path": "skills/openrig-user/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-user/SKILL.md",
       "mode": "100644",
-      "sha256": "01cb169050a3d4f51ad7b263772c6ed58f62683df820efeac1a88faadf9cd086"
+      "sha256": "7ae6d60263ccf570511666e3b10cd577ae2ab4e8ae636566a5e6b93faac06201"
     },
     {
       "path": "skills/orienting-to-an-inherited-seat/CHANGELOG.md",
@@ -232,7 +232,7 @@
       "path": "skills/refocusing/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/SKILL.md",
       "mode": "100644",
-      "sha256": "b9d1837095dceaaed7cac492cfd4fda0396dafae98e3a7f53d5314e2076540f7"
+      "sha256": "18865d3289f4ed6a1cab0998e8c2c297d593eaf58a6c28bd9f54c7efade99087"
     },
     {
       "path": "skills/refocusing/references/refocus.md",
@@ -244,7 +244,7 @@
       "path": "skills/refocusing/scripts/trace-to-root.py",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/scripts/trace-to-root.py",
       "mode": "100755",
-      "sha256": "077c88aaea3a11e63cf2bd353a0fd22ced8d3c25ca8f44dbecdf7fb415e0612c"
+      "sha256": "a48cb923900d9baf86fb14c7179517319224c15fa81292a58be47dbc6442400c"
     },
     {
       "path": "skills/retiring-and-inheriting-a-seat/CHANGELOG.md",
