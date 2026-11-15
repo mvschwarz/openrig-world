@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "3cdc0e6c4f3e711ba0f4dc4ccadc0222d32e626e",
+  "productCommit": "d77a657e8309887f0783cbd78b90d58a1baf959c",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.28",
-  "pluginManifestSha256": "07581ee1613555f0de4fe684b148fd126c1f5210a4987ad267c168c001d81044",
+  "pluginVersion": "0.1.31",
+  "pluginManifestSha256": "e8fe275a92e491c92ac4375811a0db0f67a92ea52d1efbca0b0edecdb7255e82",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -58,7 +58,7 @@
       "path": "skills/claude-compaction-restore/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/SKILL.md",
       "mode": "100644",
-      "sha256": "79a707974824e91d5888c7bc10b152989ff891491f1adecf3e93991e2af55f81"
+      "sha256": "e1a6ee501ae97d6de0a8df8dae01c088953f56907e76f10089908d7a8c5691a7"
     },
     {
       "path": "skills/claude-compaction-restore/reference/SKILL-v1.md",
@@ -124,7 +124,7 @@
       "path": "skills/messaging-the-human/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/messaging-the-human/SKILL.md",
       "mode": "100644",
-      "sha256": "680ca50b22b0aec280a6c7bb5e118cda1dca991742f42f9a5b74e138448753fe"
+      "sha256": "16af049b14938d83eefc9bc9e598429cd01589593c6f74f70f6f129edd9dda36"
     },
     {
       "path": "skills/mission-slice-sop/SKILL.md",
@@ -214,13 +214,13 @@
       "path": "skills/orienting-to-an-inherited-seat/CHANGELOG.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/orienting-to-an-inherited-seat/CHANGELOG.md",
       "mode": "100644",
-      "sha256": "4d0970e75e5c15b00a48d6a7150376d646257777264fd1b9a191165a8d5a6e84"
+      "sha256": "a91f117e88034d8bae9b723916235e858fbc151983cc7c32784f5d4ba186274a"
     },
     {
       "path": "skills/orienting-to-an-inherited-seat/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/orienting-to-an-inherited-seat/SKILL.md",
       "mode": "100644",
-      "sha256": "252fed402f19027056bbba241df3305be88de3175b67dc8fe051143bb0d4412b"
+      "sha256": "278c554b3bb4c481f2928499f02442d947ffd4751d60f830610b652e24cb0468"
     },
     {
       "path": "skills/queue-handoff/SKILL.md",
@@ -262,7 +262,7 @@
       "path": "skills/seat-continuity-and-handover/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/seat-continuity-and-handover/SKILL.md",
       "mode": "100644",
-      "sha256": "8c297a20bf22df5d3992690b8c745d3daebb5bb388308aefb523d24af66c079f"
+      "sha256": "9d2b251971b53872930032840736eec05ecb23e07bdbb70ef799464efeab91ee"
     },
     {
       "path": "skills/seat-continuity-and-handover/references/apprentice-evidence-toolkit.md",
