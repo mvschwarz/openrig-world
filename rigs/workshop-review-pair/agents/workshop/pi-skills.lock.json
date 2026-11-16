@@ -1,6 +1,6 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "d77a657e8309887f0783cbd78b90d58a1baf959c",
+  "productCommit": "1baa81d07c0c0b57c76ce3d09092b88c3579a525",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
   "pluginVersion": "0.1.31",
   "pluginManifestSha256": "e8fe275a92e491c92ac4375811a0db0f67a92ea52d1efbca0b0edecdb7255e82",
