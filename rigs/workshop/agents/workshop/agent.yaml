@@ -58,7 +58,7 @@ resources:
 
 profiles:
   lead:
-    summary: Turns the person's goal into scoped work and keeps the PR description true.
+    summary: Turns your goal into scoped work and keeps the pull request's description up to date.
     preferences:
       runtime: codex
     uses:
@@ -74,7 +74,7 @@ profiles:
       actions: []
 
   builder:
-    summary: Makes the change on its own branch and worktree and proves it by effect.
+    summary: Makes the change on its own branch and shows that it works.
     preferences:
       runtime: claude-code
     uses:
@@ -89,7 +89,7 @@ profiles:
       actions: []
 
   code-reviewer:
-    summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
+    summary: Reviews each change against the code and the project's docs, and runs the tests that cover it.
     preferences:
       runtime: codex
     uses:
@@ -104,7 +104,7 @@ profiles:
       actions: []
 
   qa:
-    summary: Runs the test layers the change calls for, including stub-agent scenarios, and reports what each one proved.
+    summary: Runs the wider tests the change needs, including scenario tests, and reports what each one showed.
     preferences:
       runtime: claude-code
     uses:
@@ -119,7 +119,7 @@ profiles:
       actions: []
 
   lead-pi:
-    summary: Turns one issue into one pull-request-sized outcome and keeps the PR description true.
+    summary: Turns one issue into one pull-request-sized outcome and keeps the pull request's description up to date.
     preferences:
       runtime: pi
     uses:
@@ -134,7 +134,7 @@ profiles:
       actions: []
 
   builder-pi:
-    summary: Makes the change on its own branch and worktree and proves it by effect.
+    summary: Makes the change on its own branch and shows that it works.
     preferences:
       runtime: pi
     uses:
@@ -147,7 +147,7 @@ profiles:
       actions: []
 
   code-reviewer-pi:
-    summary: Reviews the handed-off commit against the maps and the code, and runs the tests that bear on it.
+    summary: Reviews each change against the code and the project's docs, and runs the tests that cover it.
     preferences:
       runtime: pi
     uses:
@@ -160,7 +160,7 @@ profiles:
       actions: []
 
   qa-pi:
-    summary: Runs the test layers the change calls for, including stub-agent scenarios, and reports what each one proved.
+    summary: Runs the wider tests the change needs, including scenario tests, and reports what each one showed.
     preferences:
       runtime: pi
     uses:
