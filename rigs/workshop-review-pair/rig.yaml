@@ -43,7 +43,7 @@ non_interruptive: true
 pods:
   - id: orch
     label: Orchestration
-    summary: Starts from your goal, scopes the work and keeps the pull request description true.
+    summary: Starts from your goal, scopes the work and keeps the pull request description accurate.
     members:
       - id: lead
         agent_ref: "local:agents/workshop"

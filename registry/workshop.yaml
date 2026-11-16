@@ -1,9 +1,9 @@
 schema: openrig.registry-entry/v1
 slug: workshop
 name: Workshop
-summary: "One four-seat software team: a Codex lead and reviewer, Claude Code
-  builder and QA by default. The installing agent selects available runtimes
-  while keeping the workshop name and one install directory."
+summary: "A four-agent software team for your repository: a lead and a reviewer on
+  Codex, a builder and QA on Claude Code. If you only use one of them, you can run
+  every seat on the one you have."
 source:
   repository: https://github.com/mvschwarz/openrig-world
   folder: rigs/workshop
