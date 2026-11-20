@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "738e7a7eae6b07ed2f534749fee13aaed35f1c8c",
+  "productCommit": "6da7f832be39e0e5dcd226c1d4e50f031df75a66",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.33",
-  "pluginManifestSha256": "24b7f1268ed280fd4cd995933598815aa7bb3d22a0ba2181d1f04ffe399022c8",
+  "pluginVersion": "0.1.34",
+  "pluginManifestSha256": "0c96c689915aa938fef0e06e135d22d010c08706481096dae78f5f475ab7562a",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -208,7 +208,7 @@
       "path": "skills/openrig-user/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-user/SKILL.md",
       "mode": "100644",
-      "sha256": "ef22c218348bdf06d0f56d9de86a3ac8a5f954eae161a212d1e1010a19e464b9"
+      "sha256": "985f2dfa07b521432cc8c3cfc727b9cb49f0c520824b79397d52d3e1939338a0"
     },
     {
       "path": "skills/orienting-to-an-inherited-seat/CHANGELOG.md",
@@ -244,7 +244,7 @@
       "path": "skills/refocusing/scripts/trace-to-root.py",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/scripts/trace-to-root.py",
       "mode": "100755",
-      "sha256": "a0a9b6481d8ab7d1e7d5e40b44382f2b6d43c964f85be42f1261a42fb1dd9594"
+      "sha256": "a33450d94feeb8cc4a09c1f0180e2d1d11fb594434c55b003a9c195cba2e0b83"
     },
     {
       "path": "skills/retiring-and-inheriting-a-seat/CHANGELOG.md",
