@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "6da7f832be39e0e5dcd226c1d4e50f031df75a66",
+  "productCommit": "255fa70888fbcb8f62df3b31c7d3b5e81e2447dc",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.34",
-  "pluginManifestSha256": "0c96c689915aa938fef0e06e135d22d010c08706481096dae78f5f475ab7562a",
+  "pluginVersion": "0.1.35",
+  "pluginManifestSha256": "c8ac86f38e5a2b12ac4867b853008795689c2dcd1060a73d2abf9718b52c879e",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -226,7 +226,7 @@
       "path": "skills/queue-handoff/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/queue-handoff/SKILL.md",
       "mode": "100644",
-      "sha256": "96251f6830006bb9d8ede2e5826ab936df4a9fb91090187a23ccaf860ab76336"
+      "sha256": "ca16094ab4d7cc267a8005435b21b1bd8f50f35d097d6856f938e32594488e6b"
     },
     {
       "path": "skills/refocusing/SKILL.md",
