@@ -1,9 +1,9 @@
 {
   "productRepository": "https://github.com/mvschwarz/openrig",
-  "productCommit": "255fa70888fbcb8f62df3b31c7d3b5e81e2447dc",
+  "productCommit": "484cbffb071575941c7392eb5487b011cd86bb13",
   "pluginPath": "packages/daemon/assets/plugins/openrig-core",
-  "pluginVersion": "0.1.35",
-  "pluginManifestSha256": "c8ac86f38e5a2b12ac4867b853008795689c2dcd1060a73d2abf9718b52c879e",
+  "pluginVersion": "0.1.37",
+  "pluginManifestSha256": "30c6b5c638d7a38cd66a1b45e27acd60693593064e0f819464d028bb4820d65b",
   "piUnselectedSkills": [
     "claude-compaction-restore"
   ],
@@ -70,13 +70,13 @@
       "path": "skills/claude-compaction-restore/scripts/precompact-hook.mjs",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/scripts/precompact-hook.mjs",
       "mode": "100755",
-      "sha256": "712e97c8beb02eb6c2815884a960778a225d8f6238dfe04a9b0547c34eaa131d"
+      "sha256": "b92021d062c8e57520c2e4c3acce8b2d6769c308e3d011956e7fba93fd52cf3d"
     },
     {
       "path": "skills/claude-compaction-restore/scripts/restore-from-jsonl.mjs",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/claude-compaction-restore/scripts/restore-from-jsonl.mjs",
       "mode": "100755",
-      "sha256": "5584cff4ab36cd843e14c81bd201e4a2f8e498e995abacc4f81ec6c1fc556b10"
+      "sha256": "1379352d86d85e2683726ebd77ad4bbe59f81e85fce799d382f84576b59afe13"
     },
     {
       "path": "skills/claude-compaction-restore/templates/compact-instruction.md",
@@ -124,7 +124,7 @@
       "path": "skills/messaging-the-human/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/messaging-the-human/SKILL.md",
       "mode": "100644",
-      "sha256": "80a622f7ef06a2b76200bd9e6ac34d318ab6b729826c2b1af4e8a6f1086c2b90"
+      "sha256": "7eb801237a807457ef9c3fbd84142e05b839f1296d0a59404f2ab804aeddd162"
     },
     {
       "path": "skills/mission-slice-sop/SKILL.md",
@@ -208,7 +208,7 @@
       "path": "skills/openrig-user/SKILL.md",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/openrig-user/SKILL.md",
       "mode": "100644",
-      "sha256": "985f2dfa07b521432cc8c3cfc727b9cb49f0c520824b79397d52d3e1939338a0"
+      "sha256": "9576ac21a0a55fc0511388874a117b3b87c8f1714a123ab6d67c1d56e75ac90c"
     },
     {
       "path": "skills/orienting-to-an-inherited-seat/CHANGELOG.md",
@@ -244,7 +244,7 @@
       "path": "skills/refocusing/scripts/trace-to-root.py",
       "source": "packages/daemon/assets/plugins/openrig-core/skills/refocusing/scripts/trace-to-root.py",
       "mode": "100755",
-      "sha256": "a33450d94feeb8cc4a09c1f0180e2d1d11fb594434c55b003a9c195cba2e0b83"
+      "sha256": "913662fc7860735aa6f3a97b1a8d3a59f51c716d79222f58dc8eeff63213f485"
     },
     {
       "path": "skills/retiring-and-inheriting-a-seat/CHANGELOG.md",
